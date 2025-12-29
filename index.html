@@ -1348,6 +1348,27 @@
                 </div>
                 <button class="btn-primary" onclick="login()" id="loginBtn">Login</button>
                 <button class="link-btn" onclick="showSignup()">Need an account? Sign up</button>
+                <button class="link-btn" onclick="showForgotPassword()">Forgot Password?</button>
+            </div>
+            
+            <!-- Forgot Password Form -->
+            <div id="forgotPasswordForm" class="hidden">
+                <div class="form-group">
+                    <input type="email" id="forgotEmail" placeholder="Enter your email" autocomplete="email">
+                </div>
+                <button class="btn-primary" onclick="sendPasswordReset()">Send Reset Link</button>
+                <button class="link-btn" onclick="showLogin()">Back to Login</button>
+            </div>
+            
+            <!-- Reset Password Form (shown when coming from email link) -->
+            <div id="resetPasswordForm" class="hidden">
+                <div class="form-group">
+                    <input type="password" id="newPassword" placeholder="New Password (min 6 characters)" autocomplete="new-password">
+                </div>
+                <div class="form-group">
+                    <input type="password" id="confirmPassword" placeholder="Confirm New Password" autocomplete="new-password">
+                </div>
+                <button class="btn-primary" onclick="updatePassword()">Update Password</button>
             </div>
             
             <!-- Signup Form -->
@@ -2083,32 +2104,38 @@
         
         async loadUserBadges(userId) {
             const { data, error } = await sb
-                .from('student_badges')
-                .select('badge_key, is_displayed, display_order')
-                .eq('student_id', userId);
+                .from('students')
+                .select('badges, selected_badges')
+                .eq('id', userId)
+                .single();
             
             if (error) {
                 console.error('Error loading badges:', error);
                 return;
             }
             
-            this.earnedBadges = data.map(b => b.badge_key);
-            this.selectedBadges = data
-                .filter(b => b.is_displayed)
-                .sort((a, b) => a.display_order - b.display_order)
-                .map(b => b.badge_key);
+            this.earnedBadges = data?.badges || [];
+            this.selectedBadges = data?.selected_badges || [];
         },
         
         async awardBadge(userId, badgeKey) {
             if (this.isBadgeEarned(badgeKey)) return;
             
+            // Get current badges
+            const { data: student } = await sb
+                .from('students')
+                .select('badges')
+                .eq('id', userId)
+                .single();
+            
+            const currentBadges = student?.badges || [];
+            const updatedBadges = [...currentBadges, badgeKey];
+            
+            // Update badges array
             const { error } = await sb
-                .from('student_badges')
-                .insert({
-                    student_id: userId,
-                    badge_key: badgeKey,
-                    earned_at: new Date().toISOString()
-                });
+                .from('students')
+                .update({ badges: updatedBadges })
+                .eq('id', userId);
             
             if (error) {
                 console.error('Error awarding badge:', error);
@@ -2139,25 +2166,18 @@
             await this.saveSelectedBadges(userId);
             this.updateBadgeSlots();
             this.updateBadgePreview();
+            this.renderBadgeCollection(); // Re-render to update buttons
         },
         
         async saveSelectedBadges(userId) {
-            // First, clear all displays
-            await sb
-                .from('student_badges')
-                .update({ is_displayed: false, display_order: null })
-                .eq('student_id', userId);
+            // Update selected_badges array in students table
+            const { error } = await sb
+                .from('students')
+                .update({ selected_badges: this.selectedBadges })
+                .eq('id', userId);
             
-            // Then, set the selected ones
-            for (let i = 0; i < this.selectedBadges.length; i++) {
-                await sb
-                    .from('student_badges')
-                    .update({ 
-                        is_displayed: true, 
-                        display_order: i + 1 
-                    })
-                    .eq('student_id', userId)
-                    .eq('badge_key', this.selectedBadges[i]);
+            if (error) {
+                console.error('Error saving selected badges:', error);
             }
         },
         
@@ -2473,6 +2493,21 @@
     }, { passive: false });
 
     async function init() {
+        // Check if this is a password reset link (type=recovery in URL)
+        const hashParams = new URLSearchParams(window.location.hash.substring(1));
+        const type = hashParams.get('type');
+        
+        if (type === 'recovery') {
+            // User clicked password reset link - show reset password form
+            document.getElementById('authScreen').style.display = 'flex';
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('signupForm').classList.add('hidden');
+            document.getElementById('forgotPasswordForm').classList.add('hidden');
+            document.getElementById('resetPasswordForm').classList.remove('hidden');
+            msg('Enter your new password below', 'success');
+            return;
+        }
+        
         const { data: { session: authSession } } = await sb.auth.getSession();
         if (authSession) {
             const { data } = await sb.from('students').select('*').eq('id', authSession.user.id).single();
@@ -2573,11 +2608,86 @@
     function showLogin() {
         document.getElementById('loginForm').classList.remove('hidden');
         document.getElementById('signupForm').classList.add('hidden');
+        document.getElementById('forgotPasswordForm').classList.add('hidden');
+        document.getElementById('resetPasswordForm').classList.add('hidden');
     }
 
     function showSignup() {
         document.getElementById('loginForm').classList.add('hidden');
         document.getElementById('signupForm').classList.remove('hidden');
+        document.getElementById('forgotPasswordForm').classList.add('hidden');
+        document.getElementById('resetPasswordForm').classList.add('hidden');
+    }
+
+    function showForgotPassword() {
+        document.getElementById('loginForm').classList.add('hidden');
+        document.getElementById('signupForm').classList.add('hidden');
+        document.getElementById('forgotPasswordForm').classList.remove('hidden');
+        document.getElementById('resetPasswordForm').classList.add('hidden');
+    }
+
+    async function sendPasswordReset() {
+        const email = document.getElementById('forgotEmail').value.trim();
+        
+        if (!email) {
+            return msg('Please enter your email');
+        }
+        
+        vibrate(20);
+        
+        const { error } = await sb.auth.resetPasswordForEmail(email, {
+            redirectTo: 'https://tjphones.beer'
+        });
+        
+        if (error) {
+            vibrate(50);
+            return msg(error.message, 'error');
+        }
+        
+        vibrate([30, 20, 30]);
+        msg('Password reset email sent! Check your inbox.', 'success');
+        
+        // Go back to login after 3 seconds
+        setTimeout(() => {
+            showLogin();
+            document.getElementById('forgotEmail').value = '';
+        }, 3000);
+    }
+
+    async function updatePassword() {
+        const newPassword = document.getElementById('newPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        
+        if (!newPassword || !confirmPassword) {
+            return msg('Please fill all fields');
+        }
+        
+        if (newPassword.length < 6) {
+            return msg('Password must be at least 6 characters');
+        }
+        
+        if (newPassword !== confirmPassword) {
+            return msg('Passwords do not match');
+        }
+        
+        vibrate(20);
+        
+        const { error } = await sb.auth.updateUser({
+            password: newPassword
+        });
+        
+        if (error) {
+            vibrate(50);
+            return msg(error.message, 'error');
+        }
+        
+        vibrate([30, 20, 30, 20, 60]);
+        msg('Password updated successfully!', 'success');
+        
+        // Reload to show dashboard
+        setTimeout(() => {
+            location.reload();
+        }, 2000);
     }
 
     async function login() {
