@@ -2493,11 +2493,13 @@
     }, { passive: false });
 
     async function init() {
-        // Check if this is a password reset link (type=recovery in URL)
+        // Check URL for password reset tokens (Supabase sends access_token in hash)
         const hashParams = new URLSearchParams(window.location.hash.substring(1));
+        const accessToken = hashParams.get('access_token');
         const type = hashParams.get('type');
         
-        if (type === 'recovery') {
+        // If there's an access_token and type=recovery, this is a password reset
+        if (accessToken && type === 'recovery') {
             // User clicked password reset link - show reset password form
             document.getElementById('authScreen').style.display = 'flex';
             document.getElementById('loginForm').classList.add('hidden');
@@ -2636,7 +2638,7 @@
         vibrate(20);
         
         const { error } = await sb.auth.resetPasswordForEmail(email, {
-            redirectTo: 'https://tjphones.beer'
+            redirectTo: window.location.origin  // Uses current domain (tjphones.beer)
         });
         
         if (error) {
