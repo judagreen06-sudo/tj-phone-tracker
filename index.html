@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>TJ Phone Tracker</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
     <style>
         * { 
             margin: 0; 
@@ -2460,16 +2461,15 @@
 
     async function getPlayerBadges(playerId) {
         const { data, error } = await sb
-            .from('student_badges')
-            .select('badge_key, display_order')
-            .eq('student_id', playerId)
-            .eq('is_displayed', true)
-            .order('display_order');
+            .from('students')
+            .select('selected_badges')
+            .eq('id', playerId)
+            .single();
         
-        if (error || !data) return '';
+        if (error || !data || !data.selected_badges) return '';
         
-        return data
-            .map(b => BADGE_SYSTEM.generateSVG(b.badge_key, 20))
+        return data.selected_badges
+            .map(badgeKey => BADGE_SYSTEM.generateBadgeHTML(badgeKey, 20))
             .join('');
     }
 
