@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>TJ Phone Tracker</title>
-    <link rel="icon" type="image/png" href="/favicon.png">
     <style>
         * { 
             margin: 0; 
@@ -1321,6 +1320,141 @@
                 align-items: center;
             }
         }
+
+        /* FANCY BADGE RARITY EFFECTS */
+        .badge-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Rare - Purple glow */
+        .badge-wrapper.rare {
+            filter: drop-shadow(0 0 4px rgba(156, 39, 176, 0.6));
+        }
+
+        /* Epic - Pink glow + pulse */
+        .badge-wrapper.epic {
+            filter: drop-shadow(0 0 6px rgba(233, 30, 99, 0.8));
+            animation: epicPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes epicPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Legendary - Gold glow + pulse + shine */
+        .badge-wrapper.legendary {
+            filter: drop-shadow(0 0 8px rgba(255, 215, 0, 1));
+            animation: legendaryPulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes legendaryPulse {
+            0%, 100% { 
+                transform: scale(1); 
+                filter: drop-shadow(0 0 8px rgba(255, 215, 0, 1));
+            }
+            50% { 
+                transform: scale(1.15); 
+                filter: drop-shadow(0 0 12px rgba(255, 215, 0, 1));
+            }
+        }
+
+        .badge-wrapper.legendary::after {
+            content: '✨';
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            font-size: 12px;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: rotate(0deg) scale(0.8); }
+            50% { opacity: 1; transform: rotate(180deg) scale(1.2); }
+        }
+
+        /* Mythic - Rainbow gradient + intense pulse + particles */
+        .badge-wrapper.mythic {
+            animation: mythicPulse 1s ease-in-out infinite;
+            position: relative;
+        }
+
+        @keyframes mythicPulse {
+            0%, 100% { 
+                transform: scale(1) rotate(0deg); 
+                filter: drop-shadow(0 0 10px rgba(255, 0, 255, 1)) 
+                        drop-shadow(0 0 20px rgba(0, 255, 255, 0.8));
+            }
+            50% { 
+                transform: scale(1.2) rotate(5deg); 
+                filter: drop-shadow(0 0 15px rgba(255, 0, 255, 1)) 
+                        drop-shadow(0 0 25px rgba(0, 255, 255, 1));
+            }
+        }
+
+        .badge-wrapper.mythic::before {
+            content: '⭐';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            font-size: 14px;
+            animation: particle1 3s ease-in-out infinite;
+        }
+
+        .badge-wrapper.mythic::after {
+            content: '💫';
+            position: absolute;
+            bottom: -10px;
+            right: -10px;
+            font-size: 14px;
+            animation: particle2 3s ease-in-out infinite;
+        }
+
+        @keyframes particle1 {
+            0%, 100% { opacity: 0; transform: translate(0, 0) rotate(0deg); }
+            50% { opacity: 1; transform: translate(-5px, -5px) rotate(180deg); }
+        }
+
+        @keyframes particle2 {
+            0%, 100% { opacity: 0; transform: translate(0, 0) rotate(0deg); }
+            50% { opacity: 1; transform: translate(5px, 5px) rotate(-180deg); }
+        }
+
+        /* Rarity indicator dot */
+        .rarity-dot {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            bottom: 2px;
+            right: 2px;
+            border: 1px solid white;
+        }
+
+        .rarity-dot.common { background: #90caf9; }
+        .rarity-dot.rare { background: #ce93d8; }
+        .rarity-dot.epic { background: #f48fb1; }
+        .rarity-dot.legendary { background: #ffd700; }
+        .rarity-dot.mythic { 
+            background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff);
+            background-size: 200% 200%;
+            animation: rainbowDot 2s linear infinite;
+        }
+
+        @keyframes rainbowDot {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        /* STICKY BADGE MODAL HEADER */
+        .badge-modal-content .badge-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
     </style>
 </head>
 <body>
@@ -2053,6 +2187,18 @@
             `;
         },
         
+        generateBadgeHTML(badgeKey, size = 20) {
+            const badge = this.badges[badgeKey];
+            if (!badge) return '';
+            
+            return `
+                <div class="badge-wrapper ${badge.rarity}">
+                    ${this.generateSVG(badgeKey, size)}
+                    <div class="rarity-dot ${badge.rarity}"></div>
+                </div>
+            `;
+        },
+        
         getProgress(badgeKey, userStats) {
             const badge = this.badges[badgeKey];
             if (!badge) return { current: 0, target: 1, percent: 0 };
@@ -2240,7 +2386,7 @@
                     slot.classList.add('filled');
                     slot.innerHTML = `
                         <div class="badge-slot-number">${i}</div>
-                        ${this.generateSVG(badgeKey, 60)}
+                        ${this.generateBadgeHTML(badgeKey, 60)}
                     `;
                 } else {
                     slot.classList.remove('filled');
@@ -2255,7 +2401,7 @@
         updateBadgePreview() {
             const preview = document.getElementById('badgePreview');
             preview.innerHTML = this.selectedBadges
-                .map(key => this.generateSVG(key, 20))
+                .map(key => this.generateBadgeHTML(key, 20))
                 .join('');
         },
         
@@ -2391,16 +2537,15 @@
 
     async function getPlayerBadges(playerId) {
         const { data, error } = await sb
-            .from('student_badges')
-            .select('badge_key, display_order')
-            .eq('student_id', playerId)
-            .eq('is_displayed', true)
-            .order('display_order');
+            .from('students')
+            .select('selected_badges')
+            .eq('id', playerId)
+            .single();
         
-        if (error || !data) return '';
+        if (error || !data || !data.selected_badges) return '';
         
-        return data
-            .map(b => BADGE_SYSTEM.generateSVG(b.badge_key, 20))
+        return data.selected_badges
+            .map(badgeKey => BADGE_SYSTEM.generateBadgeHTML(badgeKey, 20))
             .join('');
     }
 
