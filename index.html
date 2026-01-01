@@ -310,7 +310,390 @@
         .avatar:hover {
             transform: scale(1.1) rotate(5deg);
         }
-        .about-btn {
+        /* Modern Icon Buttons */
+        .icon-btn {
+            background: rgba(115, 143, 117, 0.1);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #738f75;
+        }
+        
+        .icon-btn:hover {
+            background: rgba(115, 143, 117, 0.2);
+            transform: scale(1.05);
+        }
+        
+        .icon-btn:active {
+            transform: scale(0.95);
+        }
+        
+        /* User Profile Section */
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 12px 6px 6px;
+            border-radius: 24px;
+            background: rgba(115, 143, 117, 0.1);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .user-profile:hover {
+            background: rgba(115, 143, 117, 0.15);
+        }
+        
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .user-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1c1c1e;
+        }
+        
+        /* Profile Menu Dropdown */
+        .profile-menu {
+            position: absolute;
+            top: 70px;
+            right: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            min-width: 220px;
+            z-index: 1000;
+            padding: 8px;
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.2s;
+        }
+        
+        .profile-menu.hidden {
+            opacity: 0;
+            transform: translateY(-10px);
+            pointer-events: none;
+        }
+        
+        .profile-menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #1c1c1e;
+        }
+        
+        .profile-menu-item:hover {
+            background: #f5f5f5;
+        }
+        
+        .profile-menu-item svg {
+            color: #738f75;
+        }
+        
+        .profile-menu-item.danger {
+            color: #ff3b30;
+        }
+        
+        .profile-menu-item.danger svg {
+            color: #ff3b30;
+        }
+        
+        .profile-menu-divider {
+            height: 1px;
+            background: #e0e0e0;
+            margin: 8px 0;
+        }
+        
+        /* Stats Modal */
+        .stats-modal-content {
+            background: white;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 24px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #738f75 0%, #5a7a5c 100%);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+        
+        .stat-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+        
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .stats-section {
+            margin-bottom: 24px;
+        }
+        
+        .stats-section h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #1c1c1e;
+        }
+        
+        /* Seder Stats */
+        .seder-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .seder-stat-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .seder-stat-label {
+            width: 160px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .seder-icon {
+            font-size: 20px;
+        }
+        
+        .seder-stat-bar {
+            flex: 1;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .seder-stat-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s;
+        }
+        
+        .seder-stat-fill.morning {
+            background: linear-gradient(90deg, #FF9800, #F57C00);
+        }
+        
+        .seder-stat-fill.afternoon {
+            background: linear-gradient(90deg, #FFC107, #FFA000);
+        }
+        
+        .seder-stat-fill.night {
+            background: linear-gradient(90deg, #5C6BC0, #3F51B5);
+        }
+        
+        .seder-stat-count {
+            width: 40px;
+            text-align: right;
+            font-weight: 600;
+            color: #738f75;
+        }
+        
+        /* Ranking Stats */
+        .ranking-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .ranking-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: #f5f5f5;
+            border-radius: 12px;
+        }
+        
+        .ranking-value {
+            font-weight: 700;
+            color: #738f75;
+        }
+        
+        /* Perfect Stats */
+        .perfect-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+        
+        .perfect-item {
+            text-align: center;
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 12px;
+        }
+        
+        .perfect-count {
+            font-size: 36px;
+            font-weight: 700;
+            color: #738f75;
+            margin-bottom: 8px;
+        }
+        
+        .perfect-label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+        }
+        
+        /* Settings Modal */
+        .settings-modal-content {
+            background: white;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 24px;
+        }
+        
+        .settings-section {
+            margin-bottom: 24px;
+        }
+        
+        .settings-section h3 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #999;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+        
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            border-radius: 12px;
+            background: #f5f5f5;
+            margin-bottom: 8px;
+        }
+        
+        .setting-item.clickable {
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .setting-item.clickable:hover {
+            background: #e8e8e8;
+        }
+        
+        .setting-label {
+            flex: 1;
+        }
+        
+        .setting-name {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+        
+        .setting-description {
+            font-size: 13px;
+            color: #666;
+        }
+        
+        .setting-action {
+            font-size: 20px;
+            color: #999;
+        }
+        
+        /* Toggle Switch */
+        .toggle {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 28px;
+        }
+        
+        .toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.3s;
+            border-radius: 28px;
+        }
+        
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: 0.3s;
+            border-radius: 50%;
+        }
+        
+        .toggle input:checked + .toggle-slider {
+            background-color: #738f75;
+        }
+        
+        .toggle input:checked + .toggle-slider:before {
+            transform: translateX(22px);
+        }
+        
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .user-info {
+                display: none;
+            }
+        }
             width: 36px;
             height: 36px;
             padding: 0;
@@ -1533,10 +1916,52 @@
     <div id="studentScreen">
         <div class="top-bar">
             <div class="app-name">TJ</div>
-            <div style="display: flex; align-items: center; gap: 12px;">
-                <button class="about-btn" onclick="showBadgeCollection()" title="Badges">🎖️</button>
-                <button class="about-btn" onclick="showAbout()" title="About">ℹ️</button>
-                <div class="avatar" id="userAvatar"></div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <button class="icon-btn" onclick="showBadgeCollection()" title="My Badges">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="8" r="6"/>
+                        <path d="M12 2L14 6L18 7L15 10L16 14L12 12L8 14L9 10L6 7L10 6L12 2Z"/>
+                    </svg>
+                </button>
+                <button class="icon-btn" onclick="showAbout()" title="About">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 16v-4M12 8h.01"/>
+                    </svg>
+                </button>
+                <div class="user-profile" onclick="toggleProfileMenu()">
+                    <div class="avatar" id="userAvatar"></div>
+                    <div class="user-info">
+                        <div class="user-name" id="userName"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Profile Menu Dropdown -->
+        <div id="profileMenu" class="profile-menu hidden">
+            <div class="profile-menu-item" onclick="showStats()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 3v18h18"/>
+                    <path d="M18 17V9M13 17V5M8 17v-3"/>
+                </svg>
+                <span>My Stats</span>
+            </div>
+            <div class="profile-menu-item" onclick="showSettings()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3"/>
+                    <path d="M12 1v6m0 6v6M4.22 4.22l4.24 4.24m5.66 5.66l4.24 4.24M1 12h6m6 0h6M4.22 19.78l4.24-4.24m5.66-5.66l4.24-4.24"/>
+                </svg>
+                <span>Settings</span>
+            </div>
+            <div class="profile-menu-divider"></div>
+            <div class="profile-menu-item danger" onclick="logout()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                    <polyline points="16 17 21 12 16 7"/>
+                    <line x1="21" y1="12" x2="9" y2="12"/>
+                </svg>
+                <span>Logout</span>
             </div>
         </div>
         
@@ -1671,11 +2096,162 @@
             <button class="badge-unlock-close" onclick="closeBadgeNotification()">Awesome!</button>
         </div>
         
+        <!-- Stats Modal -->
+        <div id="statsModal" class="modal-overlay hidden" onclick="hideStats()">
+            <div class="stats-modal-content" onclick="event.stopPropagation()">
+                <div class="modal-header">
+                    <h2>📊 My Stats</h2>
+                    <button class="close-btn" onclick="hideStats()">✕</button>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">🎯</div>
+                        <div class="stat-value" id="statTotalPoints">0</div>
+                        <div class="stat-label">Total Points</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📚</div>
+                        <div class="stat-value" id="statTotalSessions">0</div>
+                        <div class="stat-label">Total Sessions</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⏱️</div>
+                        <div class="stat-value" id="statTotalTime">0h</div>
+                        <div class="stat-label">Total Time</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🎖️</div>
+                        <div class="stat-value" id="statBadgeCount">0</div>
+                        <div class="stat-label">Badges Earned</div>
+                    </div>
+                </div>
+                
+                <div class="stats-section">
+                    <h3>🕐 Seder Breakdown</h3>
+                    <div class="seder-stats">
+                        <div class="seder-stat-row">
+                            <div class="seder-stat-label">
+                                <span class="seder-icon">🌅</span>
+                                <span>Morning Seder</span>
+                            </div>
+                            <div class="seder-stat-bar">
+                                <div class="seder-stat-fill morning" id="morningBar" style="width: 0%"></div>
+                            </div>
+                            <div class="seder-stat-count" id="morningSessions">0</div>
+                        </div>
+                        <div class="seder-stat-row">
+                            <div class="seder-stat-label">
+                                <span class="seder-icon">☀️</span>
+                                <span>Afternoon Seder</span>
+                            </div>
+                            <div class="seder-stat-bar">
+                                <div class="seder-stat-fill afternoon" id="afternoonBar" style="width: 0%"></div>
+                            </div>
+                            <div class="seder-stat-count" id="afternoonSessions">0</div>
+                        </div>
+                        <div class="seder-stat-row">
+                            <div class="seder-stat-label">
+                                <span class="seder-icon">🌙</span>
+                                <span>Night Seder</span>
+                            </div>
+                            <div class="seder-stat-bar">
+                                <div class="seder-stat-fill night" id="nightBar" style="width: 0%"></div>
+                            </div>
+                            <div class="seder-stat-count" id="nightSessions">0</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stats-section">
+                    <h3>🏆 Rankings</h3>
+                    <div class="ranking-stats">
+                        <div class="ranking-item">
+                            <span>Today's Rank</span>
+                            <span class="ranking-value" id="rankToday">-</span>
+                        </div>
+                        <div class="ranking-item">
+                            <span>Weekly Rank</span>
+                            <span class="ranking-value" id="rankWeek">-</span>
+                        </div>
+                        <div class="ranking-item">
+                            <span>All-Time Rank</span>
+                            <span class="ranking-value" id="rankAllTime">-</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stats-section">
+                    <h3>📅 Perfect Attendance</h3>
+                    <div class="perfect-stats">
+                        <div class="perfect-item">
+                            <div class="perfect-count" id="perfectDays">0</div>
+                            <div class="perfect-label">Perfect Days</div>
+                        </div>
+                        <div class="perfect-item">
+                            <div class="perfect-count" id="perfectWeeks">0</div>
+                            <div class="perfect-label">Perfect Weeks</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Settings Modal -->
+        <div id="settingsModal" class="modal-overlay hidden" onclick="hideSettings()">
+            <div class="settings-modal-content" onclick="event.stopPropagation()">
+                <div class="modal-header">
+                    <h2>⚙️ Settings</h2>
+                    <button class="close-btn" onclick="hideSettings()">✕</button>
+                </div>
+                
+                <div class="settings-section">
+                    <h3>Account</h3>
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <div class="setting-name">Email</div>
+                            <div class="setting-description" id="userEmail">-</div>
+                        </div>
+                    </div>
+                    <div class="setting-item clickable" onclick="showChangePassword()">
+                        <div class="setting-label">
+                            <div class="setting-name">Change Password</div>
+                            <div class="setting-description">Update your password</div>
+                        </div>
+                        <div class="setting-action">›</div>
+                    </div>
+                </div>
+                
+                <div class="settings-section">
+                    <h3>Preferences</h3>
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <div class="setting-name">Notifications</div>
+                            <div class="setting-description">Badge unlock notifications</div>
+                        </div>
+                        <label class="toggle">
+                            <input type="checkbox" id="notificationsToggle" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="settings-section">
+                    <h3>About</h3>
+                    <div class="setting-item clickable" onclick="showAbout(); hideSettings();">
+                        <div class="setting-label">
+                            <div class="setting-name">App Information</div>
+                            <div class="setting-description">Version 2.0</div>
+                        </div>
+                        <div class="setting-action">›</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <div class="container">
-            <!-- Welcome Card with Progress Circle -->
-            <div class="card welcome">
-                <div class="greeting">Shalom,</div>
-                <div class="name" id="userName"></div>
+            <div class="greeting">Shalom,</div>
+            <div class="name" id="userName"></div>
                 <div class="hebrew-date" id="hebrewDate">Loading...</div>
                 
                 <!-- Progress Circle -->
@@ -2915,12 +3491,130 @@
     function showAbout() {
         vibrate(20);
         document.getElementById('aboutModal').classList.remove('hidden');
+        closeProfileMenu();
     }
 
     function hideAbout() {
         vibrate(20);
         document.getElementById('aboutModal').classList.add('hidden');
     }
+    
+    // Profile Menu Functions
+    function toggleProfileMenu() {
+        vibrate(20);
+        const menu = document.getElementById('profileMenu');
+        menu.classList.toggle('hidden');
+    }
+    
+    function closeProfileMenu() {
+        document.getElementById('profileMenu').classList.add('hidden');
+    }
+    
+    // Stats Modal Functions
+    async function showStats() {
+        vibrate(20);
+        closeProfileMenu();
+        
+        // Get session counts
+        const { data: sessionCounts } = await sb.rpc('get_session_counts', { user_id: user.id });
+        
+        const total = sessionCounts?.total_sessions || 0;
+        const morning = sessionCounts?.morning_sessions || 0;
+        const afternoon = sessionCounts?.afternoon_sessions || 0;
+        const night = sessionCounts?.night_sessions || 0;
+        
+        // Calculate percentages for bars
+        const maxSessions = Math.max(morning, afternoon, night, 1);
+        const morningPercent = (morning / maxSessions) * 100;
+        const afternoonPercent = (afternoon / maxSessions) * 100;
+        const nightPercent = (night / maxSessions) * 100;
+        
+        // Update stat cards
+        document.getElementById('statTotalPoints').textContent = parseFloat(user.total_points || 0).toFixed(1);
+        document.getElementById('statTotalSessions').textContent = total;
+        
+        // Calculate total time (sessions * average session length ~3 hours)
+        const totalHours = Math.round((user.accumulated_minutes || 0) / 60);
+        document.getElementById('statTotalTime').textContent = totalHours + 'h';
+        
+        document.getElementById('statBadgeCount').textContent = (user.badges || []).length;
+        
+        // Update seder breakdown
+        document.getElementById('morningSessions').textContent = morning;
+        document.getElementById('morningBar').style.width = morningPercent + '%';
+        
+        document.getElementById('afternoonSessions').textContent = afternoon;
+        document.getElementById('afternoonBar').style.width = afternoonPercent + '%';
+        
+        document.getElementById('nightSessions').textContent = night;
+        document.getElementById('nightBar').style.width = nightPercent + '%';
+        
+        // Update rankings (fetch from leaderboards)
+        await updateRankings();
+        
+        // Update perfect attendance
+        document.getElementById('perfectDays').textContent = user.perfect_day_count || 0;
+        document.getElementById('perfectWeeks').textContent = user.perfect_week_count || 0;
+        
+        // Show modal
+        document.getElementById('statsModal').classList.remove('hidden');
+    }
+    
+    function hideStats() {
+        vibrate(20);
+        document.getElementById('statsModal').classList.add('hidden');
+    }
+    
+    async function updateRankings() {
+        // Get all students for ranking
+        const { data: todayStudents } = await sb.from('students').select('*').order('today_points', { ascending: false });
+        const { data: weekStudents } = await sb.from('students').select('*').order('week_points', { ascending: false });
+        const { data: allTimeStudents } = await sb.from('students').select('*').order('total_points', { ascending: false });
+        
+        // Find user's rank in each
+        const todayRank = (todayStudents?.findIndex(s => s.id === user.id) || 0) + 1;
+        const weekRank = (weekStudents?.findIndex(s => s.id === user.id) || 0) + 1;
+        const allTimeRank = (allTimeStudents?.findIndex(s => s.id === user.id) || 0) + 1;
+        
+        document.getElementById('rankToday').textContent = '#' + todayRank;
+        document.getElementById('rankWeek').textContent = '#' + weekRank;
+        document.getElementById('rankAllTime').textContent = '#' + allTimeRank;
+    }
+    
+    // Settings Modal Functions
+    function showSettings() {
+        vibrate(20);
+        closeProfileMenu();
+        
+        // Update email display
+        document.getElementById('userEmail').textContent = user.email || '-';
+        
+        document.getElementById('settingsModal').classList.remove('hidden');
+    }
+    
+    function hideSettings() {
+        vibrate(20);
+        document.getElementById('settingsModal').classList.add('hidden');
+    }
+    
+    function showChangePassword() {
+        alert('Password change functionality coming soon!');
+    }
+    
+    function logout() {
+        vibrate(20);
+        if (confirm('Are you sure you want to logout?')) {
+            sb.auth.signOut();
+            location.reload();
+        }
+    }
+    
+    // Close menus when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.user-profile') && !e.target.closest('.profile-menu')) {
+            closeProfileMenu();
+        }
+    });
 
     // ===== STUDENT DASHBOARD =====
     async function showDashboard() {
