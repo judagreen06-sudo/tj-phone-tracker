@@ -2418,23 +2418,32 @@
             this.updateBadgeSlots();
             this.updateBadgePreview();
             
-            // Render categories
+            // Render by RARITY TIERS
             const categoriesContainer = document.getElementById('badgeCategories');
             categoriesContainer.innerHTML = '';
             
-            Object.keys(this.categories).forEach(categoryKey => {
-                const category = this.categories[categoryKey];
-                const categoryBadges = Object.values(this.badges).filter(b => b.category === categoryKey);
-                const earnedInCategory = categoryBadges.filter(b => this.isBadgeEarned(b.key)).length;
+            const rarityTiers = [
+                { key: 'darkred', name: '🔴 Dark Red', emoji: '💎' },
+                { key: 'gold', name: '🥇 Gold', emoji: '👑' },
+                { key: 'purple', name: '🟣 Purple', emoji: '⚡' },
+                { key: 'silver', name: '🥈 Silver', emoji: '⭐' },
+                { key: 'bronze', name: '🥉 Bronze', emoji: '🎯' }
+            ];
+            
+            rarityTiers.forEach(tier => {
+                const tierBadges = Object.values(this.badges).filter(b => b.rarity === tier.key);
+                if (tierBadges.length === 0) return;
                 
-                const categoryHTML = `
+                const earnedInTier = tierBadges.filter(b => this.isBadgeEarned(b.key)).length;
+                
+                const tierHTML = `
                     <div class="badge-category">
                         <div class="badge-category-header">
-                            <h3 class="badge-category-title">${category.emoji} ${category.name}</h3>
-                            <span class="badge-category-progress">${earnedInCategory}/${categoryBadges.length}</span>
+                            <h3 class="badge-category-title">${tier.emoji} ${tier.name} Badges</h3>
+                            <span class="badge-category-progress">${earnedInTier}/${tierBadges.length}</span>
                         </div>
                         <div class="badge-grid">
-                            ${categoryBadges.map(badge => {
+                            ${tierBadges.map(badge => {
                                 const isEarned = this.isBadgeEarned(badge.key);
                                 const isSelected = this.isBadgeSelected(badge.key);
                                 const progress = this.getProgress(badge.key, user);
@@ -2443,10 +2452,10 @@
                                     <div class="badge-card ${isEarned ? 'earned' : 'locked'}" onclick="showBadgeDetail('${badge.key}')">
                                         ${isEarned ? '<div class="badge-earned-tag">✓ Earned</div>' : '<div class="badge-lock-overlay">🔒</div>'}
                                         <div class="badge-card-icon">
-                                            ${this.generateSVG(badge.key, 60)}
+                                            ${this.generateBadgeHTML(badge.key, 60)}
                                         </div>
                                         <div class="badge-card-name">${badge.name}</div>
-                                        <div class="badge-card-rarity ${badge.rarity}">${badge.rarity}</div>
+                                        <div class="badge-card-rarity ${badge.rarity}">${badge.rarity.toUpperCase()}</div>
                                         <div class="badge-card-description">${badge.description}</div>
                                         ${!isEarned ? `
                                             <div class="badge-card-progress">
@@ -2465,7 +2474,7 @@
                     </div>
                 `;
                 
-                categoriesContainer.innerHTML += categoryHTML;
+                categoriesContainer.innerHTML += tierHTML;
             });
         },
         
