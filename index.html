@@ -279,7 +279,7 @@
             display: none;
         }
         
-        /* Top Bar */
+        /* Top Bar - Sticky */
         .top-bar {
             background: white;
             padding: 14px 20px;
@@ -287,6 +287,10 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid #f0f0f0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
         .app-name {
             font-size: 20px;
@@ -313,10 +317,10 @@
         /* Modern Icon Buttons */
         .icon-btn {
             background: rgba(115, 143, 117, 0.1);
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
+            border: 1.5px solid rgba(115, 143, 117, 0.2);
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -325,13 +329,19 @@
             color: #738f75;
         }
         
+        .icon-btn svg {
+            width: 22px;
+            height: 22px;
+        }
+        
         .icon-btn:hover {
-            background: rgba(115, 143, 117, 0.2);
-            transform: scale(1.05);
+            background: rgba(115, 143, 117, 0.15);
+            border-color: rgba(115, 143, 117, 0.3);
+            transform: translateY(-1px);
         }
         
         .icon-btn:active {
-            transform: scale(0.95);
+            transform: translateY(0);
         }
         
         /* User Profile Section */
@@ -435,29 +445,55 @@
         }
         
         .stat-card {
-            background: linear-gradient(135deg, #738f75 0%, #5a7a5c 100%);
+            background: white;
+            border: 2px solid #738f75;
             border-radius: 16px;
-            padding: 20px;
+            padding: 24px;
             text-align: center;
-            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #738f75, #5a7a5c);
         }
         
         .stat-icon {
-            font-size: 32px;
-            margin-bottom: 8px;
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 12px;
+            background: rgba(115, 143, 117, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .stat-icon svg {
+            width: 28px;
+            height: 28px;
+            color: #738f75;
         }
         
         .stat-value {
-            font-size: 32px;
+            font-size: 36px;
             font-weight: 700;
             margin-bottom: 4px;
+            color: #1c1c1e;
         }
         
         .stat-label {
             font-size: 12px;
-            opacity: 0.9;
+            color: #666;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            font-weight: 600;
         }
         
         .stats-section {
@@ -485,16 +521,42 @@
         }
         
         .seder-stat-label {
-            width: 160px;
+            width: 180px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
             font-size: 14px;
             font-weight: 500;
         }
         
         .seder-icon {
-            font-size: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .seder-icon svg {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .seder-icon.morning {
+            background: rgba(255, 152, 0, 0.1);
+            color: #FF9800;
+        }
+        
+        .seder-icon.afternoon {
+            background: rgba(255, 193, 7, 0.1);
+            color: #FFC107;
+        }
+        
+        .seder-icon.night {
+            background: rgba(92, 107, 192, 0.1);
+            color: #5C6BC0;
         }
         
         .seder-stat-bar {
@@ -540,14 +602,42 @@
         .ranking-item {
             display: flex;
             justify-content: space-between;
-            padding: 12px 16px;
-            background: #f5f5f5;
+            align-items: center;
+            padding: 16px;
+            background: white;
+            border: 2px solid #f0f0f0;
             border-radius: 12px;
+        }
+        
+        .ranking-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 500;
+        }
+        
+        .ranking-icon {
+            width: 36px;
+            height: 36px;
+            background: rgba(115, 143, 117, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #738f75;
+        }
+        
+        .ranking-icon svg {
+            width: 18px;
+            height: 18px;
         }
         
         .ranking-value {
             font-weight: 700;
+            font-size: 18px;
             color: #738f75;
+            min-width: 50px;
+            text-align: right;
         }
         
         /* Perfect Stats */
@@ -559,13 +649,43 @@
         
         .perfect-item {
             text-align: center;
-            padding: 20px;
-            background: #f5f5f5;
+            padding: 24px;
+            background: white;
+            border: 2px solid #738f75;
             border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .perfect-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: #738f75;
+        }
+        
+        .perfect-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 12px;
+            background: rgba(115, 143, 117, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #738f75;
+        }
+        
+        .perfect-icon svg {
+            width: 24px;
+            height: 24px;
         }
         
         .perfect-count {
-            font-size: 36px;
+            font-size: 40px;
             font-weight: 700;
             color: #738f75;
             margin-bottom: 8px;
@@ -575,6 +695,8 @@
             font-size: 12px;
             color: #666;
             text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
         }
         
         /* Settings Modal */
@@ -1395,13 +1517,44 @@
         
         .badge-category-title {
             font-size: 20px;
-            font-weight: 600;
+            font-weight: 700;
             color: #1c1c1e;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .badge-category-title::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            border-radius: 2px;
+        }
+        
+        .badge-category[data-rarity="darkred"] .badge-category-title::before {
+            background: #DC143C;
+        }
+        
+        .badge-category[data-rarity="gold"] .badge-category-title::before {
+            background: #FFD700;
+        }
+        
+        .badge-category[data-rarity="purple"] .badge-category-title::before {
+            background: #8A2BE2;
+        }
+        
+        .badge-category[data-rarity="silver"] .badge-category-title::before {
+            background: #C0C0C0;
+        }
+        
+        .badge-category[data-rarity="bronze"] .badge-category-title::before {
+            background: #CD7F32;
         }
         
         .badge-category-progress {
-            font-size: 14px;
-            color: #666;
+            font-size: 16px;
+            font-weight: 600;
+            color: #738f75;
         }
         
         .badge-grid {
@@ -2106,33 +2259,65 @@
                 
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <div class="stat-icon">🎯</div>
+                        <div class="stat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M12 6v6l4 2"/>
+                            </svg>
+                        </div>
                         <div class="stat-value" id="statTotalPoints">0</div>
                         <div class="stat-label">Total Points</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-icon">📚</div>
+                        <div class="stat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                            </svg>
+                        </div>
                         <div class="stat-value" id="statTotalSessions">0</div>
                         <div class="stat-label">Total Sessions</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-icon">⏱️</div>
+                        <div class="stat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                        </div>
                         <div class="stat-value" id="statTotalTime">0h</div>
                         <div class="stat-label">Total Time</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-icon">🎖️</div>
+                        <div class="stat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="8" r="6"/>
+                                <path d="M12 2 L14 6 L18 7 L15 10 L16 14 L12 12 L8 14 L9 10 L6 7 L10 6 Z"/>
+                            </svg>
+                        </div>
                         <div class="stat-value" id="statBadgeCount">0</div>
                         <div class="stat-label">Badges Earned</div>
                     </div>
                 </div>
                 
                 <div class="stats-section">
-                    <h3>🕐 Seder Breakdown</h3>
+                    <h3>Seder Breakdown</h3>
                     <div class="seder-stats">
                         <div class="seder-stat-row">
                             <div class="seder-stat-label">
-                                <span class="seder-icon">🌅</span>
+                                <div class="seder-icon morning">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="5"/>
+                                        <line x1="12" y1="1" x2="12" y2="3"/>
+                                        <line x1="12" y1="21" x2="12" y2="23"/>
+                                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                                        <line x1="1" y1="12" x2="3" y2="12"/>
+                                        <line x1="21" y1="12" x2="23" y2="12"/>
+                                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                                    </svg>
+                                </div>
                                 <span>Morning Seder</span>
                             </div>
                             <div class="seder-stat-bar">
@@ -2142,7 +2327,19 @@
                         </div>
                         <div class="seder-stat-row">
                             <div class="seder-stat-label">
-                                <span class="seder-icon">☀️</span>
+                                <div class="seder-icon afternoon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="5"/>
+                                        <line x1="12" y1="1" x2="12" y2="3"/>
+                                        <line x1="12" y1="21" x2="12" y2="23"/>
+                                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                                        <line x1="1" y1="12" x2="3" y2="12"/>
+                                        <line x1="21" y1="12" x2="23" y2="12"/>
+                                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                                    </svg>
+                                </div>
                                 <span>Afternoon Seder</span>
                             </div>
                             <div class="seder-stat-bar">
@@ -2152,7 +2349,11 @@
                         </div>
                         <div class="seder-stat-row">
                             <div class="seder-stat-label">
-                                <span class="seder-icon">🌙</span>
+                                <div class="seder-icon night">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                                    </svg>
+                                </div>
                                 <span>Night Seder</span>
                             </div>
                             <div class="seder-stat-bar">
@@ -2164,31 +2365,67 @@
                 </div>
                 
                 <div class="stats-section">
-                    <h3>🏆 Rankings</h3>
+                    <h3>Rankings</h3>
                     <div class="ranking-stats">
                         <div class="ranking-item">
-                            <span>Today's Rank</span>
+                            <div class="ranking-label">
+                                <div class="ranking-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <polyline points="12 6 12 12 16 14"/>
+                                    </svg>
+                                </div>
+                                <span>Today's Rank</span>
+                            </div>
                             <span class="ranking-value" id="rankToday">-</span>
                         </div>
                         <div class="ranking-item">
-                            <span>Weekly Rank</span>
+                            <div class="ranking-label">
+                                <div class="ranking-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                        <line x1="16" y1="2" x2="16" y2="6"/>
+                                        <line x1="8" y1="2" x2="8" y2="6"/>
+                                        <line x1="3" y1="10" x2="21" y2="10"/>
+                                    </svg>
+                                </div>
+                                <span>Weekly Rank</span>
+                            </div>
                             <span class="ranking-value" id="rankWeek">-</span>
                         </div>
                         <div class="ranking-item">
-                            <span>All-Time Rank</span>
+                            <div class="ranking-label">
+                                <div class="ranking-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                    </svg>
+                                </div>
+                                <span>All-Time Rank</span>
+                            </div>
                             <span class="ranking-value" id="rankAllTime">-</span>
                         </div>
                     </div>
                 </div>
                 
                 <div class="stats-section">
-                    <h3>📅 Perfect Attendance</h3>
+                    <h3>Perfect Attendance</h3>
                     <div class="perfect-stats">
                         <div class="perfect-item">
+                            <div class="perfect-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                            </div>
                             <div class="perfect-count" id="perfectDays">0</div>
                             <div class="perfect-label">Perfect Days</div>
                         </div>
                         <div class="perfect-item">
+                            <div class="perfect-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                    <polyline points="20 6 9 17 4 12" transform="translate(2, 0)" opacity="0.5"/>
+                                </svg>
+                            </div>
                             <div class="perfect-count" id="perfectWeeks">0</div>
                             <div class="perfect-label">Perfect Weeks</div>
                         </div>
@@ -2999,11 +3236,11 @@
             categoriesContainer.innerHTML = '';
             
             const rarityTiers = [
-                { key: 'darkred', name: '🔴 Dark Red', emoji: '💎' },
-                { key: 'gold', name: '🥇 Gold', emoji: '👑' },
-                { key: 'purple', name: '🟣 Purple', emoji: '⚡' },
-                { key: 'silver', name: '🥈 Silver', emoji: '⭐' },
-                { key: 'bronze', name: '🥉 Bronze', emoji: '🎯' }
+                { key: 'darkred', name: 'Dark Red Badges' },
+                { key: 'gold', name: 'Gold Badges' },
+                { key: 'purple', name: 'Purple Badges' },
+                { key: 'silver', name: 'Silver Badges' },
+                { key: 'bronze', name: 'Bronze Badges' }
             ];
             
             rarityTiers.forEach(tier => {
@@ -3013,9 +3250,9 @@
                 const earnedInTier = tierBadges.filter(b => this.isBadgeEarned(b.key)).length;
                 
                 const tierHTML = `
-                    <div class="badge-category">
+                    <div class="badge-category" data-rarity="${tier.key}">
                         <div class="badge-category-header">
-                            <h3 class="badge-category-title">${tier.emoji} ${tier.name} Badges</h3>
+                            <h3 class="badge-category-title">${tier.name}</h3>
                             <span class="badge-category-progress">${earnedInTier}/${tierBadges.length}</span>
                         </div>
                         <div class="badge-grid">
