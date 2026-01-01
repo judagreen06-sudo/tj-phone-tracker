@@ -995,6 +995,159 @@
             padding: 0 20px 20px 20px;
         }
         
+        /* RARITY TIER SECTIONS */
+        .badge-rarity-tier {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .badge-rarity-tier[data-rarity="darkred"] {
+            border-color: #DC143C;
+            box-shadow: 0 4px 20px rgba(220, 20, 60, 0.3);
+        }
+        
+        .badge-rarity-tier[data-rarity="gold"] {
+            border-color: #FFD700;
+            box-shadow: 0 4px 16px rgba(255, 215, 0, 0.25);
+        }
+        
+        .badge-rarity-tier[data-rarity="purple"] {
+            border-color: #8A2BE2;
+            box-shadow: 0 4px 14px rgba(138, 43, 226, 0.2);
+        }
+        
+        .badge-rarity-tier[data-rarity="silver"] {
+            border-color: #C0C0C0;
+        }
+        
+        .badge-rarity-tier[data-rarity="bronze"] {
+            border-color: #CD7F32;
+        }
+        
+        .tier-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .tier-title {
+            flex: 1;
+        }
+        
+        .tier-emoji {
+            font-size: 32px;
+            margin-right: 12px;
+        }
+        
+        .tier-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1c1c1e;
+            margin-bottom: 4px;
+        }
+        
+        .tier-description {
+            font-size: 13px;
+            color: #666;
+            margin: 0;
+        }
+        
+        .tier-stats {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .tier-progress-circle {
+            position: relative;
+        }
+        
+        .tier-count {
+            font-size: 20px;
+            font-weight: 700;
+            color: #738f75;
+        }
+        
+        .badge-card-category {
+            font-size: 11px;
+            color: #999;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+        
+        /* Enhanced badge card hover effects */
+        .badge-card.earned:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(115, 143, 117, 0.3);
+        }
+        
+        .badge-card.badge-darkred.earned {
+            border-color: #DC143C;
+        }
+        
+        .badge-card.badge-darkred.earned:hover {
+            box-shadow: 0 8px 24px rgba(220, 20, 60, 0.4);
+        }
+        
+        .badge-card.badge-gold.earned {
+            border-color: #FFD700;
+        }
+        
+        .badge-card.badge-gold.earned:hover {
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+        }
+        
+        .badge-card.badge-purple.earned {
+            border-color: #8A2BE2;
+        }
+        
+        .badge-card.badge-purple.earned:hover {
+            box-shadow: 0 6px 18px rgba(138, 43, 226, 0.3);
+        }
+        
+        .btn-badge-select {
+            background: #738f75;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s;
+        }
+        
+        .btn-badge-select:hover {
+            background: #5a7a5c;
+            transform: scale(1.02);
+        }
+        
+        .btn-badge-selected {
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s;
+        }
+        
+        .btn-badge-selected:hover {
+            background: #45a049;
+        }
+        
         .badge-category {
             background: white;
             border-radius: 12px;
@@ -2444,40 +2597,106 @@
             this.updateBadgeSlots();
             this.updateBadgePreview();
             
-            // Render categories
+            // Render by RARITY TIERS (most epic first!)
             const categoriesContainer = document.getElementById('badgeCategories');
             categoriesContainer.innerHTML = '';
             
-            Object.keys(this.categories).forEach(categoryKey => {
-                const category = this.categories[categoryKey];
-                const categoryBadges = Object.values(this.badges).filter(b => b.category === categoryKey);
-                const earnedInCategory = categoryBadges.filter(b => this.isBadgeEarned(b.key)).length;
+            // Define rarity tiers in order (best to worst)
+            const rarityTiers = [
+                { key: 'darkred', name: '🔴 Dark Red Badges', emoji: '💎', description: 'The rarest and most prestigious' },
+                { key: 'gold', name: '🥇 Gold Badges', emoji: '👑', description: 'Legendary achievements' },
+                { key: 'purple', name: '🟣 Purple Badges', emoji: '⚡', description: 'Epic accomplishments' },
+                { key: 'silver', name: '🥈 Silver Badges', emoji: '⭐', description: 'Impressive milestones' },
+                { key: 'bronze', name: '🥉 Bronze Badges', emoji: '🎯', description: 'Foundation achievements' }
+            ];
+            
+            rarityTiers.forEach(tier => {
+                const tierBadges = Object.values(this.badges)
+                    .filter(b => b.rarity === tier.key)
+                    .sort((a, b) => {
+                        // Sort by earned status, then by category
+                        const aEarned = this.isBadgeEarned(a.key) ? 0 : 1;
+                        const bEarned = this.isBadgeEarned(b.key) ? 0 : 1;
+                        if (aEarned !== bEarned) return aEarned - bEarned;
+                        return a.category.localeCompare(b.category);
+                    });
                 
-                const categoryHTML = `
-                    <div class="badge-category">
-                        <div class="badge-category-header">
-                            <h3 class="badge-category-title">${category.emoji} ${category.name}</h3>
-                            <span class="badge-category-progress">${earnedInCategory}/${categoryBadges.length}</span>
+                if (tierBadges.length === 0) return; // Skip empty tiers
+                
+                const earnedInTier = tierBadges.filter(b => this.isBadgeEarned(b.key)).length;
+                const tierCompletion = Math.round((earnedInTier / tierBadges.length) * 100);
+                
+                const tierHTML = `
+                    <div class="badge-rarity-tier" data-rarity="${tier.key}">
+                        <div class="tier-header">
+                            <div class="tier-title">
+                                <span class="tier-emoji">${tier.emoji}</span>
+                                <h3 class="tier-name">${tier.name}</h3>
+                                <p class="tier-description">${tier.description}</p>
+                            </div>
+                            <div class="tier-stats">
+                                <div class="tier-progress-circle" data-progress="${tierCompletion}">
+                                    <svg width="60" height="60" viewBox="0 0 60 60">
+                                        <circle cx="30" cy="30" r="25" fill="none" stroke="#e0e0e0" stroke-width="4"/>
+                                        <circle cx="30" cy="30" r="25" fill="none" stroke="${this.getTierColor(tier.key)}" 
+                                                stroke-width="4" stroke-dasharray="${tierCompletion * 1.57} 157" 
+                                                transform="rotate(-90 30 30)" stroke-linecap="round"/>
+                                        <text x="30" y="35" text-anchor="middle" font-size="14" font-weight="bold" fill="#1c1c1e">
+                                            ${tierCompletion}%
+                                        </text>
+                                    </svg>
+                                </div>
+                                <div class="tier-count">${earnedInTier}/${tierBadges.length}</div>
+                            </div>
                         </div>
                         <div class="badge-grid">
-                            ${categoryBadges.map(badge => {
+                            ${tierBadges.map(badge => {
                                 const isEarned = this.isBadgeEarned(badge.key);
                                 const isSelected = this.isBadgeSelected(badge.key);
                                 const progress = this.getProgress(badge.key, user);
                                 
                                 return `
-                                    <div class="badge-card ${isEarned ? 'earned' : 'locked'}" onclick="showBadgeDetail('${badge.key}')">
+                                    <div class="badge-card ${isEarned ? 'earned' : 'locked'} badge-${tier.key}" 
+                                         onclick="${isEarned ? `BADGE_SYSTEM.toggleBadgeSelection('${user.id}', '${badge.key}')` : ''}">
                                         ${isEarned ? '<div class="badge-earned-tag">✓ Earned</div>' : '<div class="badge-lock-overlay">🔒</div>'}
                                         <div class="badge-card-icon">
-                                            ${this.generateSVG(badge.key, 60)}
+                                            ${this.generateBadgeHTML(badge.key, 60)}
                                         </div>
                                         <div class="badge-card-name">${badge.name}</div>
-                                        <div class="badge-card-rarity ${badge.rarity}">${badge.rarity}</div>
-                                        <div class="badge-card-description">${badge.description}</div>
+                                        <div class="badge-card-rarity ${badge.rarity}">${badge.rarity.toUpperCase()}</div>
+                                        <div class="badge-card-category">${this.categories[badge.category]?.emoji || ''} ${this.categories[badge.category]?.name || badge.category}</div>
                                         ${!isEarned ? `
                                             <div class="badge-card-progress">
                                                 <div class="badge-progress-bar">
                                                     <div class="badge-progress-fill" style="width: ${progress.percent}%"></div>
+                                                </div>
+                                                <div class="badge-progress-text">${progress.current}/${progress.target}</div>
+                                            </div>
+                                        ` : ''}
+                                        ${isEarned && !isSelected ? `<button class="btn-badge-select" onclick="event.stopPropagation(); BADGE_SYSTEM.toggleBadgeSelection('${user.id}', '${badge.key}')">Select</button>` : ''}
+                                        ${isSelected ? `<button class="btn-badge-selected" onclick="event.stopPropagation(); BADGE_SYSTEM.toggleBadgeSelection('${user.id}', '${badge.key}')">Selected ✓</button>` : ''}
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    </div>
+                `;
+                
+                categoriesContainer.innerHTML += tierHTML;
+            });
+        },
+        
+        getTierColor(tier) {
+            const colors = {
+                bronze: '#CD7F32',
+                silver: '#C0C0C0',
+                purple: '#8A2BE2',
+                gold: '#FFD700',
+                darkred: '#DC143C'
+            };
+            return colors[tier] || '#738f75';
+        },
+"></div>
                                                 </div>
                                                 <div class="badge-progress-text">${progress.current}/${progress.target}</div>
                                             </div>
