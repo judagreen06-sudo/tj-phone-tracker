@@ -995,159 +995,6 @@
             padding: 0 20px 20px 20px;
         }
         
-        /* RARITY TIER SECTIONS */
-        .badge-rarity-tier {
-            background: white;
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 24px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            border: 2px solid transparent;
-            transition: all 0.3s;
-        }
-        
-        .badge-rarity-tier[data-rarity="darkred"] {
-            border-color: #DC143C;
-            box-shadow: 0 4px 20px rgba(220, 20, 60, 0.3);
-        }
-        
-        .badge-rarity-tier[data-rarity="gold"] {
-            border-color: #FFD700;
-            box-shadow: 0 4px 16px rgba(255, 215, 0, 0.25);
-        }
-        
-        .badge-rarity-tier[data-rarity="purple"] {
-            border-color: #8A2BE2;
-            box-shadow: 0 4px 14px rgba(138, 43, 226, 0.2);
-        }
-        
-        .badge-rarity-tier[data-rarity="silver"] {
-            border-color: #C0C0C0;
-        }
-        
-        .badge-rarity-tier[data-rarity="bronze"] {
-            border-color: #CD7F32;
-        }
-        
-        .tier-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 16px;
-            border-bottom: 2px solid #f0f0f0;
-        }
-        
-        .tier-title {
-            flex: 1;
-        }
-        
-        .tier-emoji {
-            font-size: 32px;
-            margin-right: 12px;
-        }
-        
-        .tier-name {
-            font-size: 24px;
-            font-weight: 700;
-            color: #1c1c1e;
-            margin-bottom: 4px;
-        }
-        
-        .tier-description {
-            font-size: 13px;
-            color: #666;
-            margin: 0;
-        }
-        
-        .tier-stats {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-        
-        .tier-progress-circle {
-            position: relative;
-        }
-        
-        .tier-count {
-            font-size: 20px;
-            font-weight: 700;
-            color: #738f75;
-        }
-        
-        .badge-card-category {
-            font-size: 11px;
-            color: #999;
-            text-align: center;
-            margin-bottom: 8px;
-        }
-        
-        /* Enhanced badge card hover effects */
-        .badge-card.earned:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(115, 143, 117, 0.3);
-        }
-        
-        .badge-card.badge-darkred.earned {
-            border-color: #DC143C;
-        }
-        
-        .badge-card.badge-darkred.earned:hover {
-            box-shadow: 0 8px 24px rgba(220, 20, 60, 0.4);
-        }
-        
-        .badge-card.badge-gold.earned {
-            border-color: #FFD700;
-        }
-        
-        .badge-card.badge-gold.earned:hover {
-            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
-        }
-        
-        .badge-card.badge-purple.earned {
-            border-color: #8A2BE2;
-        }
-        
-        .badge-card.badge-purple.earned:hover {
-            box-shadow: 0 6px 18px rgba(138, 43, 226, 0.3);
-        }
-        
-        .btn-badge-select {
-            background: #738f75;
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            transition: all 0.2s;
-        }
-        
-        .btn-badge-select:hover {
-            background: #5a7a5c;
-            transform: scale(1.02);
-        }
-        
-        .btn-badge-selected {
-            background: #4caf50;
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            transition: all 0.2s;
-        }
-        
-        .btn-badge-selected:hover {
-            background: #45a049;
-        }
-        
         .badge-category {
             background: white;
             border-radius: 12px;
@@ -1240,14 +1087,14 @@
             margin-right: auto;
         }
         
-        .badge-card-rarity.bronze { background: #d7ccc8; color: #5d4037; }
-        .badge-card-rarity.silver { background: #eceff1; color: #455a64; }
-        .badge-card-rarity.purple { background: #f3e5f5; color: #7b1fa2; }
-        .badge-card-rarity.gold { 
+        .badge-card-rarity.common { background: #e8f5e9; color: #2e7d32; }
+        .badge-card-rarity.rare { background: #e3f2fd; color: #1976d2; }
+        .badge-card-rarity.epic { background: #f3e5f5; color: #7b1fa2; }
+        .badge-card-rarity.legendary { 
             background: linear-gradient(135deg, #ffd700, #ffed4e);
             color: #b8860b;
         }
-        .badge-card-rarity.darkred {
+        .badge-card-rarity.mythic {
             background: linear-gradient(135deg, #9c27b0, #e91e63);
             color: white;
         }
@@ -1475,171 +1322,63 @@
             }
         }
 
-        /* CLASH ROYALE STYLE METAL-TIER EFFECTS */
+        /* FANCY BADGE RARITY EFFECTS */
         .badge-wrapper {
             position: relative;
             display: inline-block;
         }
-        
-        /* BRONZE - Simple, no animation */
-        .badge-wrapper.bronze {
-            filter: drop-shadow(0 0 3px rgba(205, 127, 50, 0.3));
+        .badge-wrapper.rare {
+            filter: drop-shadow(0 0 4px rgba(156, 39, 176, 0.6));
         }
-        
-        /* SILVER - Gentle shine wave */
-        .badge-wrapper.silver {
-            filter: drop-shadow(0 0 4px rgba(211, 211, 211, 0.6));
-            animation: silverShine 4s ease-in-out infinite;
+        .badge-wrapper.epic {
+            filter: drop-shadow(0 0 6px rgba(233, 30, 99, 0.8));
+            animation: epicPulse 2s ease-in-out infinite;
         }
-        
-        @keyframes silverShine {
-            0%, 100% { filter: drop-shadow(0 0 4px rgba(211, 211, 211, 0.6)); }
-            50% { filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8)); }
+        @keyframes epicPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
-        
-        /* PURPLE - Pulsing glow */
-        .badge-wrapper.purple {
-            filter: drop-shadow(0 0 6px rgba(147, 112, 219, 0.7));
-            animation: purpleGlow 2.5s ease-in-out infinite;
+        .badge-wrapper.legendary {
+            filter: drop-shadow(0 0 8px rgba(255, 215, 0, 1));
+            animation: legendaryPulse 1.5s ease-in-out infinite;
         }
-        
-        @keyframes purpleGlow {
-            0%, 100% { 
-                filter: drop-shadow(0 0 6px rgba(147, 112, 219, 0.7));
-                transform: scale(1);
-            }
-            50% { 
-                filter: drop-shadow(0 0 12px rgba(147, 112, 219, 1));
-                transform: scale(1.08);
-            }
+        @keyframes legendaryPulse {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(255, 215, 0, 1)); }
+            50% { transform: scale(1.15); filter: drop-shadow(0 0 12px rgba(255, 215, 0, 1)); }
         }
-        
-        /* GOLD - Strong pulse + rotation + sparkles */
-        .badge-wrapper.gold {
-            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.9));
-            animation: goldPulse 2s ease-in-out infinite;
-        }
-        
-        @keyframes goldPulse {
-            0%, 100% { 
-                filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.9));
-                transform: scale(1) rotate(0deg);
-            }
-            50% { 
-                filter: drop-shadow(0 0 16px rgba(255, 215, 0, 1)) drop-shadow(0 0 24px rgba(255, 215, 0, 0.5));
-                transform: scale(1.12) rotate(5deg);
-            }
-        }
-        
-        .badge-wrapper.gold::before {
+        .badge-wrapper.legendary::after {
             content: '✨';
             position: absolute;
-            top: -10px;
-            right: -10px;
-            font-size: 14px;
-            animation: goldSparkle1 2s ease-in-out infinite;
+            top: -8px;
+            right: -8px;
+            font-size: 12px;
+            animation: sparkle 2s ease-in-out infinite;
         }
-        
-        .badge-wrapper.gold::after {
-            content: '✨';
-            position: absolute;
-            bottom: -10px;
-            left: -10px;
-            font-size: 14px;
-            animation: goldSparkle2 2s ease-in-out infinite 0.5s;
-        }
-        
-        @keyframes goldSparkle1 {
-            0%, 100% { opacity: 0; transform: rotate(0deg) scale(0.5); }
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: rotate(0deg) scale(0.8); }
             50% { opacity: 1; transform: rotate(180deg) scale(1.2); }
         }
-        
-        @keyframes goldSparkle2 {
-            0%, 100% { opacity: 0; transform: rotate(0deg) scale(0.5); }
-            50% { opacity: 1; transform: rotate(-180deg) scale(1.2); }
+        .badge-wrapper.mythic {
+            animation: mythicPulse 1s ease-in-out infinite;
         }
-        
-        /* DARK RED - INSANE multi-layer effects */
-        .badge-wrapper.darkred {
-            filter: drop-shadow(0 0 12px rgba(220, 20, 60, 1));
-            animation: darkredMega 1.5s ease-in-out infinite;
-            position: relative;
+        @keyframes mythicPulse {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(255, 0, 255, 1)) drop-shadow(0 0 20px rgba(0, 255, 255, 0.8)); }
+            50% { transform: scale(1.2); filter: drop-shadow(0 0 15px rgba(255, 0, 255, 1)) drop-shadow(0 0 25px rgba(0, 255, 255, 1)); }
         }
-        
-        @keyframes darkredMega {
-            0%, 100% { 
-                filter: drop-shadow(0 0 12px rgba(220, 20, 60, 1)) drop-shadow(0 0 20px rgba(139, 0, 0, 0.8));
-                transform: scale(1) rotate(0deg);
-            }
-            25% {
-                filter: drop-shadow(0 0 18px rgba(220, 20, 60, 1)) drop-shadow(0 0 30px rgba(255, 69, 0, 0.9));
-                transform: scale(1.15) rotate(5deg);
-            }
-            50% { 
-                filter: drop-shadow(0 0 24px rgba(220, 20, 60, 1)) drop-shadow(0 0 40px rgba(255, 69, 0, 1)) drop-shadow(0 0 60px rgba(255, 0, 0, 0.6));
-                transform: scale(1.2) rotate(0deg);
-            }
-            75% {
-                filter: drop-shadow(0 0 18px rgba(220, 20, 60, 1)) drop-shadow(0 0 30px rgba(255, 69, 0, 0.9));
-                transform: scale(1.15) rotate(-5deg);
-            }
-        }
-        
-        .badge-wrapper.darkred::after {
-            content: '💫';
-            position: absolute;
-            top: -12px;
-            right: -12px;
-            font-size: 18px;
-            animation: darkredParticle 2s ease-in-out infinite;
-        }
-        
-        @keyframes darkredParticle {
-            0% { opacity: 0; transform: translate(0, 0) rotate(0deg) scale(0.5); }
-            25% { opacity: 1; transform: translate(-10px, -10px) rotate(90deg) scale(1); }
-            50% { opacity: 1; transform: translate(-15px, 0) rotate(180deg) scale(1.3); }
-            75% { opacity: 1; transform: translate(-10px, 10px) rotate(270deg) scale(1); }
-            100% { opacity: 0; transform: translate(0, 0) rotate(360deg) scale(0.5); }
-        }
-        
-        /* Rarity indicator dots */
         .rarity-dot {
             position: absolute;
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
-            bottom: -2px;
-            right: -2px;
-            border: 2px solid white;
-            box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+            bottom: 2px;
+            right: 2px;
+            border: 1px solid white;
         }
-        
-        .rarity-dot.bronze { background: #CD7F32; }
-        .rarity-dot.silver { background: #C0C0C0; }
-        .rarity-dot.purple { background: #8A2BE2; }
-        .rarity-dot.gold { 
-            background: #FFD700;
-            box-shadow: 0 0 6px rgba(255, 215, 0, 0.8);
-            animation: goldDotPulse 2s ease-in-out infinite;
-        }
-        
-        @keyframes goldDotPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.3); }
-        }
-        
-        .rarity-dot.darkred { 
-            background: linear-gradient(45deg, #8B0000, #DC143C, #FF4500);
-            background-size: 200% 200%;
-            animation: darkredDotShift 3s linear infinite;
-            box-shadow: 0 0 8px rgba(220, 20, 60, 1);
-        }
-        
-        @keyframes darkredDotShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+        .rarity-dot.common { background: #90caf9; }
+        .rarity-dot.rare { background: #ce93d8; }
+        .rarity-dot.epic { background: #f48fb1; }
+        .rarity-dot.legendary { background: #ffd700; }
+        .rarity-dot.mythic { background: linear-gradient(45deg, #ff00ff, #00ffff); }
         
         /* Sticky Badge Modal Header */
         .badge-modal-content .badge-header {
@@ -2036,7 +1775,7 @@
                 name: 'Weekly Champion',
                 description: 'Finish #1 on the weekly leaderboard',
                 how: 'Be the top scorer for the week',
-                rarity: 'gold',
+                rarity: 'legendary',
                 category: 'competition',
                 color: '#ffd700'
             },
@@ -2045,7 +1784,7 @@
                 name: 'Runner Up',
                 description: 'Finish #2 on the weekly leaderboard',
                 how: 'Be the second highest scorer for the week',
-                rarity: 'purple',
+                rarity: 'epic',
                 category: 'competition',
                 color: '#c0c0c0'
             },
@@ -2054,7 +1793,7 @@
                 name: 'Podium Finisher',
                 description: 'Finish in the top 3 for the week',
                 how: 'Rank in the top 3 by weekly points',
-                rarity: 'silver',
+                rarity: 'rare',
                 category: 'competition',
                 color: '#cd7f32'
             },
@@ -2063,7 +1802,7 @@
                 name: 'Top 5',
                 description: 'Finish in the top 5 for the week',
                 how: 'Rank in the top 5 by weekly points',
-                rarity: 'silver',
+                rarity: 'rare',
                 category: 'competition',
                 color: '#4a90e2'
             },
@@ -2072,7 +1811,7 @@
                 name: 'Top 10',
                 description: 'Finish in the top 10 for the week',
                 how: 'Rank in the top 10 by weekly points',
-                rarity: 'bronze',
+                rarity: 'common',
                 category: 'competition',
                 color: '#50c878'
             },
@@ -2083,7 +1822,7 @@
                 name: 'Perfect Day',
                 description: 'Score 8+ points in a single day',
                 how: 'Attend all 3 sedarim in one day (8.25 points)',
-                rarity: 'bronze',
+                rarity: 'common',
                 category: 'perfect',
                 color: '#50c878'
             },
@@ -2092,7 +1831,7 @@
                 name: 'Perfect Week',
                 description: 'Earn 8+ points every day for a week',
                 how: 'Maintain perfect attendance for 5 consecutive days',
-                rarity: 'purple',
+                rarity: 'epic',
                 category: 'perfect',
                 color: '#9c27b0'
             },
@@ -2101,7 +1840,7 @@
                 name: '3-Day Streak',
                 description: 'Achieve 3 perfect days in a row',
                 how: 'Score 8+ points for 3 consecutive days',
-                rarity: 'bronze',
+                rarity: 'common',
                 category: 'perfect',
                 color: '#ff9800'
             },
@@ -2110,7 +1849,7 @@
                 name: '5-Day Streak',
                 description: 'Achieve 5 perfect days in a row',
                 how: 'Score 8+ points for 5 consecutive days',
-                rarity: 'silver',
+                rarity: 'rare',
                 category: 'perfect',
                 color: '#ff5722'
             },
@@ -2119,7 +1858,7 @@
                 name: '10-Day Streak',
                 description: 'Achieve 10 perfect days in a row',
                 how: 'Score 8+ points for 10 consecutive days',
-                rarity: 'purple',
+                rarity: 'epic',
                 category: 'perfect',
                 color: '#e91e63'
             },
@@ -2128,7 +1867,7 @@
                 name: 'Month of Dedication',
                 description: 'Achieve 30 perfect days in a row',
                 how: 'Score 8+ points for 30 consecutive days',
-                rarity: 'darkred',
+                rarity: 'mythic',
                 category: 'perfect',
                 color: '#9c27b0'
             },
@@ -2139,7 +1878,7 @@
                 name: 'Getting Started',
                 description: 'Earn your first 10 points',
                 how: 'Accumulate 10 total points',
-                rarity: 'bronze',
+                rarity: 'common',
                 category: 'milestone',
                 color: '#8bc34a'
             },
@@ -2148,7 +1887,7 @@
                 name: 'Quarter Century',
                 description: 'Reach 25 total points',
                 how: 'Accumulate 25 total points',
-                rarity: 'bronze',
+                rarity: 'common',
                 category: 'milestone',
                 color: '#00bcd4'
             },
@@ -2157,7 +1896,7 @@
                 name: 'Half Century',
                 description: 'Reach 50 total points',
                 how: 'Accumulate 50 total points',
-                rarity: 'silver',
+                rarity: 'rare',
                 category: 'milestone',
                 color: '#2196f3'
             },
@@ -2166,7 +1905,7 @@
                 name: 'Century Club',
                 description: 'Reach 100 total points',
                 how: 'Accumulate 100 total points',
-                rarity: 'silver',
+                rarity: 'rare',
                 category: 'milestone',
                 color: '#3f51b5'
             },
@@ -2175,7 +1914,7 @@
                 name: 'Double Century',
                 description: 'Reach 200 total points',
                 how: 'Accumulate 200 total points',
-                rarity: 'purple',
+                rarity: 'epic',
                 category: 'milestone',
                 color: '#673ab7'
             },
@@ -2184,7 +1923,7 @@
                 name: 'Triple Century',
                 description: 'Reach 300 total points',
                 how: 'Accumulate 300 total points',
-                rarity: 'purple',
+                rarity: 'epic',
                 category: 'milestone',
                 color: '#9c27b0'
             },
@@ -2193,7 +1932,7 @@
                 name: 'The 500 Club',
                 description: 'Reach 500 total points',
                 how: 'Accumulate 500 total points',
-                rarity: 'gold',
+                rarity: 'legendary',
                 category: 'milestone',
                 color: '#ffd700'
             },
@@ -2202,7 +1941,7 @@
                 name: 'The Thousand',
                 description: 'Reach 1000 total points',
                 how: 'Accumulate 1000 total points',
-                rarity: 'darkred',
+                rarity: 'mythic',
                 category: 'milestone',
                 color: '#9c27b0'
             },
@@ -2213,7 +1952,7 @@
                 name: 'Early Bird',
                 description: 'Check in to 20 morning sedarim',
                 how: 'Attend morning seder 20 times',
-                rarity: 'silver',
+                rarity: 'rare',
                 category: 'seder',
                 color: '#ff9800'
             },
@@ -2222,7 +1961,7 @@
                 name: 'Morning Master',
                 description: 'Check in to 50 morning sedarim',
                 how: 'Attend morning seder 50 times',
-                rarity: 'purple',
+                rarity: 'epic',
                 category: 'seder',
                 color: '#f57c00'
             },
@@ -2231,7 +1970,7 @@
                 name: 'Afternoon Regular',
                 description: 'Check in to 20 afternoon sedarim',
                 how: 'Attend afternoon seder 20 times',
-                rarity: 'silver',
+                rarity: 'rare',
                 category: 'seder',
                 color: '#ffc107'
             },
@@ -2240,7 +1979,7 @@
                 name: 'Afternoon Master',
                 description: 'Check in to 50 afternoon sedarim',
                 how: 'Attend afternoon seder 50 times',
-                rarity: 'purple',
+                rarity: 'epic',
                 category: 'seder',
                 color: '#ffb300'
             },
@@ -2249,7 +1988,7 @@
                 name: 'Night Owl',
                 description: 'Check in to 20 night sedarim',
                 how: 'Attend night seder 20 times',
-                rarity: 'silver',
+                rarity: 'rare',
                 category: 'seder',
                 color: '#5c6bc0'
             },
@@ -2258,7 +1997,7 @@
                 name: 'Night Master',
                 description: 'Check in to 50 night sedarim',
                 how: 'Attend night seder 50 times',
-                rarity: 'purple',
+                rarity: 'epic',
                 category: 'seder',
                 color: '#3f51b5'
             },
@@ -2269,7 +2008,7 @@
                 name: 'Marathon Man',
                 description: 'Score 4+ points in a single session',
                 how: 'Stay for an extended learning session (4+ hours)',
-                rarity: 'silver',
+                rarity: 'rare',
                 category: 'dedication',
                 color: '#e91e63'
             },
@@ -2278,7 +2017,7 @@
                 name: 'Sprint Master',
                 description: 'Check in 20 times',
                 how: 'Complete 20 total check-ins',
-                rarity: 'bronze',
+                rarity: 'common',
                 category: 'dedication',
                 color: '#00bcd4'
             },
@@ -2287,7 +2026,7 @@
                 name: 'Consistent Scholar',
                 description: 'Check in 50 times',
                 how: 'Complete 50 total check-ins',
-                rarity: 'silver',
+                rarity: 'rare',
                 category: 'dedication',
                 color: '#009688'
             },
@@ -2296,7 +2035,7 @@
                 name: 'Veteran',
                 description: 'Check in 100 times',
                 how: 'Complete 100 total check-ins',
-                rarity: 'purple',
+                rarity: 'epic',
                 category: 'dedication',
                 color: '#4caf50'
             },
@@ -2305,7 +2044,7 @@
                 name: 'Elder',
                 description: 'Check in 200 times',
                 how: 'Complete 200 total check-ins',
-                rarity: 'gold',
+                rarity: 'legendary',
                 category: 'dedication',
                 color: '#ffd700'
             }
@@ -2326,50 +2065,59 @@
             const badge = this.badges[badgeKey];
             if (!badge) return '';
             
-            const rarity = badge.rarity || 'bronze';
-            const tiers = {
-                bronze: { bg1: '#CD7F32', bg2: '#A0522D', border: '#8B4513', glow: 'rgba(205,127,50,0.4)' },
-                silver: { bg1: '#D3D3D3', bg2: '#A9A9A9', border: '#808080', glow: 'rgba(211,211,211,0.6)', shine: true },
-                purple: { bg1: '#9370DB', bg2: '#8A2BE2', border: '#4B0082', glow: 'rgba(147,112,219,0.8)', shine: true },
-                gold: { bg1: '#FFD700', bg2: '#FFA500', border: '#FF8C00', glow: 'rgba(255,215,0,1)', shine: true },
-                darkred: { bg1: '#DC143C', bg2: '#8B0000', border: '#660000', glow: 'rgba(220,20,60,1)', shine: true }
-            };
+            const color = badge.color || '#738f75';
+            const isLegendary = badge.rarity === 'legendary';
+            const isMythic = badge.rarity === 'mythic';
             
-            const icons = {
-                first_10: '10', quarter_century: '25', half_century: '50', century: '100', double_century: '200', triple_century: '300',
-                daily_champ: '1👑', weekly_champ: '👑', podium: '🥉', top_10: '⭐',
-                perfect_day: '✓', perfect_week: '✓✓', perfect_month: '📅',
-                early_bird: '🌅', morning_master: 'AM', afternoon_regular: 'PM', afternoon_master: '☀️',
-                night_owl: '🌙', night_master: '🦉', triple_threat: '×3',
-                streak_5: '5🔥', streak_10: '10🔥', streak_20: '20🔥', streak_30: '30🔥',
-                newcomer: '🌱', regular: '💪', committed: '⚡', devoted: '🔱', legend: '⚔️', immortal: '💎',
-                marathon: '🏃', speed_demon: '⚡×3', first_blood: '#1'
-            };
+            let gradient = '';
+            let filter = '';
             
-            const tier = tiers[rarity];
-            const icon = icons[badgeKey] || '?';
-            const isEmoji = /[\u{1F300}-\u{1F9FF}]/u.test(icon);
-            const fontSize = icon.length > 3 ? '20' : icon.length === 3 ? '24' : '28';
+            if (isLegendary) {
+                gradient = `
+                    <defs>
+                        <linearGradient id="grad-${badgeKey}" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#ffd700;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#ffed4e;stop-opacity:1" />
+                        </linearGradient>
+                        <filter id="glow-${badgeKey}">
+                            <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>`;
+                filter = `filter="url(#glow-${badgeKey})"`;
+            } else if (isMythic) {
+                gradient = `
+                    <defs>
+                        <linearGradient id="grad-${badgeKey}" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#9c27b0;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#e91e63;stop-opacity:1" />
+                        </linearGradient>
+                        <filter id="glow-${badgeKey}">
+                            <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>`;
+                filter = `filter="url(#glow-${badgeKey})"`;
+            }
             
-            return `<svg width="${size}" height="${size}" viewBox="0 0 100 100">
-                <defs>
-                    <radialGradient id="bg-${badgeKey}">
-                        <stop offset="0%" stop-color="${tier.bg1}"/>
-                        <stop offset="100%" stop-color="${tier.bg2}"/>
-                    </radialGradient>
-                </defs>
-                ${rarity !== 'bronze' ? `<circle cx="50" cy="50" r="48" fill="${tier.glow}" opacity="0.15"/>` : ''}
-                ${rarity === 'purple' || rarity === 'gold' || rarity === 'darkred' ? `<circle cx="50" cy="50" r="45" fill="${tier.glow}" opacity="0.12"/>` : ''}
-                <circle cx="50" cy="50" r="40" fill="url(#bg-${badgeKey})" stroke="${tier.border}" stroke-width="3"/>
-                <circle cx="50" cy="50" r="37" fill="none" stroke="${tier.bg1}" stroke-width="1" opacity="0.5"/>
-                ${tier.shine ? `<ellipse cx="35" cy="35" rx="12" ry="18" fill="white" opacity="0.25" transform="rotate(-30 35 35)"/>` : ''}
-                <text x="50" y="${isEmoji ? '53' : '50'}" text-anchor="middle" dominant-baseline="central" 
-                      font-family="Arial,sans-serif" font-weight="bold" font-size="${fontSize}" 
-                      fill="white" stroke="${tier.border}" stroke-width="${isEmoji ? '0' : '0.5'}">
-                    ${icon}
-                </text>
-                <circle cx="50" cy="50" r="32" fill="none" stroke="${tier.border}" stroke-width="1.5" opacity="0.4"/>
-            </svg>`;
+            const fillColor = (isLegendary || isMythic) ? `url(#grad-${badgeKey})` : color;
+            
+            return `
+                <svg width="${size}" height="${size}" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    ${gradient}
+                    <circle cx="50" cy="50" r="45" fill="${fillColor}" opacity="0.2"/>
+                    <circle cx="50" cy="50" r="38" fill="${fillColor}" opacity="0.4"/>
+                    <circle cx="50" cy="50" r="30" fill="${fillColor}" ${filter}/>
+                    <path d="M 50 25 L 55 40 L 70 42 L 60 52 L 63 67 L 50 60 L 37 67 L 40 52 L 30 42 L 45 40 Z" 
+                          fill="white" opacity="0.9" transform="translate(0, 5)"/>
+                </svg>
+            `;
         },
         
         generateBadgeHTML(badgeKey, size = 20) {
@@ -2589,7 +2337,7 @@
             document.getElementById('badgeCompletionPercent').textContent = completion + '%';
             const rareCount = this.earnedBadges.filter(key => {
                 const badge = this.badges[key];
-                return badge && ['silver', 'purple', 'gold', 'darkred'].includes(badge.rarity);
+                return badge && ['rare', 'epic', 'legendary', 'mythic'].includes(badge.rarity);
             }).length;
             document.getElementById('badgeRareCount').textContent = rareCount;
             
@@ -2597,106 +2345,40 @@
             this.updateBadgeSlots();
             this.updateBadgePreview();
             
-            // Render by RARITY TIERS (most epic first!)
+            // Render categories
             const categoriesContainer = document.getElementById('badgeCategories');
             categoriesContainer.innerHTML = '';
             
-            // Define rarity tiers in order (best to worst)
-            const rarityTiers = [
-                { key: 'darkred', name: '🔴 Dark Red Badges', emoji: '💎', description: 'The rarest and most prestigious' },
-                { key: 'gold', name: '🥇 Gold Badges', emoji: '👑', description: 'Legendary achievements' },
-                { key: 'purple', name: '🟣 Purple Badges', emoji: '⚡', description: 'Epic accomplishments' },
-                { key: 'silver', name: '🥈 Silver Badges', emoji: '⭐', description: 'Impressive milestones' },
-                { key: 'bronze', name: '🥉 Bronze Badges', emoji: '🎯', description: 'Foundation achievements' }
-            ];
-            
-            rarityTiers.forEach(tier => {
-                const tierBadges = Object.values(this.badges)
-                    .filter(b => b.rarity === tier.key)
-                    .sort((a, b) => {
-                        // Sort by earned status, then by category
-                        const aEarned = this.isBadgeEarned(a.key) ? 0 : 1;
-                        const bEarned = this.isBadgeEarned(b.key) ? 0 : 1;
-                        if (aEarned !== bEarned) return aEarned - bEarned;
-                        return a.category.localeCompare(b.category);
-                    });
+            Object.keys(this.categories).forEach(categoryKey => {
+                const category = this.categories[categoryKey];
+                const categoryBadges = Object.values(this.badges).filter(b => b.category === categoryKey);
+                const earnedInCategory = categoryBadges.filter(b => this.isBadgeEarned(b.key)).length;
                 
-                if (tierBadges.length === 0) return; // Skip empty tiers
-                
-                const earnedInTier = tierBadges.filter(b => this.isBadgeEarned(b.key)).length;
-                const tierCompletion = Math.round((earnedInTier / tierBadges.length) * 100);
-                
-                const tierHTML = `
-                    <div class="badge-rarity-tier" data-rarity="${tier.key}">
-                        <div class="tier-header">
-                            <div class="tier-title">
-                                <span class="tier-emoji">${tier.emoji}</span>
-                                <h3 class="tier-name">${tier.name}</h3>
-                                <p class="tier-description">${tier.description}</p>
-                            </div>
-                            <div class="tier-stats">
-                                <div class="tier-progress-circle" data-progress="${tierCompletion}">
-                                    <svg width="60" height="60" viewBox="0 0 60 60">
-                                        <circle cx="30" cy="30" r="25" fill="none" stroke="#e0e0e0" stroke-width="4"/>
-                                        <circle cx="30" cy="30" r="25" fill="none" stroke="${this.getTierColor(tier.key)}" 
-                                                stroke-width="4" stroke-dasharray="${tierCompletion * 1.57} 157" 
-                                                transform="rotate(-90 30 30)" stroke-linecap="round"/>
-                                        <text x="30" y="35" text-anchor="middle" font-size="14" font-weight="bold" fill="#1c1c1e">
-                                            ${tierCompletion}%
-                                        </text>
-                                    </svg>
-                                </div>
-                                <div class="tier-count">${earnedInTier}/${tierBadges.length}</div>
-                            </div>
+                const categoryHTML = `
+                    <div class="badge-category">
+                        <div class="badge-category-header">
+                            <h3 class="badge-category-title">${category.emoji} ${category.name}</h3>
+                            <span class="badge-category-progress">${earnedInCategory}/${categoryBadges.length}</span>
                         </div>
                         <div class="badge-grid">
-                            ${tierBadges.map(badge => {
+                            ${categoryBadges.map(badge => {
                                 const isEarned = this.isBadgeEarned(badge.key);
                                 const isSelected = this.isBadgeSelected(badge.key);
                                 const progress = this.getProgress(badge.key, user);
                                 
                                 return `
-                                    <div class="badge-card ${isEarned ? 'earned' : 'locked'} badge-${tier.key}" 
-                                         onclick="${isEarned ? `BADGE_SYSTEM.toggleBadgeSelection('${user.id}', '${badge.key}')` : ''}">
+                                    <div class="badge-card ${isEarned ? 'earned' : 'locked'}" onclick="showBadgeDetail('${badge.key}')">
                                         ${isEarned ? '<div class="badge-earned-tag">✓ Earned</div>' : '<div class="badge-lock-overlay">🔒</div>'}
                                         <div class="badge-card-icon">
-                                            ${this.generateBadgeHTML(badge.key, 60)}
+                                            ${this.generateSVG(badge.key, 60)}
                                         </div>
                                         <div class="badge-card-name">${badge.name}</div>
-                                        <div class="badge-card-rarity ${badge.rarity}">${badge.rarity.toUpperCase()}</div>
-                                        <div class="badge-card-category">${this.categories[badge.category]?.emoji || ''} ${this.categories[badge.category]?.name || badge.category}</div>
+                                        <div class="badge-card-rarity ${badge.rarity}">${badge.rarity}</div>
+                                        <div class="badge-card-description">${badge.description}</div>
                                         ${!isEarned ? `
                                             <div class="badge-card-progress">
                                                 <div class="badge-progress-bar">
                                                     <div class="badge-progress-fill" style="width: ${progress.percent}%"></div>
-                                                </div>
-                                                <div class="badge-progress-text">${progress.current}/${progress.target}</div>
-                                            </div>
-                                        ` : ''}
-                                        ${isEarned && !isSelected ? `<button class="btn-badge-select" onclick="event.stopPropagation(); BADGE_SYSTEM.toggleBadgeSelection('${user.id}', '${badge.key}')">Select</button>` : ''}
-                                        ${isSelected ? `<button class="btn-badge-selected" onclick="event.stopPropagation(); BADGE_SYSTEM.toggleBadgeSelection('${user.id}', '${badge.key}')">Selected ✓</button>` : ''}
-                                    </div>
-                                `;
-                            }).join('')}
-                        </div>
-                    </div>
-                `;
-                
-                categoriesContainer.innerHTML += tierHTML;
-            });
-        },
-        
-        getTierColor(tier) {
-            const colors = {
-                bronze: '#CD7F32',
-                silver: '#C0C0C0',
-                purple: '#8A2BE2',
-                gold: '#FFD700',
-                darkred: '#DC143C'
-            };
-            return colors[tier] || '#738f75';
-        },
-"></div>
                                                 </div>
                                                 <div class="badge-progress-text">${progress.current}/${progress.target}</div>
                                             </div>
@@ -3354,10 +3036,6 @@
             const isActive = activeIds.has(s.id);
             const points = s[pointsField] || 0;
             const badgesHtml = await getPlayerBadges(s.id);
-            const badgeCount = s.badges ? s.badges.length : 0;
-            const badgeDisplay = badgeCount > 0 
-                ? `<span style="color: #738f75; font-weight: 600; margin-right: 6px;">(${badgeCount})</span>${badgesHtml}`
-                : '';
             return `
                 <div class="leaderboard-item top3">
                     <div class="rank ${rankClass}">${idx + 1}</div>
@@ -3365,7 +3043,7 @@
                     <div class="player-info">
                         <div class="player-name">
                             ${s.name}
-                            <span class="player-badges">${badgeDisplay}</span>
+                            <span class="player-badges">${badgesHtml}</span>
                         </div>
                         <div class="player-points">${points.toFixed(2)} points</div>
                     </div>
@@ -3382,10 +3060,6 @@
                 const isActive = activeIds.has(s.id);
                 const points = s[pointsField] || 0;
                 const badgesHtml = await getPlayerBadges(s.id);
-                const badgeCount = s.badges ? s.badges.length : 0;
-                const badgeDisplay = badgeCount > 0 
-                    ? `<span style="color: #738f75; font-weight: 600; margin-right: 6px;">(${badgeCount})</span>${badgesHtml}`
-                    : '';
                 return `
                     <div class="leaderboard-item">
                         <div class="rank">${actualRank}</div>
@@ -3393,7 +3067,7 @@
                         <div class="player-info">
                             <div class="player-name">
                                 ${s.name}
-                                <span class="player-badges">${badgeDisplay}</span>
+                                <span class="player-badges">${badgesHtml}</span>
                             </div>
                             <div class="player-points">${points.toFixed(2)} points</div>
                         </div>
