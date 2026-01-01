@@ -1322,63 +1322,171 @@
             }
         }
 
-        /* FANCY BADGE RARITY EFFECTS */
+        /* CLASH ROYALE STYLE METAL-TIER EFFECTS */
         .badge-wrapper {
             position: relative;
             display: inline-block;
         }
-        .badge-wrapper.rare {
-            filter: drop-shadow(0 0 4px rgba(156, 39, 176, 0.6));
+        
+        /* BRONZE - Simple, no animation */
+        .badge-wrapper.bronze {
+            filter: drop-shadow(0 0 3px rgba(205, 127, 50, 0.3));
         }
-        .badge-wrapper.epic {
-            filter: drop-shadow(0 0 6px rgba(233, 30, 99, 0.8));
-            animation: epicPulse 2s ease-in-out infinite;
+        
+        /* SILVER - Gentle shine wave */
+        .badge-wrapper.silver {
+            filter: drop-shadow(0 0 4px rgba(211, 211, 211, 0.6));
+            animation: silverShine 4s ease-in-out infinite;
         }
-        @keyframes epicPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+        
+        @keyframes silverShine {
+            0%, 100% { filter: drop-shadow(0 0 4px rgba(211, 211, 211, 0.6)); }
+            50% { filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8)); }
         }
-        .badge-wrapper.legendary {
-            filter: drop-shadow(0 0 8px rgba(255, 215, 0, 1));
-            animation: legendaryPulse 1.5s ease-in-out infinite;
+        
+        /* PURPLE - Pulsing glow */
+        .badge-wrapper.purple {
+            filter: drop-shadow(0 0 6px rgba(147, 112, 219, 0.7));
+            animation: purpleGlow 2.5s ease-in-out infinite;
         }
-        @keyframes legendaryPulse {
-            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(255, 215, 0, 1)); }
-            50% { transform: scale(1.15); filter: drop-shadow(0 0 12px rgba(255, 215, 0, 1)); }
+        
+        @keyframes purpleGlow {
+            0%, 100% { 
+                filter: drop-shadow(0 0 6px rgba(147, 112, 219, 0.7));
+                transform: scale(1);
+            }
+            50% { 
+                filter: drop-shadow(0 0 12px rgba(147, 112, 219, 1));
+                transform: scale(1.08);
+            }
         }
-        .badge-wrapper.legendary::after {
+        
+        /* GOLD - Strong pulse + rotation + sparkles */
+        .badge-wrapper.gold {
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.9));
+            animation: goldPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes goldPulse {
+            0%, 100% { 
+                filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.9));
+                transform: scale(1) rotate(0deg);
+            }
+            50% { 
+                filter: drop-shadow(0 0 16px rgba(255, 215, 0, 1)) drop-shadow(0 0 24px rgba(255, 215, 0, 0.5));
+                transform: scale(1.12) rotate(5deg);
+            }
+        }
+        
+        .badge-wrapper.gold::before {
             content: '✨';
             position: absolute;
-            top: -8px;
-            right: -8px;
-            font-size: 12px;
-            animation: sparkle 2s ease-in-out infinite;
+            top: -10px;
+            right: -10px;
+            font-size: 14px;
+            animation: goldSparkle1 2s ease-in-out infinite;
         }
-        @keyframes sparkle {
-            0%, 100% { opacity: 0; transform: rotate(0deg) scale(0.8); }
+        
+        .badge-wrapper.gold::after {
+            content: '✨';
+            position: absolute;
+            bottom: -10px;
+            left: -10px;
+            font-size: 14px;
+            animation: goldSparkle2 2s ease-in-out infinite 0.5s;
+        }
+        
+        @keyframes goldSparkle1 {
+            0%, 100% { opacity: 0; transform: rotate(0deg) scale(0.5); }
             50% { opacity: 1; transform: rotate(180deg) scale(1.2); }
         }
-        .badge-wrapper.mythic {
-            animation: mythicPulse 1s ease-in-out infinite;
+        
+        @keyframes goldSparkle2 {
+            0%, 100% { opacity: 0; transform: rotate(0deg) scale(0.5); }
+            50% { opacity: 1; transform: rotate(-180deg) scale(1.2); }
         }
-        @keyframes mythicPulse {
-            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(255, 0, 255, 1)) drop-shadow(0 0 20px rgba(0, 255, 255, 0.8)); }
-            50% { transform: scale(1.2); filter: drop-shadow(0 0 15px rgba(255, 0, 255, 1)) drop-shadow(0 0 25px rgba(0, 255, 255, 1)); }
+        
+        /* DARK RED - INSANE multi-layer effects */
+        .badge-wrapper.darkred {
+            filter: drop-shadow(0 0 12px rgba(220, 20, 60, 1));
+            animation: darkredMega 1.5s ease-in-out infinite;
+            position: relative;
         }
+        
+        @keyframes darkredMega {
+            0%, 100% { 
+                filter: drop-shadow(0 0 12px rgba(220, 20, 60, 1)) drop-shadow(0 0 20px rgba(139, 0, 0, 0.8));
+                transform: scale(1) rotate(0deg);
+            }
+            25% {
+                filter: drop-shadow(0 0 18px rgba(220, 20, 60, 1)) drop-shadow(0 0 30px rgba(255, 69, 0, 0.9));
+                transform: scale(1.15) rotate(5deg);
+            }
+            50% { 
+                filter: drop-shadow(0 0 24px rgba(220, 20, 60, 1)) drop-shadow(0 0 40px rgba(255, 69, 0, 1)) drop-shadow(0 0 60px rgba(255, 0, 0, 0.6));
+                transform: scale(1.2) rotate(0deg);
+            }
+            75% {
+                filter: drop-shadow(0 0 18px rgba(220, 20, 60, 1)) drop-shadow(0 0 30px rgba(255, 69, 0, 0.9));
+                transform: scale(1.15) rotate(-5deg);
+            }
+        }
+        
+        .badge-wrapper.darkred::after {
+            content: '💫';
+            position: absolute;
+            top: -12px;
+            right: -12px;
+            font-size: 18px;
+            animation: darkredParticle 2s ease-in-out infinite;
+        }
+        
+        @keyframes darkredParticle {
+            0% { opacity: 0; transform: translate(0, 0) rotate(0deg) scale(0.5); }
+            25% { opacity: 1; transform: translate(-10px, -10px) rotate(90deg) scale(1); }
+            50% { opacity: 1; transform: translate(-15px, 0) rotate(180deg) scale(1.3); }
+            75% { opacity: 1; transform: translate(-10px, 10px) rotate(270deg) scale(1); }
+            100% { opacity: 0; transform: translate(0, 0) rotate(360deg) scale(0.5); }
+        }
+        
+        /* Rarity indicator dots */
         .rarity-dot {
             position: absolute;
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
-            bottom: 2px;
-            right: 2px;
-            border: 1px solid white;
+            bottom: -2px;
+            right: -2px;
+            border: 2px solid white;
+            box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
         }
-        .rarity-dot.common { background: #90caf9; }
-        .rarity-dot.rare { background: #ce93d8; }
-        .rarity-dot.epic { background: #f48fb1; }
-        .rarity-dot.legendary { background: #ffd700; }
-        .rarity-dot.mythic { background: linear-gradient(45deg, #ff00ff, #00ffff); }
+        
+        .rarity-dot.bronze { background: #CD7F32; }
+        .rarity-dot.silver { background: #C0C0C0; }
+        .rarity-dot.purple { background: #8A2BE2; }
+        .rarity-dot.gold { 
+            background: #FFD700;
+            box-shadow: 0 0 6px rgba(255, 215, 0, 0.8);
+            animation: goldDotPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes goldDotPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+        
+        .rarity-dot.darkred { 
+            background: linear-gradient(45deg, #8B0000, #DC143C, #FF4500);
+            background-size: 200% 200%;
+            animation: darkredDotShift 3s linear infinite;
+            box-shadow: 0 0 8px rgba(220, 20, 60, 1);
+        }
+        
+        @keyframes darkredDotShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
         
         /* Sticky Badge Modal Header */
         .badge-modal-content .badge-header {
@@ -2065,59 +2173,50 @@
             const badge = this.badges[badgeKey];
             if (!badge) return '';
             
-            const color = badge.color || '#738f75';
-            const isLegendary = badge.rarity === 'legendary';
-            const isMythic = badge.rarity === 'mythic';
+            const rarity = badge.rarity || 'bronze';
+            const tiers = {
+                bronze: { bg1: '#CD7F32', bg2: '#A0522D', border: '#8B4513', glow: 'rgba(205,127,50,0.4)' },
+                silver: { bg1: '#D3D3D3', bg2: '#A9A9A9', border: '#808080', glow: 'rgba(211,211,211,0.6)', shine: true },
+                purple: { bg1: '#9370DB', bg2: '#8A2BE2', border: '#4B0082', glow: 'rgba(147,112,219,0.8)', shine: true },
+                gold: { bg1: '#FFD700', bg2: '#FFA500', border: '#FF8C00', glow: 'rgba(255,215,0,1)', shine: true },
+                darkred: { bg1: '#DC143C', bg2: '#8B0000', border: '#660000', glow: 'rgba(220,20,60,1)', shine: true }
+            };
             
-            let gradient = '';
-            let filter = '';
+            const icons = {
+                first_10: '10', quarter_century: '25', half_century: '50', century: '100', double_century: '200', triple_century: '300',
+                daily_champ: '1👑', weekly_champ: '👑', podium: '🥉', top_10: '⭐',
+                perfect_day: '✓', perfect_week: '✓✓', perfect_month: '📅',
+                early_bird: '🌅', morning_master: 'AM', afternoon_regular: 'PM', afternoon_master: '☀️',
+                night_owl: '🌙', night_master: '🦉', triple_threat: '×3',
+                streak_5: '5🔥', streak_10: '10🔥', streak_20: '20🔥', streak_30: '30🔥',
+                newcomer: '🌱', regular: '💪', committed: '⚡', devoted: '🔱', legend: '⚔️', immortal: '💎',
+                marathon: '🏃', speed_demon: '⚡×3', first_blood: '#1'
+            };
             
-            if (isLegendary) {
-                gradient = `
-                    <defs>
-                        <linearGradient id="grad-${badgeKey}" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#ffd700;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#ffed4e;stop-opacity:1" />
-                        </linearGradient>
-                        <filter id="glow-${badgeKey}">
-                            <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
-                            <feMerge>
-                                <feMergeNode in="coloredBlur"/>
-                                <feMergeNode in="SourceGraphic"/>
-                            </feMerge>
-                        </filter>
-                    </defs>`;
-                filter = `filter="url(#glow-${badgeKey})"`;
-            } else if (isMythic) {
-                gradient = `
-                    <defs>
-                        <linearGradient id="grad-${badgeKey}" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#9c27b0;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#e91e63;stop-opacity:1" />
-                        </linearGradient>
-                        <filter id="glow-${badgeKey}">
-                            <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
-                            <feMerge>
-                                <feMergeNode in="coloredBlur"/>
-                                <feMergeNode in="SourceGraphic"/>
-                            </feMerge>
-                        </filter>
-                    </defs>`;
-                filter = `filter="url(#glow-${badgeKey})"`;
-            }
+            const tier = tiers[rarity];
+            const icon = icons[badgeKey] || '?';
+            const isEmoji = /[\u{1F300}-\u{1F9FF}]/u.test(icon);
+            const fontSize = icon.length > 3 ? '20' : icon.length === 3 ? '24' : '28';
             
-            const fillColor = (isLegendary || isMythic) ? `url(#grad-${badgeKey})` : color;
-            
-            return `
-                <svg width="${size}" height="${size}" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                    ${gradient}
-                    <circle cx="50" cy="50" r="45" fill="${fillColor}" opacity="0.2"/>
-                    <circle cx="50" cy="50" r="38" fill="${fillColor}" opacity="0.4"/>
-                    <circle cx="50" cy="50" r="30" fill="${fillColor}" ${filter}/>
-                    <path d="M 50 25 L 55 40 L 70 42 L 60 52 L 63 67 L 50 60 L 37 67 L 40 52 L 30 42 L 45 40 Z" 
-                          fill="white" opacity="0.9" transform="translate(0, 5)"/>
-                </svg>
-            `;
+            return `<svg width="${size}" height="${size}" viewBox="0 0 100 100">
+                <defs>
+                    <radialGradient id="bg-${badgeKey}">
+                        <stop offset="0%" stop-color="${tier.bg1}"/>
+                        <stop offset="100%" stop-color="${tier.bg2}"/>
+                    </radialGradient>
+                </defs>
+                ${rarity !== 'bronze' ? `<circle cx="50" cy="50" r="48" fill="${tier.glow}" opacity="0.15"/>` : ''}
+                ${rarity === 'purple' || rarity === 'gold' || rarity === 'darkred' ? `<circle cx="50" cy="50" r="45" fill="${tier.glow}" opacity="0.12"/>` : ''}
+                <circle cx="50" cy="50" r="40" fill="url(#bg-${badgeKey})" stroke="${tier.border}" stroke-width="3"/>
+                <circle cx="50" cy="50" r="37" fill="none" stroke="${tier.bg1}" stroke-width="1" opacity="0.5"/>
+                ${tier.shine ? `<ellipse cx="35" cy="35" rx="12" ry="18" fill="white" opacity="0.25" transform="rotate(-30 35 35)"/>` : ''}
+                <text x="50" y="${isEmoji ? '53' : '50'}" text-anchor="middle" dominant-baseline="central" 
+                      font-family="Arial,sans-serif" font-weight="bold" font-size="${fontSize}" 
+                      fill="white" stroke="${tier.border}" stroke-width="${isEmoji ? '0' : '0.5'}">
+                    ${icon}
+                </text>
+                <circle cx="50" cy="50" r="32" fill="none" stroke="${tier.border}" stroke-width="1.5" opacity="0.4"/>
+            </svg>`;
         },
         
         generateBadgeHTML(badgeKey, size = 20) {
@@ -3036,6 +3135,10 @@
             const isActive = activeIds.has(s.id);
             const points = s[pointsField] || 0;
             const badgesHtml = await getPlayerBadges(s.id);
+            const badgeCount = s.badges ? s.badges.length : 0;
+            const badgeDisplay = badgeCount > 0 
+                ? `<span style="color: #738f75; font-weight: 600; margin-right: 6px;">(${badgeCount})</span>${badgesHtml}`
+                : '';
             return `
                 <div class="leaderboard-item top3">
                     <div class="rank ${rankClass}">${idx + 1}</div>
@@ -3043,7 +3146,7 @@
                     <div class="player-info">
                         <div class="player-name">
                             ${s.name}
-                            <span class="player-badges">${badgesHtml}</span>
+                            <span class="player-badges">${badgeDisplay}</span>
                         </div>
                         <div class="player-points">${points.toFixed(2)} points</div>
                     </div>
@@ -3060,6 +3163,10 @@
                 const isActive = activeIds.has(s.id);
                 const points = s[pointsField] || 0;
                 const badgesHtml = await getPlayerBadges(s.id);
+                const badgeCount = s.badges ? s.badges.length : 0;
+                const badgeDisplay = badgeCount > 0 
+                    ? `<span style="color: #738f75; font-weight: 600; margin-right: 6px;">(${badgeCount})</span>${badgesHtml}`
+                    : '';
                 return `
                     <div class="leaderboard-item">
                         <div class="rank">${actualRank}</div>
@@ -3067,7 +3174,7 @@
                         <div class="player-info">
                             <div class="player-name">
                                 ${s.name}
-                                <span class="player-badges">${badgesHtml}</span>
+                                <span class="player-badges">${badgeDisplay}</span>
                             </div>
                             <div class="player-points">${points.toFixed(2)} points</div>
                         </div>
