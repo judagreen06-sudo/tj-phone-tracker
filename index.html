@@ -4275,6 +4275,13 @@
             document.getElementById('activeSession').classList.add('hidden');
             document.getElementById('noSession').classList.remove('hidden');
             
+            // Reset check-in button state
+            const checkinBtn = document.querySelector('#noSession .btn-primary');
+            if (checkinBtn) {
+                checkinBtn.disabled = false;
+                checkinBtn.textContent = 'Check In';
+            }
+            
             // Reload data to show updated points
             await loadStudentData();
             await loadLeaderboard();
@@ -4400,6 +4407,13 @@
         // Update UI immediately
         document.getElementById('activeSession').classList.add('hidden');
         document.getElementById('noSession').classList.remove('hidden');
+        
+        // Reset check-in button state
+        const checkinBtn = document.querySelector('#noSession .btn-primary');
+        if (checkinBtn) {
+            checkinBtn.disabled = false;
+            checkinBtn.textContent = 'Check In';
+        }
         
         // Reload data to show new points
         await loadStudentData();
