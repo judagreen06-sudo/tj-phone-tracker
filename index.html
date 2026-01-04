@@ -4130,9 +4130,7 @@
             if (existingSession) {
                 console.log('⚠️ Already checked in');
                 vibrate(50);
-                const errorMsg = 'You are already checked in!';
-                msg(errorMsg, 'warning');
-                alert(errorMsg);
+                msg('You are already checked in!', 'warning');
                 checkinBtn.disabled = false;
                 checkinBtn.textContent = 'Check In';
                 return;
@@ -4144,46 +4142,14 @@
             
             if (!status.inSeder) {
                 vibrate(50);
-                const errorMsg = status.message || 'You can only check in during seder times';
-                msg(errorMsg, 'warning');
-                alert('❌ ' + errorMsg + '\n\nCurrent Jerusalem time: ' + getJerusalemTime().toLocaleTimeString());
+                msg(status.message || 'You can only check in during seder times', 'warning');
                 checkinBtn.disabled = false;
                 checkinBtn.textContent = 'Check In';
                 return;
             }
             
-            // ============================================
-            // NEW: Check if already checked in for this seder today
-            // ============================================
-            console.log('🔵 Checking if already checked in for this seder today...');
-            const today = getJerusalemTime();
-            const todayStart = new Date(today);
-            todayStart.setHours(0, 0, 0, 0);
-            const todayEnd = new Date(today);
-            todayEnd.setHours(23, 59, 59, 999);
-            
-            const { data: todaySessions, error: checkError } = await sb.from('sessions')
-                .select('*')
-                .eq('student_id', user.id)
-                .eq('seder_type', status.key)
-                .gte('check_in_time', todayStart.toISOString())
-                .lte('check_in_time', todayEnd.toISOString());
-            
-            if (checkError) {
-                console.error('❌ Error checking existing sessions:', checkError);
-            }
-            
-            if (todaySessions && todaySessions.length > 0) {
-                console.log('⚠️ Already checked in for this seder today');
-                vibrate(50);
-                const errorMsg = `You already checked in for ${status.key} seder today! You can only check in once per seder per day.`;
-                msg(errorMsg, 'warning');
-                alert(errorMsg);
-                checkinBtn.disabled = false;
-                checkinBtn.textContent = 'Check In';
-                return;
-            }
-            // ============================================
+            // REMOVED: No longer checking if already checked in for this seder today
+            // Users can check in multiple times as long as they check out between sessions
             
             console.log('🔵 Creating new session...');
             vibrate([30, 20, 30]);
@@ -4200,9 +4166,7 @@
             if (error) {
                 console.error('❌ Check-in error:', error);
                 vibrate(50);
-                const errorMsg = 'Check-in failed: ' + error.message;
-                msg(errorMsg, 'error');
-                alert('❌ DATABASE ERROR:\n\n' + JSON.stringify(error, null, 2));
+                msg('Check-in failed: ' + error.message, 'error');
                 checkinBtn.disabled = false;
                 checkinBtn.textContent = 'Check In';
                 return;
@@ -4213,14 +4177,11 @@
             currentSeder = status.current;
             startTimer();
             msg('Checked in successfully!', 'success');
-            alert('✅ Successfully checked in!');
             
         } catch (err) {
             console.error('❌ Unexpected error in checkin:', err);
             vibrate(50);
-            const errorMsg = 'An unexpected error occurred: ' + err.message;
-            msg(errorMsg, 'error');
-            alert('❌ JAVASCRIPT ERROR:\n\n' + err.message + '\n\n' + err.stack);
+            msg('An unexpected error occurred: ' + err.message, 'error');
             checkinBtn.disabled = false;
             checkinBtn.textContent = 'Check In';
         }
