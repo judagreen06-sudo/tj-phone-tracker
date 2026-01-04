@@ -4738,13 +4738,12 @@
         // Set user info
         const initials = user.name.split(' ').map(n => n.charAt(0).toUpperCase()).join('').slice(0, 2);
         document.getElementById('userName').textContent = user.name;
-        document.getElementById('userAvatar').textContent = initials;
         document.getElementById('userInitials').textContent = initials;
         
         // Set menu user info
-        document.getElementById('menuAvatar').textContent = initials;
-        document.getElementById('menuUserName').textContent = user.name;
-        document.getElementById('menuUserEmail').textContent = user.email || '';
+        document.getElementById('menuAvatarLarge').textContent = initials;
+        document.getElementById('menuUserNameLarge').textContent = user.name;
+        document.getElementById('menuUserEmailLarge').textContent = user.email || '';
         
         // Load badges
         await BADGE_SYSTEM.loadUserBadges(user.id);
