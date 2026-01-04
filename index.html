@@ -314,111 +314,212 @@
         .avatar:hover {
             transform: scale(1.1) rotate(5deg);
         }
-        /* Clean Green Square Icon Buttons */
-        .icon-btn {
-            background: #738f75;
-            border: none;
+        /* Premium Profile Button */
+        .profile-button {
             width: 48px;
             height: 48px;
-            border-radius: 12px;
+            border-radius: 50%;
+            background: #738f75;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: all 0.2s;
-            color: white;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(115, 143, 117, 0.2);
         }
         
-        .icon-btn:hover {
-            background: #5a7a5c;
-            transform: translateY(-2px);
+        .profile-button:hover {
+            transform: scale(1.05);
             box-shadow: 0 4px 12px rgba(115, 143, 117, 0.3);
         }
         
-        .icon-btn:active {
-            transform: translateY(0);
+        .profile-button:active {
+            transform: scale(0.95);
         }
         
-        /* User Profile Section */
-        .user-profile {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 6px 12px 6px 6px;
-            border-radius: 24px;
-            background: rgba(115, 143, 117, 0.1);
-            cursor: pointer;
-            transition: all 0.2s;
+        .profile-initials {
+            color: white;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
         }
         
-        .user-profile:hover {
-            background: rgba(115, 143, 117, 0.15);
-        }
-        
-        .user-info {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .user-name {
-            font-size: 14px;
-            font-weight: 600;
-            color: #1c1c1e;
-        }
-        
-        /* Profile Menu Dropdown */
-        .profile-menu {
-            position: absolute;
-            top: 70px;
-            right: 20px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-            min-width: 220px;
+        /* Premium Menu Overlay */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
             z-index: 1000;
-            padding: 8px;
+            display: flex;
+            justify-content: flex-end;
             opacity: 1;
-            transform: translateY(0);
-            transition: all 0.2s;
+            transition: opacity 0.3s;
         }
         
-        .profile-menu.hidden {
+        .menu-overlay.hidden {
             opacity: 0;
-            transform: translateY(-10px);
             pointer-events: none;
         }
         
-        .profile-menu-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s;
-            color: #1c1c1e;
+        .menu-panel {
+            background: white;
+            width: 100%;
+            max-width: 400px;
+            height: 100vh;
+            overflow-y: auto;
+            transform: translateX(0);
+            transition: transform 0.3s;
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
         }
         
-        .profile-menu-item:hover {
+        .menu-overlay.hidden .menu-panel {
+            transform: translateX(100%);
+        }
+        
+        /* Menu Header */
+        .menu-header {
+            padding: 24px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        
+        .menu-profile {
+            display: flex;
+            gap: 16px;
+            flex: 1;
+        }
+        
+        .menu-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #738f75;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        
+        .menu-user-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .menu-user-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1c1c1e;
+            margin-bottom: 4px;
+        }
+        
+        .menu-user-email {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .menu-close {
+            background: transparent;
+            border: none;
+            font-size: 28px;
+            color: #999;
+            cursor: pointer;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        
+        .menu-close:hover {
+            color: #1c1c1e;
+            transform: scale(1.1);
+        }
+        
+        /* Menu Items */
+        .menu-items {
+            padding: 8px 0;
+        }
+        
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 24px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .menu-item:hover {
             background: #f5f5f5;
         }
         
-        .profile-menu-item svg {
+        .menu-item:active {
+            background: #e8e8e8;
+        }
+        
+        .menu-item-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(115, 143, 117, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: #738f75;
+            flex-shrink: 0;
         }
         
-        .profile-menu-item.danger {
+        .menu-item-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+        
+        .menu-item.danger .menu-item-icon {
+            background: rgba(255, 59, 48, 0.1);
             color: #ff3b30;
         }
         
-        .profile-menu-item.danger svg {
+        .menu-item-content {
+            flex: 1;
+        }
+        
+        .menu-item-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1c1c1e;
+            margin-bottom: 2px;
+        }
+        
+        .menu-item.danger .menu-item-title {
             color: #ff3b30;
         }
         
-        .profile-menu-divider {
+        .menu-item-subtitle {
+            font-size: 13px;
+            color: #666;
+        }
+        
+        .menu-divider {
             height: 1px;
-            background: #e0e0e0;
-            margin: 8px 0;
+            background: #f0f0f0;
+            margin: 8px 24px;
+        }
+        
+        @media (max-width: 768px) {
+            .menu-panel {
+                max-width: 100%;
+            }
         }
         
         /* Stats Modal */
@@ -2078,52 +2179,107 @@
     <div id="studentScreen">
         <div class="top-bar">
             <div class="app-name">TJ</div>
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <button class="icon-btn" onclick="showBadgeCollection()" title="My Badges">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
-                        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
-                    </svg>
-                </button>
-                <button class="icon-btn" onclick="showAbout()" title="About">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
-                        <circle cx="12" cy="12" r="10"/>
-                        <line x1="12" y1="16" x2="12" y2="12"/>
-                        <line x1="12" y1="8" x2="12.01" y2="8"/>
-                    </svg>
-                </button>
-                <div class="user-profile" onclick="toggleProfileMenu()">
-                    <div class="avatar" id="userAvatar"></div>
-                    <div class="user-info">
-                        <div class="user-name" id="userName"></div>
-                    </div>
-                </div>
+            <div class="profile-button" onclick="toggleMenu()">
+                <div class="profile-initials" id="userInitials">U</div>
             </div>
         </div>
         
-        <!-- Profile Menu Dropdown -->
-        <div id="profileMenu" class="profile-menu hidden">
-            <div class="profile-menu-item" onclick="showStats()">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M3 3v18h18"/>
-                    <path d="M18 17V9M13 17V5M8 17v-3"/>
-                </svg>
-                <span>My Stats</span>
-            </div>
-            <div class="profile-menu-item" onclick="showSettings()">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="3"/>
-                    <path d="M12 1v6m0 6v6M4.22 4.22l4.24 4.24m5.66 5.66l4.24 4.24M1 12h6m6 0h6M4.22 19.78l4.24-4.24m5.66-5.66l4.24-4.24"/>
-                </svg>
-                <span>Settings</span>
-            </div>
-            <div class="profile-menu-divider"></div>
-            <div class="profile-menu-item danger" onclick="logout()">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-                    <polyline points="16 17 21 12 16 7"/>
-                    <line x1="21" y1="12" x2="9" y2="12"/>
-                </svg>
-                <span>Logout</span>
+        <!-- Premium Menu Overlay -->
+        <div id="menuOverlay" class="menu-overlay hidden" onclick="closeMenu()">
+            <div class="menu-panel" onclick="event.stopPropagation()">
+                <div class="menu-header">
+                    <div class="menu-profile">
+                        <div class="menu-avatar" id="menuAvatar">U</div>
+                        <div class="menu-user-info">
+                            <div class="menu-user-name" id="menuUserName">User</div>
+                            <div class="menu-user-email" id="menuUserEmail">user@example.com</div>
+                        </div>
+                    </div>
+                    <button class="menu-close" onclick="closeMenu()">✕</button>
+                </div>
+                
+                <div class="menu-items">
+                    <div class="menu-item" onclick="openMyBadges()">
+                        <div class="menu-item-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+                            </svg>
+                        </div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-title">My Badges</div>
+                            <div class="menu-item-subtitle">View and manage your badges</div>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item" onclick="openMyStats()">
+                        <div class="menu-item-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 3v18h18"/>
+                                <path d="M18 17V9M13 17V5M8 17v-3"/>
+                            </svg>
+                        </div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-title">My Stats</div>
+                            <div class="menu-item-subtitle">Track your progress</div>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item" onclick="openSettings()">
+                        <div class="menu-item-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="3"/>
+                                <path d="M12 1v6m0 6v6M4.22 4.22l4.24 4.24m5.66 5.66l4.24 4.24M1 12h6m6 0h6M4.22 19.78l4.24-4.24m5.66-5.66l4.24-4.24"/>
+                            </svg>
+                        </div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-title">Settings</div>
+                            <div class="menu-item-subtitle">Account & preferences</div>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item" onclick="openHowToUse()">
+                        <div class="menu-item-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                                <path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
+                            </svg>
+                        </div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-title">How to Use</div>
+                            <div class="menu-item-subtitle">Learn the basics</div>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item" onclick="openInfo()">
+                        <div class="menu-item-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <line x1="12" y1="16" x2="12" y2="12"/>
+                                <line x1="12" y1="8" x2="12.01" y2="8"/>
+                            </svg>
+                        </div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-title">About</div>
+                            <div class="menu-item-subtitle">App information</div>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-divider"></div>
+                    
+                    <div class="menu-item danger" onclick="logout()">
+                        <div class="menu-item-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                                <polyline points="16 17 21 12 16 7"/>
+                                <line x1="21" y1="12" x2="9" y2="12"/>
+                            </svg>
+                        </div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-title">Logout</div>
+                            <div class="menu-item-subtitle">Sign out of your account</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         
@@ -3751,21 +3907,46 @@
         document.getElementById('aboutModal').classList.add('hidden');
     }
     
-    // Profile Menu Functions
-    function toggleProfileMenu() {
+    // Premium Menu Functions
+    function toggleMenu() {
         vibrate(20);
-        const menu = document.getElementById('profileMenu');
+        const menu = document.getElementById('menuOverlay');
         menu.classList.toggle('hidden');
     }
     
-    function closeProfileMenu() {
-        document.getElementById('profileMenu').classList.add('hidden');
+    function closeMenu() {
+        vibrate(20);
+        document.getElementById('menuOverlay').classList.add('hidden');
+    }
+    
+    function openMyBadges() {
+        closeMenu();
+        showBadgeCollection();
+    }
+    
+    function openMyStats() {
+        closeMenu();
+        showStats();
+    }
+    
+    function openSettings() {
+        closeMenu();
+        showSettings();
+    }
+    
+    function openHowToUse() {
+        closeMenu();
+        showHowToUse();
+    }
+    
+    function openInfo() {
+        closeMenu();
+        showAbout();
     }
     
     // Stats Modal Functions
     async function showStats() {
         vibrate(20);
-        closeProfileMenu();
         
         // Get session counts
         const { data: sessionCounts } = await sb.rpc('get_session_counts', { user_id: user.id });
@@ -3836,7 +4017,6 @@
     // Settings Modal Functions
     function showSettings() {
         vibrate(20);
-        closeProfileMenu();
         
         // Update email display
         document.getElementById('userEmail').textContent = user.email || '-';
@@ -3847,6 +4027,12 @@
     function hideSettings() {
         vibrate(20);
         document.getElementById('settingsModal').classList.add('hidden');
+    }
+    
+    function showHowToUse() {
+        vibrate(20);
+        // Reuse About modal for How To Use
+        document.getElementById('aboutModal').classList.remove('hidden');
     }
     
     function showChangePassword() {
@@ -3860,8 +4046,6 @@
             location.reload();
         }
     }
-    
-    // Close menus when clicking outside
     document.addEventListener('click', (e) => {
         if (!e.target.closest('.user-profile') && !e.target.closest('.profile-menu')) {
             closeProfileMenu();
@@ -3875,8 +4059,15 @@
         document.getElementById('studentScreen').style.display = 'block';
         
         // Set user info
+        const initials = user.name.split(' ').map(n => n.charAt(0).toUpperCase()).join('').slice(0, 2);
         document.getElementById('userName').textContent = user.name;
-        document.getElementById('userAvatar').textContent = user.name.charAt(0).toUpperCase();
+        document.getElementById('userAvatar').textContent = initials;
+        document.getElementById('userInitials').textContent = initials;
+        
+        // Set menu user info
+        document.getElementById('menuAvatar').textContent = initials;
+        document.getElementById('menuUserName').textContent = user.name;
+        document.getElementById('menuUserEmail').textContent = user.email || '';
         
         // Load badges
         await BADGE_SYSTEM.loadUserBadges(user.id);
