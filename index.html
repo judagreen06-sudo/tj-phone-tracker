@@ -4111,87 +4111,119 @@
 
     // ===== CHECK IN/OUT =====
     async function checkin() {
+        console.log('🔵 Check-in function called');
+        
         // Disable button to prevent double-click
         const checkinBtn = event.target;
         checkinBtn.disabled = true;
         checkinBtn.textContent = 'Checking in...';
         
-        // Check if already checked in (active session)
-        const { data: existingSession } = await sb.from('sessions')
-            .select('*')
-            .eq('student_id', user.id)
-            .is('check_out_time', null)
-            .single();
-        
-        if (existingSession) {
+        try {
+            // Check if already checked in (active session)
+            console.log('🔵 Checking for existing session...');
+            const { data: existingSession } = await sb.from('sessions')
+                .select('*')
+                .eq('student_id', user.id)
+                .is('check_out_time', null)
+                .single();
+            
+            if (existingSession) {
+                console.log('⚠️ Already checked in');
+                vibrate(50);
+                const errorMsg = 'You are already checked in!';
+                msg(errorMsg, 'warning');
+                alert(errorMsg);
+                checkinBtn.disabled = false;
+                checkinBtn.textContent = 'Check In';
+                return;
+            }
+            
+            console.log('🔵 Checking seder time...');
+            const status = isInSederTime();
+            console.log('🔵 Seder status:', status);
+            
+            if (!status.inSeder) {
+                vibrate(50);
+                const errorMsg = status.message || 'You can only check in during seder times';
+                msg(errorMsg, 'warning');
+                alert('❌ ' + errorMsg + '\n\nCurrent Jerusalem time: ' + getJerusalemTime().toLocaleTimeString());
+                checkinBtn.disabled = false;
+                checkinBtn.textContent = 'Check In';
+                return;
+            }
+            
+            // ============================================
+            // NEW: Check if already checked in for this seder today
+            // ============================================
+            console.log('🔵 Checking if already checked in for this seder today...');
+            const today = getJerusalemTime();
+            const todayStart = new Date(today);
+            todayStart.setHours(0, 0, 0, 0);
+            const todayEnd = new Date(today);
+            todayEnd.setHours(23, 59, 59, 999);
+            
+            const { data: todaySessions, error: checkError } = await sb.from('sessions')
+                .select('*')
+                .eq('student_id', user.id)
+                .eq('seder_type', status.key)
+                .gte('check_in_time', todayStart.toISOString())
+                .lte('check_in_time', todayEnd.toISOString());
+            
+            if (checkError) {
+                console.error('❌ Error checking existing sessions:', checkError);
+            }
+            
+            if (todaySessions && todaySessions.length > 0) {
+                console.log('⚠️ Already checked in for this seder today');
+                vibrate(50);
+                const errorMsg = `You already checked in for ${status.key} seder today! You can only check in once per seder per day.`;
+                msg(errorMsg, 'warning');
+                alert(errorMsg);
+                checkinBtn.disabled = false;
+                checkinBtn.textContent = 'Check In';
+                return;
+            }
+            // ============================================
+            
+            console.log('🔵 Creating new session...');
+            vibrate([30, 20, 30]);
+            
+            const { data, error } = await sb.from('sessions')
+                .insert([{ 
+                    student_id: user.id,
+                    check_in_time: getJerusalemTime().toISOString(),
+                    seder_type: status.key
+                }])
+                .select()
+                .single();
+            
+            if (error) {
+                console.error('❌ Check-in error:', error);
+                vibrate(50);
+                const errorMsg = 'Check-in failed: ' + error.message;
+                msg(errorMsg, 'error');
+                alert('❌ DATABASE ERROR:\n\n' + JSON.stringify(error, null, 2));
+                checkinBtn.disabled = false;
+                checkinBtn.textContent = 'Check In';
+                return;
+            }
+            
+            console.log('✅ Check-in successful!', data);
+            session = data;
+            currentSeder = status.current;
+            startTimer();
+            msg('Checked in successfully!', 'success');
+            alert('✅ Successfully checked in!');
+            
+        } catch (err) {
+            console.error('❌ Unexpected error in checkin:', err);
             vibrate(50);
-            msg('You are already checked in!', 'warning');
+            const errorMsg = 'An unexpected error occurred: ' + err.message;
+            msg(errorMsg, 'error');
+            alert('❌ JAVASCRIPT ERROR:\n\n' + err.message + '\n\n' + err.stack);
             checkinBtn.disabled = false;
             checkinBtn.textContent = 'Check In';
-            return;
         }
-        
-        const status = isInSederTime();
-        if (!status.inSeder) {
-            vibrate(50);
-            msg(status.message || 'You can only check in during seder times', 'warning');
-            checkinBtn.disabled = false;
-            checkinBtn.textContent = 'Check In';
-            return;
-        }
-        
-        // ============================================
-        // NEW: Check if already checked in for this seder today
-        // ============================================
-        const today = getJerusalemTime();
-        const todayStart = new Date(today);
-        todayStart.setHours(0, 0, 0, 0);
-        const todayEnd = new Date(today);
-        todayEnd.setHours(23, 59, 59, 999);
-        
-        const { data: todaySessions, error: checkError } = await sb.from('sessions')
-            .select('*')
-            .eq('student_id', user.id)
-            .eq('seder_type', status.key)
-            .gte('check_in_time', todayStart.toISOString())
-            .lte('check_in_time', todayEnd.toISOString());
-        
-        if (checkError) {
-            console.error('Error checking existing sessions:', checkError);
-        }
-        
-        if (todaySessions && todaySessions.length > 0) {
-            vibrate(50);
-            msg(`You already checked in for ${status.key} seder today! You can only check in once per seder per day.`, 'warning');
-            checkinBtn.disabled = false;
-            checkinBtn.textContent = 'Check In';
-            return;
-        }
-        // ============================================
-        
-        vibrate([30, 20, 30]);
-        
-        const { data, error } = await sb.from('sessions')
-            .insert([{ 
-                student_id: user.id,
-                check_in_time: getJerusalemTime().toISOString(),
-                seder_type: status.key
-            }])
-            .select()
-            .single();
-        
-        if (error) {
-            vibrate(50);
-            msg('Check-in failed. Please try again.', 'error');
-            checkinBtn.disabled = false;
-            checkinBtn.textContent = 'Check In';
-            return;
-        }
-        
-        session = data;
-        currentSeder = status.current;
-        startTimer();
-        msg('Checked in successfully!', 'success');
     }
 
     function startTimer() {
