@@ -40,10 +40,6 @@
             background: #e5e5e5;
         }
         
-        #authScreen.hidden {
-            display: none !important;
-        }
-        
         .auth-container {
             max-width: 400px;
             width: 100%;
@@ -348,268 +344,181 @@
             letter-spacing: 0.5px;
         }
         
-        /* Full-Page Navigation */
-        .full-page {
+        /* Premium Menu Overlay */
+        .menu-overlay {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: white;
+            background: rgba(0, 0, 0, 0.5);
             z-index: 1000;
             display: flex;
-            flex-direction: column;
-            transform: translateX(100%);
-            transition: transform 0.3s ease;
+            justify-content: flex-end;
+            opacity: 1;
+            transition: opacity 0.3s;
         }
         
-        .full-page.active {
-            transform: translateX(0);
-        }
-        
-        .full-page.hidden {
-            transform: translateX(100%);
+        .menu-overlay.hidden {
+            opacity: 0;
             pointer-events: none;
         }
         
-        .page-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px 20px;
-            border-bottom: 1px solid #f0f0f0;
+        .menu-panel {
             background: white;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
-        
-        .page-header h1 {
-            font-size: 20px;
-            font-weight: 700;
-            color: #1c1c1e;
-            margin: 0;
-            flex: 1;
-            text-align: center;
-        }
-        
-        .back-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: transparent;
-            border: none;
-            font-size: 24px;
-            color: #738f75;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-        }
-        
-        .back-btn:hover {
-            background: rgba(115, 143, 117, 0.1);
-        }
-        
-        .page-content {
-            flex: 1;
+            width: 100%;
+            max-width: 400px;
+            height: 100vh;
             overflow-y: auto;
-            padding: 0;
-            background: #f5f5f5;
+            transform: translateX(0);
+            transition: transform 0.3s;
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
         }
         
-        /* Menu Page Styles */
-        .menu-profile-card {
-            text-align: center;
-            padding: 32px 20px;
-            margin-bottom: 24px;
+        .menu-overlay.hidden .menu-panel {
+            transform: translateX(100%);
         }
         
-        .menu-avatar-large {
-            width: 80px;
-            height: 80px;
+        /* Menu Header */
+        .menu-header {
+            padding: 24px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        
+        .menu-profile {
+            display: flex;
+            gap: 16px;
+            flex: 1;
+        }
+        
+        .menu-avatar {
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             background: #738f75;
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 32px;
+            font-size: 24px;
             font-weight: 700;
-            margin: 0 auto 16px;
+            flex-shrink: 0;
         }
         
-        .menu-user-name-large {
-            font-size: 24px;
+        .menu-user-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .menu-user-name {
+            font-size: 20px;
             font-weight: 700;
             color: #1c1c1e;
             margin-bottom: 4px;
         }
         
-        .menu-user-email-large {
+        .menu-user-email {
             font-size: 14px;
             color: #666;
         }
         
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
+        .menu-close {
+            background: transparent;
+            border: none;
+            font-size: 28px;
+            color: #999;
+            cursor: pointer;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
         }
         
-        .menu-card {
-            background: white;
-            border: 2px solid #f0f0f0;
-            border-radius: 16px;
-            padding: 24px;
-            text-align: center;
+        .menu-close:hover {
+            color: #1c1c1e;
+            transform: scale(1.1);
+        }
+        
+        /* Menu Items */
+        .menu-items {
+            padding: 8px 0;
+        }
+        
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 24px;
             cursor: pointer;
             transition: all 0.2s;
         }
         
-        .menu-card:hover {
-            border-color: #738f75;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(115, 143, 117, 0.15);
+        .menu-item:hover {
+            background: #f5f5f5;
         }
         
-        .menu-card.danger {
-            border-color: #ffebee;
+        .menu-item:active {
+            background: #e8e8e8;
         }
         
-        .menu-card.danger:hover {
-            border-color: #ff3b30;
-        }
-        
-        .menu-card-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 16px;
+        .menu-item-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
             background: rgba(115, 143, 117, 0.1);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 16px;
             color: #738f75;
+            flex-shrink: 0;
         }
         
-        .menu-card.danger .menu-card-icon {
+        .menu-item-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+        
+        .menu-item.danger .menu-item-icon {
             background: rgba(255, 59, 48, 0.1);
             color: #ff3b30;
         }
         
-        .menu-card-icon svg {
-            width: 30px;
-            height: 30px;
-        }
-        
-        .menu-card-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #1c1c1e;
-        }
-        
-        .menu-card.danger .menu-card-title {
-            color: #ff3b30;
-        }
-        
-        /* How To Use Page Styles */
-        .how-to-item {
-            display: flex;
-            gap: 16px;
-            margin-bottom: 20px;
-        }
-        
-        .how-to-number {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: #738f75;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            font-weight: 700;
-            flex-shrink: 0;
-        }
-        
-        .how-to-content {
+        .menu-item-content {
             flex: 1;
         }
         
-        .how-to-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #1c1c1e;
-            margin-bottom: 4px;
-        }
-        
-        .how-to-text {
-            font-size: 14px;
-            color: #666;
-            line-height: 1.5;
-        }
-        
-        .seder-time-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        
-        .seder-time-item {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            padding: 16px;
-            background: white;
-            border: 2px solid #f0f0f0;
-            border-radius: 12px;
-        }
-        
-        .seder-time-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            flex-shrink: 0;
-        }
-        
-        .seder-time-icon.morning {
-            background: rgba(255, 152, 0, 0.1);
-        }
-        
-        .seder-time-icon.afternoon {
-            background: rgba(255, 193, 7, 0.1);
-        }
-        
-        .seder-time-icon.night {
-            background: rgba(92, 107, 192, 0.1);
-        }
-        
-        .seder-time-info {
-            flex: 1;
-        }
-        
-        .seder-time-name {
+        .menu-item-title {
             font-size: 16px;
             font-weight: 600;
             color: #1c1c1e;
             margin-bottom: 2px;
         }
         
-        .seder-time-hours {
-            font-size: 14px;
+        .menu-item.danger .menu-item-title {
+            color: #ff3b30;
+        }
+        
+        .menu-item-subtitle {
+            font-size: 13px;
             color: #666;
         }
         
+        .menu-divider {
+            height: 1px;
+            background: #f0f0f0;
+            margin: 8px 24px;
+        }
+        
         @media (max-width: 768px) {
-            .menu-grid {
-                grid-template-columns: 1fr;
+            .menu-panel {
+                max-width: 100%;
             }
         }
         
@@ -2275,6 +2184,104 @@
             </div>
         </div>
         
+        <!-- Premium Menu Overlay -->
+        <div id="menuOverlay" class="menu-overlay hidden" onclick="closeMenu()">
+            <div class="menu-panel" onclick="event.stopPropagation()">
+                <div class="menu-header">
+                    <div class="menu-profile">
+                        <div class="menu-avatar" id="menuAvatar">U</div>
+                        <div class="menu-user-info">
+                            <div class="menu-user-name" id="menuUserName">User</div>
+                            <div class="menu-user-email" id="menuUserEmail">user@example.com</div>
+                        </div>
+                    </div>
+                    <button class="menu-close" onclick="closeMenu()">✕</button>
+                </div>
+                
+                <div class="menu-items">
+                    <div class="menu-item" onclick="openMyBadges()">
+                        <div class="menu-item-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+                            </svg>
+                        </div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-title">My Badges</div>
+                            <div class="menu-item-subtitle">View and manage your badges</div>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item" onclick="openMyStats()">
+                        <div class="menu-item-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 3v18h18"/>
+                                <path d="M18 17V9M13 17V5M8 17v-3"/>
+                            </svg>
+                        </div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-title">My Stats</div>
+                            <div class="menu-item-subtitle">Track your progress</div>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item" onclick="openSettings()">
+                        <div class="menu-item-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="3"/>
+                                <path d="M12 1v6m0 6v6M4.22 4.22l4.24 4.24m5.66 5.66l4.24 4.24M1 12h6m6 0h6M4.22 19.78l4.24-4.24m5.66-5.66l4.24-4.24"/>
+                            </svg>
+                        </div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-title">Settings</div>
+                            <div class="menu-item-subtitle">Account & preferences</div>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item" onclick="openHowToUse()">
+                        <div class="menu-item-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                                <path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
+                            </svg>
+                        </div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-title">How to Use</div>
+                            <div class="menu-item-subtitle">Learn the basics</div>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item" onclick="openInfo()">
+                        <div class="menu-item-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <line x1="12" y1="16" x2="12" y2="12"/>
+                                <line x1="12" y1="8" x2="12.01" y2="8"/>
+                            </svg>
+                        </div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-title">About</div>
+                            <div class="menu-item-subtitle">App information</div>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-divider"></div>
+                    
+                    <div class="menu-item danger" onclick="logout()">
+                        <div class="menu-item-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                                <polyline points="16 17 21 12 16 7"/>
+                                <line x1="21" y1="12" x2="9" y2="12"/>
+                            </svg>
+                        </div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-title">Logout</div>
+                            <div class="menu-item-subtitle">Sign out of your account</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         
         <!-- About Modal -->
         <div id="aboutModal" class="modal-overlay hidden" onclick="hideAbout()">
@@ -2407,144 +2414,13 @@
             <button class="badge-unlock-close" onclick="closeBadgeNotification()">Awesome!</button>
         </div>
         
-        <!-- Menu Page -->
-        <div id="menuPage" class="full-page hidden">
-            <div class="page-header">
-                <button class="back-btn" onclick="closeMenuPage()">←</button>
-                <h1>Menu</h1>
-                <div style="width: 40px;"></div>
-            </div>
-            
-            <div class="page-content">
-                <div style="padding: 20px; max-width: 480px; margin: 0 auto;">
-                    <div class="menu-profile-card">
-                    <div class="menu-avatar-large" id="menuAvatarLarge">U</div>
-                    <div class="menu-user-name-large" id="menuUserNameLarge">User</div>
-                    <div class="menu-user-email-large" id="menuUserEmailLarge">user@example.com</div>
+        <!-- Stats Modal -->
+        <div id="statsModal" class="modal-overlay hidden" onclick="hideStats()">
+            <div class="stats-modal-content" onclick="event.stopPropagation()">
+                <div class="modal-header">
+                    <h2>My Stats</h2>
+                    <button class="close-btn" onclick="hideStats()">✕</button>
                 </div>
-                
-                <div class="menu-grid">
-                    <div class="menu-card" onclick="navigateToPage('badgesPage')">
-                        <div class="menu-card-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
-                            </svg>
-                        </div>
-                        <div class="menu-card-title">My Badges</div>
-                    </div>
-                    
-                    <div class="menu-card" onclick="navigateToPage('statsPage')">
-                        <div class="menu-card-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M3 3v18h18"/>
-                                <path d="M18 17V9M13 17V5M8 17v-3"/>
-                            </svg>
-                        </div>
-                        <div class="menu-card-title">My Stats</div>
-                    </div>
-                    
-                    <div class="menu-card" onclick="navigateToPage('settingsPage')">
-                        <div class="menu-card-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="3"/>
-                                <path d="M12 1v6m0 6v6M4.22 4.22l4.24 4.24m5.66 5.66l4.24 4.24M1 12h6m6 0h6M4.22 19.78l4.24-4.24m5.66-5.66l4.24-4.24"/>
-                            </svg>
-                        </div>
-                        <div class="menu-card-title">Settings</div>
-                    </div>
-                    
-                    <div class="menu-card" onclick="navigateToPage('howToUsePage')">
-                        <div class="menu-card-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"/>
-                                <line x1="12" y1="16" x2="12" y2="12"/>
-                                <line x1="12" y1="8" x2="12.01" y2="8"/>
-                            </svg>
-                        </div>
-                        <div class="menu-card-title">How to Use</div>
-                    </div>
-                    
-                    <div class="menu-card" onclick="navigateToPage('aboutPage')">
-                        <div class="menu-card-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"/>
-                                <line x1="12" y1="16" x2="12" y2="12"/>
-                                <line x1="12" y1="8" x2="12.01" y2="8"/>
-                            </svg>
-                        </div>
-                        <div class="menu-card-title">About</div>
-                    </div>
-                    
-                    <div class="menu-card danger" onclick="logout()">
-                        <div class="menu-card-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-                                <polyline points="16 17 21 12 16 7"/>
-                                <line x1="21" y1="12" x2="9" y2="12"/>
-                            </svg>
-                        </div>
-                        <div class="menu-card-title">Logout</div>
-                    </div>
-                </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Badges Page -->
-        <div id="badgesPage" class="full-page hidden">
-            <div class="page-header">
-                <button class="back-btn" onclick="goBack()">←</button>
-                <h1>My Badges</h1>
-                <div style="width: 40px;"></div>
-            </div>
-            <div class="page-content">
-                <div id="badgePageContent"></div>
-            </div>
-        </div>
-        
-        <!-- Stats Page -->
-        <div id="statsPage" class="full-page hidden">
-            <div class="page-header">
-                <button class="back-btn" onclick="goBack()">←</button>
-                <h1>My Stats</h1>
-                <div style="width: 40px;"></div>
-            </div>
-            <div class="page-content" id="statsPageContent">
-            </div>
-        </div>
-        
-        <!-- Settings Page -->
-        <div id="settingsPage" class="full-page hidden">
-            <div class="page-header">
-                <button class="back-btn" onclick="goBack()">←</button>
-                <h1>Settings</h1>
-                <div style="width: 40px;"></div>
-            </div>
-            <div class="page-content" id="settingsPageContent">
-            </div>
-        </div>
-        
-        <!-- How To Use Page -->
-        <div id="howToUsePage" class="full-page hidden">
-            <div class="page-header">
-                <button class="back-btn" onclick="goBack()">←</button>
-                <h1>How to Use</h1>
-                <div style="width: 40px;"></div>
-            </div>
-            <div class="page-content" id="howToUsePageContent">
-            </div>
-        </div>
-        
-        <!-- About Page -->
-        <div id="aboutPage" class="full-page hidden">
-            <div class="page-header">
-                <button class="back-btn" onclick="goBack()">←</button>
-                <h1>About</h1>
-                <div style="width: 40px;"></div>
-            </div>
-            <div class="page-content" id="aboutPageContent">
-            </div>
-        </div>
                 
                 <div class="modal-body">
                 <div class="stats-grid">
@@ -4031,602 +3907,45 @@
         document.getElementById('aboutModal').classList.add('hidden');
     }
     
-    // Page Navigation
-    let pageHistory = [];
-    let currentPage = null;
-    
+    // Premium Menu Functions
     function toggleMenu() {
         vibrate(20);
-        navigateToPage('menuPage');
+        const menu = document.getElementById('menuOverlay');
+        menu.classList.toggle('hidden');
     }
     
-    function navigateToPage(pageId) {
+    function closeMenu() {
         vibrate(20);
-        
-        // Hide current page if exists
-        if (currentPage) {
-            document.getElementById(currentPage).classList.remove('active');
-            document.getElementById(currentPage).classList.add('hidden');
-            pageHistory.push(currentPage);
-        }
-        
-        // Show new page
-        const page = document.getElementById(pageId);
-        page.classList.remove('hidden');
-        setTimeout(() => page.classList.add('active'), 10);
-        currentPage = pageId;
-        
-        // Load content for the page
-        if (pageId === 'badgesPage') loadBadgesPage();
-        if (pageId === 'statsPage') loadStatsPage();
-        if (pageId === 'settingsPage') loadSettingsPage();
-        if (pageId === 'howToUsePage') loadHowToUsePage();
-        if (pageId === 'aboutPage') loadAboutPage();
+        document.getElementById('menuOverlay').classList.add('hidden');
     }
     
-    function goBack() {
-        vibrate(20);
-        
-        if (pageHistory.length > 0) {
-            // Hide current page
-            const current = document.getElementById(currentPage);
-            current.classList.remove('active');
-            setTimeout(() => current.classList.add('hidden'), 300);
-            
-            // Show previous page
-            const previousPageId = pageHistory.pop();
-            const previous = document.getElementById(previousPageId);
-            previous.classList.remove('hidden');
-            setTimeout(() => previous.classList.add('active'), 10);
-            currentPage = previousPageId;
-        } else {
-            closeMenuPage();
-        }
+    function openMyBadges() {
+        closeMenu();
+        showBadgeCollection();
     }
     
-    function closeMenuPage() {
-        vibrate(20);
-        if (currentPage) {
-            document.getElementById(currentPage).classList.remove('active');
-            setTimeout(() => {
-                document.getElementById(currentPage).classList.add('hidden');
-                currentPage = null;
-                pageHistory = [];
-            }, 300);
-        }
+    function openMyStats() {
+        closeMenu();
+        showStats();
     }
     
-    // Load page content functions
-    async function loadBadgesPage() {
-        // Render badge collection into badge page
-        await BADGE_SYSTEM.renderBadgeCollection();
-        const badgeContent = document.getElementById('badgeCategories').innerHTML;
-        document.getElementById('badgePageContent').innerHTML = badgeContent;
+    function openSettings() {
+        closeMenu();
+        showSettings();
     }
     
-    async function loadStatsPage() {
-        // Get session counts
-        const { data: sessionCounts } = await sb.rpc('get_session_counts', { user_id: user.id });
-        
-        const total = sessionCounts?.total_sessions || 0;
-        const morning = sessionCounts?.morning_sessions || 0;
-        const afternoon = sessionCounts?.afternoon_sessions || 0;
-        const night = sessionCounts?.night_sessions || 0;
-        
-        // Calculate percentages
-        const maxSessions = Math.max(morning, afternoon, night, 1);
-        const morningPercent = (morning / maxSessions) * 100;
-        const afternoonPercent = (afternoon / maxSessions) * 100;
-        const nightPercent = (night / maxSessions) * 100;
-        
-        // Get rankings
-        const { data: todayStudents } = await sb.from('students').select('*').order('today_points', { ascending: false });
-        const { data: weekStudents } = await sb.from('students').select('*').order('week_points', { ascending: false });
-        const { data: allTimeStudents } = await sb.from('students').select('*').order('total_points', { ascending: false });
-        
-        const todayRank = (todayStudents?.findIndex(s => s.id === user.id) || 0) + 1;
-        const weekRank = (weekStudents?.findIndex(s => s.id === user.id) || 0) + 1;
-        const allTimeRank = (allTimeStudents?.findIndex(s => s.id === user.id) || 0) + 1;
-        
-        const totalHours = Math.round((user.accumulated_minutes || 0) / 60);
-        
-        document.getElementById('statsPageContent').innerHTML = `
-            <div style="padding: 20px; max-width: 480px; margin: 0 auto;">
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"/>
-                                <path d="M12 6v6l4 2"/>
-                            </svg>
-                        </div>
-                        <div class="stat-value">${parseFloat(user.total_points || 0).toFixed(1)}</div>
-                        <div class="stat-label">Total Points</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-                                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-                            </svg>
-                        </div>
-                        <div class="stat-value">${total}</div>
-                        <div class="stat-label">Total Sessions</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"/>
-                                <polyline points="12 6 12 12 16 14"/>
-                            </svg>
-                        </div>
-                        <div class="stat-value">${totalHours}h</div>
-                        <div class="stat-label">Total Time</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="8" r="6"/>
-                                <path d="M12 2 L14 6 L18 7 L15 10 L16 14 L12 12 L8 14 L9 10 L6 7 L10 6 Z"/>
-                            </svg>
-                        </div>
-                        <div class="stat-value">${(user.badges || []).length}</div>
-                        <div class="stat-label">Badges Earned</div>
-                    </div>
-                </div>
-                
-                <div class="card" style="margin-top: 16px;">
-                    <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 16px; color: #1c1c1e;">Seder Breakdown</h3>
-                    <div class="seder-stats">
-                        <div class="seder-stat-row">
-                            <div class="seder-stat-label">
-                                <div class="seder-icon morning">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <circle cx="12" cy="12" r="5"/>
-                                        <line x1="12" y1="1" x2="12" y2="3"/>
-                                        <line x1="12" y1="21" x2="12" y2="23"/>
-                                    </svg>
-                                </div>
-                                <span>Morning</span>
-                            </div>
-                            <div class="seder-stat-bar">
-                                <div class="seder-stat-fill morning" style="width: ${morningPercent}%"></div>
-                            </div>
-                            <div class="seder-stat-count">${morning}</div>
-                        </div>
-                        <div class="seder-stat-row">
-                            <div class="seder-stat-label">
-                                <div class="seder-icon afternoon">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <circle cx="12" cy="12" r="5"/>
-                                        <line x1="12" y1="1" x2="12" y2="3"/>
-                                    </svg>
-                                </div>
-                                <span>Afternoon</span>
-                            </div>
-                            <div class="seder-stat-bar">
-                                <div class="seder-stat-fill afternoon" style="width: ${afternoonPercent}%"></div>
-                            </div>
-                            <div class="seder-stat-count">${afternoon}</div>
-                        </div>
-                        <div class="seder-stat-row">
-                            <div class="seder-stat-label">
-                                <div class="seder-icon night">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-                                    </svg>
-                                </div>
-                                <span>Night</span>
-                            </div>
-                            <div class="seder-stat-bar">
-                                <div class="seder-stat-fill night" style="width: ${nightPercent}%"></div>
-                            </div>
-                            <div class="seder-stat-count">${night}</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card" style="margin-top: 16px;">
-                    <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 16px; color: #1c1c1e;">Rankings</h3>
-                    <div class="ranking-stats">
-                        <div class="ranking-item">
-                            <div class="ranking-label">
-                                <div class="ranking-icon">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <circle cx="12" cy="12" r="10"/>
-                                        <polyline points="12 6 12 12 16 14"/>
-                                    </svg>
-                                </div>
-                                <span>Today</span>
-                            </div>
-                            <span class="ranking-value">#${todayRank}</span>
-                        </div>
-                        <div class="ranking-item">
-                            <div class="ranking-label">
-                                <div class="ranking-icon">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <rect x="3" y="4" width="18" height="18" rx="2"/>
-                                        <line x1="16" y1="2" x2="16" y2="6"/>
-                                        <line x1="8" y1="2" x2="8" y2="6"/>
-                                        <line x1="3" y1="10" x2="21" y2="10"/>
-                                    </svg>
-                                </div>
-                                <span>Weekly</span>
-                            </div>
-                            <span class="ranking-value">#${weekRank}</span>
-                        </div>
-                        <div class="ranking-item">
-                            <div class="ranking-label">
-                                <div class="ranking-icon">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-                                    </svg>
-                                </div>
-                                <span>All-Time</span>
-                            </div>
-                            <span class="ranking-value">#${allTimeRank}</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="stats-grid" style="margin-top: 16px;">
-                    <div class="stat-card">
-                        <div class="stat-card-value">${user.perfect_day_count || 0}</div>
-                        <div class="stat-card-label">Perfect Days</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-card-value">${user.perfect_week_count || 0}</div>
-                        <div class="stat-card-label">Perfect Weeks</div>
-                    </div>
-                </div>
-            </div>
-        `;
-    }
-        // Get session counts
-        const { data: sessionCounts } = await sb.rpc('get_session_counts', { user_id: user.id });
-        
-        const total = sessionCounts?.total_sessions || 0;
-        const morning = sessionCounts?.morning_sessions || 0;
-        const afternoon = sessionCounts?.afternoon_sessions || 0;
-        const night = sessionCounts?.night_sessions || 0;
-        
-        // Calculate percentages
-        const maxSessions = Math.max(morning, afternoon, night, 1);
-        const morningPercent = (morning / maxSessions) * 100;
-        const afternoonPercent = (afternoon / maxSessions) * 100;
-        const nightPercent = (night / maxSessions) * 100;
-        
-        // Get rankings
-        const { data: todayStudents } = await sb.from('students').select('*').order('today_points', { ascending: false });
-        const { data: weekStudents } = await sb.from('students').select('*').order('week_points', { ascending: false });
-        const { data: allTimeStudents } = await sb.from('students').select('*').order('total_points', { ascending: false });
-        
-        const todayRank = (todayStudents?.findIndex(s => s.id === user.id) || 0) + 1;
-        const weekRank = (weekStudents?.findIndex(s => s.id === user.id) || 0) + 1;
-        const allTimeRank = (allTimeStudents?.findIndex(s => s.id === user.id) || 0) + 1;
-        
-        const totalHours = Math.round((user.accumulated_minutes || 0) / 60);
-        
-        document.getElementById('statsPageContent').innerHTML = `
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"/>
-                            <path d="M12 6v6l4 2"/>
-                        </svg>
-                    </div>
-                    <div class="stat-value">${parseFloat(user.total_points || 0).toFixed(1)}</div>
-                    <div class="stat-label">Total Points</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-                        </svg>
-                    </div>
-                    <div class="stat-value">${total}</div>
-                    <div class="stat-label">Total Sessions</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"/>
-                            <polyline points="12 6 12 12 16 14"/>
-                        </svg>
-                    </div>
-                    <div class="stat-value">${totalHours}h</div>
-                    <div class="stat-label">Total Time</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="8" r="6"/>
-                            <path d="M12 2 L14 6 L18 7 L15 10 L16 14 L12 12 L8 14 L9 10 L6 7 L10 6 Z"/>
-                        </svg>
-                    </div>
-                    <div class="stat-value">${(user.badges || []).length}</div>
-                    <div class="stat-label">Badges Earned</div>
-                </div>
-            </div>
-            
-            <div class="stats-section">
-                <h3>Seder Breakdown</h3>
-                <div class="seder-stats">
-                    <div class="seder-stat-row">
-                        <div class="seder-stat-label">
-                            <div class="seder-icon morning">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="12" cy="12" r="5"/>
-                                    <line x1="12" y1="1" x2="12" y2="3"/>
-                                    <line x1="12" y1="21" x2="12" y2="23"/>
-                                </svg>
-                            </div>
-                            <span>Morning Seder</span>
-                        </div>
-                        <div class="seder-stat-bar">
-                            <div class="seder-stat-fill morning" style="width: ${morningPercent}%"></div>
-                        </div>
-                        <div class="seder-stat-count">${morning}</div>
-                    </div>
-                    <div class="seder-stat-row">
-                        <div class="seder-stat-label">
-                            <div class="seder-icon afternoon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="12" cy="12" r="5"/>
-                                    <line x1="12" y1="1" x2="12" y2="3"/>
-                                </svg>
-                            </div>
-                            <span>Afternoon Seder</span>
-                        </div>
-                        <div class="seder-stat-bar">
-                            <div class="seder-stat-fill afternoon" style="width: ${afternoonPercent}%"></div>
-                        </div>
-                        <div class="seder-stat-count">${afternoon}</div>
-                    </div>
-                    <div class="seder-stat-row">
-                        <div class="seder-stat-label">
-                            <div class="seder-icon night">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-                                </svg>
-                            </div>
-                            <span>Night Seder</span>
-                        </div>
-                        <div class="seder-stat-bar">
-                            <div class="seder-stat-fill night" style="width: ${nightPercent}%"></div>
-                        </div>
-                        <div class="seder-stat-count">${night}</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="stats-section">
-                <h3>Rankings</h3>
-                <div class="ranking-stats">
-                    <div class="ranking-item">
-                        <div class="ranking-label">
-                            <div class="ranking-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="12" cy="12" r="10"/>
-                                    <polyline points="12 6 12 12 16 14"/>
-                                </svg>
-                            </div>
-                            <span>Today's Rank</span>
-                        </div>
-                        <span class="ranking-value">#${todayRank}</span>
-                    </div>
-                    <div class="ranking-item">
-                        <div class="ranking-label">
-                            <div class="ranking-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <rect x="3" y="4" width="18" height="18" rx="2"/>
-                                    <line x1="16" y1="2" x2="16" y2="6"/>
-                                    <line x1="8" y1="2" x2="8" y2="6"/>
-                                    <line x1="3" y1="10" x2="21" y2="10"/>
-                                </svg>
-                            </div>
-                            <span>Weekly Rank</span>
-                        </div>
-                        <span class="ranking-value">#${weekRank}</span>
-                    </div>
-                    <div class="ranking-item">
-                        <div class="ranking-label">
-                            <div class="ranking-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-                                </svg>
-                            </div>
-                            <span>All-Time Rank</span>
-                        </div>
-                        <span class="ranking-value">#${allTimeRank}</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="stats-section">
-                <h3>Perfect Attendance</h3>
-                <div class="perfect-stats">
-                    <div class="perfect-item">
-                        <div class="perfect-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                <polyline points="20 6 9 17 4 12"/>
-                            </svg>
-                        </div>
-                        <div class="perfect-count">${user.perfect_day_count || 0}</div>
-                        <div class="perfect-label">Perfect Days</div>
-                    </div>
-                    <div class="perfect-item">
-                        <div class="perfect-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                <polyline points="20 6 9 17 4 12"/>
-                            </svg>
-                        </div>
-                        <div class="perfect-count">${user.perfect_week_count || 0}</div>
-                        <div class="perfect-label">Perfect Weeks</div>
-                    </div>
-                </div>
-            </div>
-        `;
+    function openHowToUse() {
+        closeMenu();
+        showHowToUse();
     }
     
-    function loadSettingsPage() {
-        document.getElementById('settingsPageContent').innerHTML = `
-            <div style="padding: 20px; max-width: 480px; margin: 0 auto;">
-                <div class="card">
-                    <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 16px; color: #1c1c1e;">Account</h3>
-                    <div class="setting-item">
-                        <div class="setting-label">
-                            <div class="setting-name">Name</div>
-                            <div class="setting-description">${user.name || '-'}</div>
-                        </div>
-                    </div>
-                    <div class="setting-item">
-                        <div class="setting-label">
-                            <div class="setting-name">Email</div>
-                            <div class="setting-description">${user.email || '-'}</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card" style="margin-top: 16px;">
-                    <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 16px; color: #1c1c1e;">Preferences</h3>
-                    <div class="setting-item">
-                        <div class="setting-label">
-                            <div class="setting-name">Notifications</div>
-                            <div class="setting-description">Badge unlock notifications</div>
-                        </div>
-                        <label class="toggle">
-                            <input type="checkbox" checked>
-                            <span class="toggle-slider"></span>
-                        </label>
-                    </div>
-                </div>
-                
-                <div class="card" style="margin-top: 16px;">
-                    <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 16px; color: #1c1c1e;">App Information</h3>
-                    <div class="setting-item">
-                        <div class="setting-label">
-                            <div class="setting-name">Version</div>
-                            <div class="setting-description">2.0.0</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
+    function openInfo() {
+        closeMenu();
+        showAbout();
     }
     
-    function loadHowToUsePage() {
-        document.getElementById('howToUsePageContent').innerHTML = `
-            <div style="padding: 20px; max-width: 480px; margin: 0 auto;">
-                <div class="card">
-                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 20px; color: #1c1c1e;">Getting Started</h3>
-                    <div class="how-to-item">
-                        <div class="how-to-number">1</div>
-                        <div class="how-to-content">
-                            <div class="how-to-title">Check In During Seder</div>
-                            <div class="how-to-text">Press "Check In" when seder starts. You can only check in during designated seder times.</div>
-                        </div>
-                    </div>
-                    <div class="how-to-item">
-                        <div class="how-to-number">2</div>
-                        <div class="how-to-content">
-                            <div class="how-to-title">Learn & Earn Points</div>
-                            <div class="how-to-text">Your time is tracked automatically. The longer you learn, the more points you earn!</div>
-                        </div>
-                    </div>
-                    <div class="how-to-item">
-                        <div class="how-to-number">3</div>
-                        <div class="how-to-content">
-                            <div class="how-to-title">Check Out When Done</div>
-                            <div class="how-to-text">Press "Check Out" when you finish. Your points will be added to your total.</div>
-                        </div>
-                    </div>
-                    <div class="how-to-item">
-                        <div class="how-to-number">4</div>
-                        <div class="how-to-content">
-                            <div class="how-to-title">Earn Badges</div>
-                            <div class="how-to-text">Unlock badges by reaching milestones. Collect them all!</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card" style="margin-top: 16px;">
-                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 20px; color: #1c1c1e;">Seder Times</h3>
-                    <div class="seder-time-list">
-                        <div class="seder-time-item">
-                            <div class="seder-time-icon morning">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="#FF9800" stroke-width="2">
-                                    <circle cx="12" cy="12" r="5"/>
-                                    <line x1="12" y1="1" x2="12" y2="3"/>
-                                    <line x1="12" y1="21" x2="12" y2="23"/>
-                                </svg>
-                            </div>
-                            <div class="seder-time-info">
-                                <div class="seder-time-name">Morning Seder</div>
-                                <div class="seder-time-hours">9:30 AM - 1:00 PM</div>
-                            </div>
-                        </div>
-                        <div class="seder-time-item">
-                            <div class="seder-time-icon afternoon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="#FFC107" stroke-width="2">
-                                    <circle cx="12" cy="12" r="5"/>
-                                    <line x1="12" y1="1" x2="12" y2="3"/>
-                                </svg>
-                            </div>
-                            <div class="seder-time-info">
-                                <div class="seder-time-name">Afternoon Seder</div>
-                                <div class="seder-time-hours">3:00 PM - 5:45 PM</div>
-                            </div>
-                        </div>
-                        <div class="seder-time-item">
-                            <div class="seder-time-icon night">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="#5C6BC0" stroke-width="2">
-                                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-                                </svg>
-                            </div>
-                            <div class="seder-time-info">
-                                <div class="seder-time-name">Night Seder</div>
-                                <div class="seder-time-hours">8:00 PM - 10:00 PM</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-    }
-    
-    function loadAboutPage() {
-        document.getElementById('aboutPageContent').innerHTML = `
-            <div style="padding: 20px; max-width: 480px; margin: 0 auto;">
-                <div class="card">
-                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 12px; color: #1c1c1e;">About TJ Phone Tracker</h3>
-                    <p style="color: #666; line-height: 1.6; font-size: 14px;">
-                        TJ Phone Tracker helps yeshiva students track their seder attendance and compete with friends. 
-                        Check in during designated seder times, earn points, unlock badges, and climb the leaderboard!
-                    </p>
-                </div>
-                
-                <div class="card" style="margin-top: 16px;">
-                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 16px; color: #1c1c1e;">Contact</h3>
-                    <div class="setting-item">
-                        <div class="setting-label">
-                            <div class="setting-name">Support</div>
-                            <div class="setting-description">contact@tjphones.beer</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card" style="margin-top: 16px;">
-                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 12px; color: #1c1c1e;">Credits</h3>
-                    <p style="color: #666; line-height: 1.6; font-size: 14px;">
-                        Built with ❤️ for the yeshiva community
-                    </p>
-                </div>
-            </div>
-        `;
-    }
+    // Stats Modal Functions
+    async function showStats() {
         vibrate(20);
         
         // Get session counts
@@ -4736,18 +4055,19 @@
     // ===== STUDENT DASHBOARD =====
     async function showDashboard() {
         // Hide auth screen, show dashboard
-        document.getElementById('authScreen').classList.add('hidden');
+        document.getElementById('authScreen').style.display = 'none';
         document.getElementById('studentScreen').style.display = 'block';
         
         // Set user info
         const initials = user.name.split(' ').map(n => n.charAt(0).toUpperCase()).join('').slice(0, 2);
         document.getElementById('userName').textContent = user.name;
+        document.getElementById('userAvatar').textContent = initials;
         document.getElementById('userInitials').textContent = initials;
         
         // Set menu user info
-        document.getElementById('menuAvatarLarge').textContent = initials;
-        document.getElementById('menuUserNameLarge').textContent = user.name;
-        document.getElementById('menuUserEmailLarge').textContent = user.email || '';
+        document.getElementById('menuAvatar').textContent = initials;
+        document.getElementById('menuUserName').textContent = user.name;
+        document.getElementById('menuUserEmail').textContent = user.email || '';
         
         // Load badges
         await BADGE_SYSTEM.loadUserBadges(user.id);
@@ -5298,7 +4618,7 @@
 
     // ===== ADMIN DASHBOARD =====
     async function showAdmin() {
-        document.getElementById('authScreen').classList.add('hidden');
+        document.getElementById('authScreen').style.display = 'none';
         document.getElementById('adminScreen').style.display = 'block';
         
         await refreshAdmin();
@@ -5359,9 +4679,6 @@
             document.getElementById('allTab').classList.remove('hidden');
         }
     }
-    
-    // Initialize the app
-    init();
 </script>
 </body>
 </html>
