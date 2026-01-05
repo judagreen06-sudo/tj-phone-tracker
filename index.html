@@ -3812,7 +3812,10 @@
                 }
             }
         } else {
-            console.log('ℹ️ No active session');
+            console.log('ℹ️ No active session, showing login');
+            document.getElementById('authScreen').style.display = 'flex';
+            document.getElementById('studentScreen').style.display = 'none';
+            document.getElementById('adminScreen').style.display = 'none';
         }
     }
 
