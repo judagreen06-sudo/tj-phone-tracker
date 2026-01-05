@@ -1435,6 +1435,10 @@
             margin-top: 12px;
         }
         
+        /* ============================================ */
+        /* BADGE SYSTEM STYLES */
+        /* ============================================ */
+        
         /* Badge icons in leaderboard */
         .badge-icon-inline {
             width: 20px;
@@ -2188,14 +2192,23 @@
                         <div class="menu-avatar" id="menuAvatar">U</div>
                         <div class="menu-user-info">
                             <div class="menu-user-name" id="menuUserName">User</div>
-                            <div class="menu-user-email" id="menuUserEmail"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3144425443715449505c415d541f525e5c">[email&#160;protected]</a></div>
+                            <div class="menu-user-email" id="menuUserEmail"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="225751475062475a434f524e470c414d4f">[email&#160;protected]</a></div>
                         </div>
                     </div>
                     <button class="menu-close" onclick="closeMenu()">✕</button>
                 </div>
                 
                 <div class="menu-items">
-                    </div>
+                    <div class="menu-item" onclick="openMyBadges()">
+                        <div class="menu-item-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+                            </svg>
+                        </div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-title">My Badges</div>
+                            <div class="menu-item-subtitle">View and manage your badges</div>
+                        </div>
                     </div>
                     
                     <div class="menu-item" onclick="openMyStats()">
@@ -2322,7 +2335,73 @@
             </div>
         </div>
         
+        <!-- Badge Collection Modal -->
+        <div id="badgeModal" class="badge-modal-overlay" onclick="closeBadgeCollection()">
+            <div class="badge-modal-content" onclick="event.stopPropagation()">
+                <!-- Header Card -->
+                <div class="badge-header-card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                        <h1 class="badge-header-title" style="margin-bottom: 0;">🎖️ Badge Collection</h1>
+                        <button class="modal-close" onclick="closeBadgeCollection()" style="font-size: 24px; background: none; border: none; cursor: pointer; color: #666; padding: 8px;">✕</button>
+                    </div>
+                    <div class="badge-stats-grid">
+                        <div class="badge-stat">
+                            <div class="badge-stat-value" id="badgeEarnedCount">0</div>
+                            <div class="badge-stat-label">Earned</div>
+                        </div>
+                        <div class="badge-stat">
+                            <div class="badge-stat-value" id="badgeTotalCount">30</div>
+                            <div class="badge-stat-label">Total</div>
+                        </div>
+                        <div class="badge-stat">
+                            <div class="badge-stat-value" id="badgeCompletionPercent">0%</div>
+                            <div class="badge-stat-label">Complete</div>
+                        </div>
+                        <div class="badge-stat">
+                            <div class="badge-stat-value" id="badgeRareCount">0</div>
+                            <div class="badge-stat-label">Rare+</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Badge Selector Card -->
+                <div class="badge-selector-card">
+                    <h2 class="badge-selector-title">📌 Display Badges (Pick 3)</h2>
+                    <div class="badge-slots">
+                        <div class="badge-slot" id="badgeSlot1">
+                            <div class="badge-slot-number">1</div>
+                            <span style="font-size: 40px; opacity: 0.3;">🎖️</span>
+                        </div>
+                        <div class="badge-slot" id="badgeSlot2">
+                            <div class="badge-slot-number">2</div>
+                            <span style="font-size: 40px; opacity: 0.3;">🎖️</span>
+                        </div>
+                        <div class="badge-slot" id="badgeSlot3">
+                            <div class="badge-slot-number">3</div>
+                            <span style="font-size: 40px; opacity: 0.3;">🎖️</span>
+                        </div>
+                    </div>
+                    <div class="badge-preview-section">
+                        <div class="badge-preview-label">Leaderboard Preview:</div>
+                        <div class="badge-preview">
+                            <span style="font-weight: 600;">Your Name</span>
+                            <span id="badgePreview" style="display: flex; gap: 4px;"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Badge Categories -->
+                <div class="badge-categories" id="badgeCategories">
+                    <!-- Categories will be populated by JavaScript -->
+                </div>
+                
+                <div style="text-align: center; padding: 20px;">
+                    <button class="btn-primary" onclick="closeBadgeCollection()">Close</button>
+                </div>
+            </div>
+        </div>
         
+        <!-- Badge Unlock Notification -->
         <div id="badgeUnlockNotification" class="badge-unlock-notification">
             <div class="badge-unlock-header">
                 <div class="badge-unlock-icon" id="badgeUnlockIcon"></div>
@@ -2745,7 +2824,368 @@
     // ============================================
     // BADGE SYSTEM
     // ============================================
-    // Badge system removed for now
+    const BADGE_SYSTEM = {
+        badges: {
+            // Competition Badges (5)
+            champion: {
+                key: 'champion',
+                name: 'Weekly Champion',
+                description: 'Finish #1 on the weekly leaderboard',
+                how: 'Be the top scorer for the week',
+                rarity: 'gold',
+                category: 'competition',
+                color: '#ffd700'
+            },
+            runner_up: {
+                key: 'runner_up',
+                name: 'Runner Up',
+                description: 'Finish #2 on the weekly leaderboard',
+                how: 'Be the second highest scorer for the week',
+                rarity: 'purple',
+                category: 'competition',
+                color: '#c0c0c0'
+            },
+            podium: {
+                key: 'podium',
+                name: 'Podium Finisher',
+                description: 'Finish in the top 3 for the week',
+                how: 'Rank in the top 3 by weekly points',
+                rarity: 'silver',
+                category: 'competition',
+                color: '#cd7f32'
+            },
+            top_5: {
+                key: 'top_5',
+                name: 'Top 5',
+                description: 'Finish in the top 5 for the week',
+                how: 'Rank in the top 5 by weekly points',
+                rarity: 'silver',
+                category: 'competition',
+                color: '#4a90e2'
+            },
+            top_10: {
+                key: 'top_10',
+                name: 'Top 10',
+                description: 'Finish in the top 10 for the week',
+                how: 'Rank in the top 10 by weekly points',
+                rarity: 'bronze',
+                category: 'competition',
+                color: '#50c878'
+            },
+            
+            // Perfect Attendance (6)
+            perfect_day: {
+                key: 'perfect_day',
+                name: 'Perfect Day',
+                description: 'Score 8+ points in a single day',
+                how: 'Attend all 3 sedarim in one day (8.25 points)',
+                rarity: 'bronze',
+                category: 'perfect',
+                color: '#50c878'
+            },
+            perfect_week: {
+                key: 'perfect_week',
+                name: 'Perfect Week',
+                description: 'Earn 8+ points every day for a week',
+                how: 'Maintain perfect attendance for 5 consecutive days',
+                rarity: 'purple',
+                category: 'perfect',
+                color: '#9c27b0'
+            },
+            streak_3: {
+                key: 'streak_3',
+                name: '3-Day Streak',
+                description: 'Achieve 3 perfect days in a row',
+                how: 'Score 8+ points for 3 consecutive days',
+                rarity: 'bronze',
+                category: 'perfect',
+                color: '#ff9800'
+            },
+            streak_5: {
+                key: 'streak_5',
+                name: '5-Day Streak',
+                description: 'Achieve 5 perfect days in a row',
+                how: 'Score 8+ points for 5 consecutive days',
+                rarity: 'silver',
+                category: 'perfect',
+                color: '#ff5722'
+            },
+            streak_10: {
+                key: 'streak_10',
+                name: '10-Day Streak',
+                description: 'Achieve 10 perfect days in a row',
+                how: 'Score 8+ points for 10 consecutive days',
+                rarity: 'purple',
+                category: 'perfect',
+                color: '#e91e63'
+            },
+            streak_30: {
+                key: 'streak_30',
+                name: 'Month of Dedication',
+                description: 'Achieve 30 perfect days in a row',
+                how: 'Score 8+ points for 30 consecutive days',
+                rarity: 'darkred',
+                category: 'perfect',
+                color: '#9c27b0'
+            },
+            
+            // Milestones (8)
+            first_10: {
+                key: 'first_10',
+                name: 'Getting Started',
+                description: 'Earn your first 10 points',
+                how: 'Accumulate 10 total points',
+                rarity: 'bronze',
+                category: 'milestone',
+                color: '#8bc34a'
+            },
+            quarter_century: {
+                key: 'quarter_century',
+                name: 'Quarter Century',
+                description: 'Reach 25 total points',
+                how: 'Accumulate 25 total points',
+                rarity: 'bronze',
+                category: 'milestone',
+                color: '#00bcd4'
+            },
+            half_century: {
+                key: 'half_century',
+                name: 'Half Century',
+                description: 'Reach 50 total points',
+                how: 'Accumulate 50 total points',
+                rarity: 'silver',
+                category: 'milestone',
+                color: '#2196f3'
+            },
+            century: {
+                key: 'century',
+                name: 'Century Club',
+                description: 'Reach 100 total points',
+                how: 'Accumulate 100 total points',
+                rarity: 'silver',
+                category: 'milestone',
+                color: '#3f51b5'
+            },
+            double_century: {
+                key: 'double_century',
+                name: 'Double Century',
+                description: 'Reach 200 total points',
+                how: 'Accumulate 200 total points',
+                rarity: 'purple',
+                category: 'milestone',
+                color: '#673ab7'
+            },
+            triple_century: {
+                key: 'triple_century',
+                name: 'Triple Century',
+                description: 'Reach 300 total points',
+                how: 'Accumulate 300 total points',
+                rarity: 'purple',
+                category: 'milestone',
+                color: '#9c27b0'
+            },
+            the_500: {
+                key: 'the_500',
+                name: 'The 500 Club',
+                description: 'Reach 500 total points',
+                how: 'Accumulate 500 total points',
+                rarity: 'gold',
+                category: 'milestone',
+                color: '#ffd700'
+            },
+            the_thousand: {
+                key: 'the_thousand',
+                name: 'The Thousand',
+                description: 'Reach 1000 total points',
+                how: 'Accumulate 1000 total points',
+                rarity: 'darkred',
+                category: 'milestone',
+                color: '#9c27b0'
+            },
+            
+            // Seder-Specific (6)
+            early_bird: {
+                key: 'early_bird',
+                name: 'Early Bird',
+                description: 'Check in to 20 morning sedarim',
+                how: 'Attend morning seder 20 times',
+                rarity: 'silver',
+                category: 'seder',
+                color: '#ff9800'
+            },
+            morning_master: {
+                key: 'morning_master',
+                name: 'Morning Master',
+                description: 'Check in to 50 morning sedarim',
+                how: 'Attend morning seder 50 times',
+                rarity: 'purple',
+                category: 'seder',
+                color: '#f57c00'
+            },
+            afternoon_regular: {
+                key: 'afternoon_regular',
+                name: 'Afternoon Regular',
+                description: 'Check in to 20 afternoon sedarim',
+                how: 'Attend afternoon seder 20 times',
+                rarity: 'silver',
+                category: 'seder',
+                color: '#ffc107'
+            },
+            afternoon_master: {
+                key: 'afternoon_master',
+                name: 'Afternoon Master',
+                description: 'Check in to 50 afternoon sedarim',
+                how: 'Attend afternoon seder 50 times',
+                rarity: 'purple',
+                category: 'seder',
+                color: '#ffb300'
+            },
+            night_owl: {
+                key: 'night_owl',
+                name: 'Night Owl',
+                description: 'Check in to 20 night sedarim',
+                how: 'Attend night seder 20 times',
+                rarity: 'silver',
+                category: 'seder',
+                color: '#5c6bc0'
+            },
+            night_master: {
+                key: 'night_master',
+                name: 'Night Master',
+                description: 'Check in to 50 night sedarim',
+                how: 'Attend night seder 50 times',
+                rarity: 'purple',
+                category: 'seder',
+                color: '#3f51b5'
+            },
+            
+            // Dedication (5)
+            marathon: {
+                key: 'marathon',
+                name: 'Marathon Man',
+                description: 'Score 4+ points in a single session',
+                how: 'Stay for an extended learning session (4+ hours)',
+                rarity: 'silver',
+                category: 'dedication',
+                color: '#e91e63'
+            },
+            sprint_master: {
+                key: 'sprint_master',
+                name: 'Sprint Master',
+                description: 'Check in 20 times',
+                how: 'Complete 20 total check-ins',
+                rarity: 'bronze',
+                category: 'dedication',
+                color: '#00bcd4'
+            },
+            consistent: {
+                key: 'consistent',
+                name: 'Consistent Scholar',
+                description: 'Check in 50 times',
+                how: 'Complete 50 total check-ins',
+                rarity: 'silver',
+                category: 'dedication',
+                color: '#009688'
+            },
+            veteran: {
+                key: 'veteran',
+                name: 'Veteran',
+                description: 'Check in 100 times',
+                how: 'Complete 100 total check-ins',
+                rarity: 'purple',
+                category: 'dedication',
+                color: '#4caf50'
+            },
+            elder: {
+                key: 'elder',
+                name: 'Elder',
+                description: 'Check in 200 times',
+                how: 'Complete 200 total check-ins',
+                rarity: 'gold',
+                category: 'dedication',
+                color: '#ffd700'
+            }
+        },
+        
+        categories: {
+            competition: { emoji: '🏆', name: 'Competition' },
+            perfect: { emoji: '⭐', name: 'Perfect Attendance' },
+            milestone: { emoji: '🎯', name: 'Milestones' },
+            seder: { emoji: '📚', name: 'Seder Specialist' },
+            dedication: { emoji: '💪', name: 'Dedication' }
+        },
+        
+        earnedBadges: [],
+        selectedBadges: [],
+        
+        generateSVG(badgeKey, size = 60) {
+            const badge = this.badges[badgeKey];
+            if (!badge) return '';
+            
+            const color = badge.color || '#738f75';
+            const isLegendary = badge.rarity === 'legendary';
+            const isMythic = badge.rarity === 'mythic';
+            
+            let gradient = '';
+            let filter = '';
+            
+            if (isLegendary) {
+                gradient = `
+                    <defs>
+                        <linearGradient id="grad-${badgeKey}" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#ffd700;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#ffed4e;stop-opacity:1" />
+                        </linearGradient>
+                        <filter id="glow-${badgeKey}">
+                            <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>`;
+                filter = `filter="url(#glow-${badgeKey})"`;
+            } else if (isMythic) {
+                gradient = `
+                    <defs>
+                        <linearGradient id="grad-${badgeKey}" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#9c27b0;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#e91e63;stop-opacity:1" />
+                        </linearGradient>
+                        <filter id="glow-${badgeKey}">
+                            <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>`;
+                filter = `filter="url(#glow-${badgeKey})"`;
+            }
+            
+            const fillColor = (isLegendary || isMythic) ? `url(#grad-${badgeKey})` : color;
+            
+            return `
+                <svg width="${size}" height="${size}" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    ${gradient}
+                    <circle cx="50" cy="50" r="45" fill="${fillColor}" opacity="0.2"/>
+                    <circle cx="50" cy="50" r="38" fill="${fillColor}" opacity="0.4"/>
+                    <circle cx="50" cy="50" r="30" fill="${fillColor}" ${filter}/>
+                    <path d="M 50 25 L 55 40 L 70 42 L 60 52 L 63 67 L 50 60 L 37 67 L 40 52 L 30 42 L 45 40 Z" 
+                          fill="white" opacity="0.9" transform="translate(0, 5)"/>
+                </svg>
+            `;
+        },
+        
+        generateBadgeHTML(badgeKey, size = 20) {
+            const badge = this.badges[badgeKey];
+            if (!badge) return '';
+            return `<div class="badge-wrapper ${badge.rarity}">${this.generateSVG(badgeKey, size)}<div class="rarity-dot ${badge.rarity}"></div></div>`;
+        },
+        
+        getProgress(badgeKey, userStats) {
+            const badge = this.badges[badgeKey];
+            if (!badge) return { current: 0, target: 1, percent: 0 };
             
             let current = 0;
             let target = 1;
@@ -3053,7 +3493,7 @@
                 selectBtn.onclick = () => {
                     BADGE_SYSTEM.toggleBadgeSelection(user.id, badgeKey);
                     closeBadgeDetail();
-                    // Badges disabled
+                    BADGE_SYSTEM.renderBadgeCollection();
                 };
             } else {
                 selectBtn.style.display = 'none';
@@ -3066,7 +3506,7 @@
     // Badge UI Functions
     function showBadgeCollection() {
         document.getElementById('badgeModal').classList.add('active');
-        // Badges disabled
+        BADGE_SYSTEM.renderBadgeCollection();
     }
 
     function closeBadgeCollection() {
@@ -3216,56 +3656,6 @@
                     showDashboard();
                 }
             }
-        }
-    }
-    // ========================================
-    // TAB SYNCHRONIZATION SYSTEM
-    // ========================================
-    window.addEventListener('storage', async (e) => {
-        if (e.key === 'tj_session_sync' && user) {
-            console.log('🔄 Session changed in another tab, reloading state...');
-            
-            const { data: activeSession } = await sb.from('sessions')
-                .select('*')
-                .eq('student_id', user.id)
-                .is('check_out_time', null)
-                .maybeSingle();
-            
-            if (activeSession && !session) {
-                console.log('✅ Another tab checked in, updating...');
-                session = activeSession;
-                if (session.seder_type && SEDER_TIMES[session.seder_type]) {
-                    currentSeder = SEDER_TIMES[session.seder_type];
-                }
-                document.getElementById('noSession').classList.add('hidden');
-                document.getElementById('activeSession').classList.remove('hidden');
-                if (currentSeder) {
-                    document.getElementById('activeSederName').textContent = `${currentSeder.name} Seder`;
-                }
-                startTimer();
-            } else if (!activeSession && session) {
-                console.log('✅ Another tab checked out, updating...');
-                clearInterval(interval);
-                session = null;
-                currentSeder = null;
-                document.getElementById('activeSession').classList.add('hidden');
-                document.getElementById('noSession').classList.remove('hidden');
-                const checkinBtn = document.querySelector('#noSession .btn-primary');
-                if (checkinBtn) {
-                    checkinBtn.disabled = false;
-                    checkinBtn.textContent = 'Check In';
-                }
-            }
-            await loadStudentData();
-        }
-    });
-
-    function triggerTabSync() {
-        try {
-            localStorage.setItem('tj_session_sync', Date.now().toString());
-            console.log('🔄 Triggered tab sync');
-        } catch (e) {
-            console.error('Failed to trigger tab sync:', e);
         }
     }
 
@@ -3681,13 +4071,13 @@
         document.getElementById('menuUserEmail').textContent = user.email || '';
         
         // Load badges
-        // Badges disabled
+        await BADGE_SYSTEM.loadUserBadges(user.id);
         
         // Load and display Hebrew date
         const hebrewDate = await getHebrewDate();
         document.getElementById('hebrewDate').textContent = hebrewDate;
         
-        // CRITICAL: Check for active session from DATABASE
+        // Check for active session
         console.log('🔵 Checking for active session on dashboard load...');
         const { data: activeSession, error: sessionError } = await sb.from('sessions')
             .select('*')
@@ -3935,11 +4325,8 @@
             const { data: existingSession, error: checkError } = await sb.from('sessions')
                 .select('*')
                 .eq('student_id', user.id)
-                .is('check_out_time', null).maybeSingle();
-            
-            if (checkError) {
-                console.error('❌ Error checking for session:', checkError);
-            }
+                .is('check_out_time', null)
+                .maybeSingle();
             
             if (existingSession) {
                 console.log('⚠️ Already checked in, loading existing session');
@@ -3954,11 +4341,8 @@
                 // Check if seder is still active
                 const status = isInSederTime();
                 if (!status.inSeder) {
-                console.log('⚠️ Seder ended, auto-checking out...');
-                    // Seder ended - auto checkout
                     await checkout();
                 } else {
-                    // Still in seder - show active session
                     startTimer();
                     msg('Resuming your active session!', 'success');
                 }
@@ -4081,7 +4465,6 @@
             if (session && !session.check_out_time) {
                 const status = isInSederTime();
                 if (!status.inSeder) {
-                console.log('⚠️ Seder ended, auto-checking out...');
                     checkout();
                 }
             }
@@ -4257,12 +4640,9 @@
         await loadLeaderboard();
         
         // Check and award badges
-        // Badges disabled
+        await BADGE_SYSTEM.checkAndAwardBadges(user.id, user);
         
         msg(`Checked out! You earned ${pointsEarned.toFixed(2)} points`, 'success');
-        
-        // SYNC WITH OTHER TABS
-        triggerTabSync();
     }
 
     // ===== ADMIN DASHBOARD =====
@@ -4322,4 +4702,67 @@
         
         if (tab === 'active') {
             document.getElementById('activeTab').classList.remove('hidden');
-            document.getElementById('allTab').clas
+            document.getElementById('allTab').classed('hidden');
+        } else {
+            document.getElementById('activeTab').classList.add('hidden');
+            document.getElementById('allTab').classList.remove('hidden');
+        }
+    }
+
+    // ========================================
+    // TAB SYNCHRONIZATION SYSTEM
+    // ========================================
+    window.addEventListener('storage', async (e) => {
+        if (e.key === 'tj_session_sync' && user) {
+            console.log('🔄 Session changed in another tab, reloading state...');
+            
+            const { data: activeSession } = await sb.from('sessions')
+                .select('*')
+                .eq('student_id', user.id)
+                .is('check_out_time', null)
+                .maybeSingle();
+            
+            if (activeSession && !session) {
+                console.log('✅ Another tab checked in, updating...');
+                session = activeSession;
+                if (session.seder_type && SEDER_TIMES[session.seder_type]) {
+                    currentSeder = SEDER_TIMES[session.seder_type];
+                }
+                document.getElementById('noSession').classList.add('hidden');
+                document.getElementById('activeSession').classList.remove('hidden');
+                if (currentSeder) {
+                    document.getElementById('activeSederName').textContent = `${currentSeder.name} Seder`;
+                }
+                startTimer();
+            } else if (!activeSession && session) {
+                console.log('✅ Another tab checked out, updating...');
+                clearInterval(interval);
+                session = null;
+                currentSeder = null;
+                document.getElementById('activeSession').classList.add('hidden');
+                document.getElementById('noSession').classList.remove('hidden');
+                const checkinBtn = document.querySelector('#noSession .btn-primary');
+                if (checkinBtn) {
+                    checkinBtn.disabled = false;
+                    checkinBtn.textContent = 'Check In';
+                }
+            }
+            await loadStudentData();
+        }
+    });
+
+    function triggerTabSync() {
+        try {
+            localStorage.setItem('tj_session_sync', Date.now().toString());
+            console.log('🔄 Triggered tab sync');
+        } catch (e) {
+            console.error('Failed to trigger tab sync:', e);
+        }
+    }
+
+    // Initialize app
+    init();
+
+</script>
+</body>
+</html>
