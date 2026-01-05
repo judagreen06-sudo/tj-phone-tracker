@@ -3650,12 +3650,15 @@
             const { data } = await sb.from('students').select('*').eq('id', authSession.user.id).single();
             user = data;
             if (user) {
+                console.log('✅ User authenticated:', user.name);
                 if (user.is_admin) {
                     showAdmin();
                 } else {
-                    showDashboard();
+                    await showDashboard();
                 }
             }
+        } else {
+            console.log('ℹ️ No active auth session');
         }
     }
 
@@ -4712,7 +4715,11 @@
     // ========================================
     // TAB SYNCHRONIZATION SYSTEM
     // ========================================
+    // Listen for ANY localStorage changes from other tabs
     window.addEventListener('storage', async (e) => {
+        console.log('🔄 Storage event:', e.key);
+        
+        // Handle session sync (check-in/check-out)
         if (e.key === 'tj_session_sync' && user) {
             console.log('🔄 Session changed in another tab, reloading state...');
             
@@ -4748,6 +4755,58 @@
                 }
             }
             await loadStudentData();
+        }
+        
+        // Handle logout sync
+        if (e.key === 'tj_logout_sync') {
+            console.log('🔄 User logged out in another tab, logging out this tab...');
+            // Force reload to login screen
+            window.location.reload();
+        }
+    });
+
+
+    // Check session state when tab becomes visible
+    document.addEventListener('visibilitychange', async () => {
+        if (!document.hidden && user) {
+            console.log('🔄 Tab became visible, checking session state...');
+            
+            const { data: activeSession } = await sb.from('sessions')
+                .select('*')
+                .eq('student_id', user.id)
+                .is('check_out_time', null)
+                .maybeSingle();
+            
+            // If there's an active session in DB but not loaded locally
+            if (activeSession && !session) {
+                console.log('✅ Found active session, loading...');
+                session = activeSession;
+                if (session.seder_type && SEDER_TIMES[session.seder_type]) {
+                    currentSeder = SEDER_TIMES[session.seder_type];
+                }
+                
+                // Check if seder is still active
+                const status = isInSederTime();
+                if (!status.inSeder) {
+                    await checkout();
+                } else {
+                    document.getElementById('noSession').classList.add('hidden');
+                    document.getElementById('activeSession').classList.remove('hidden');
+                    if (currentSeder) {
+                        document.getElementById('activeSederName').textContent = `${currentSeder.name} Seder`;
+                    }
+                    startTimer();
+                }
+            }
+            // If there's NO active session in DB but one is loaded locally
+            else if (!activeSession && session) {
+                console.log('✅ Session ended, cleaning up...');
+                clearInterval(interval);
+                session = null;
+                currentSeder = null;
+                document.getElementById('activeSession').classList.add('hidden');
+                document.getElementById('noSession').classList.remove('hidden');
+            }
         }
     });
 
