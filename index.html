@@ -4101,20 +4101,36 @@
             } else {
                 console.log('✅ Seder still active, showing session');
                 
-                // Hide check-in card, show active session card
-                document.getElementById('noSession').classList.add('hidden');
-                document.getElementById('activeSession').classList.remove('hidden');
+                // FORCE hide check-in card, show active session card
+                const noSessionCard = document.getElementById('noSession');
+                const activeSessionCard = document.getElementById('activeSession');
+                
+                if (noSessionCard) noSessionCard.classList.add('hidden');
+                if (activeSessionCard) activeSessionCard.classList.remove('hidden');
                 
                 // Update seder name
                 if (currentSeder) {
-                    document.getElementById('activeSederName').textContent = currentSeder.name + ' Seder';
+                    const sederNameEl = document.getElementById('activeSederName');
+                    if (sederNameEl) {
+                        sederNameEl.textContent = currentSeder.name + ' Seder';
+                    }
                 }
                 
                 // Start timer
                 startTimer();
+                
+                console.log('✅ UI updated - active session should be visible');
             }
         } else {
             console.log('ℹ️ No active session found');
+            
+            // FORCE show check-in card, hide active session card
+            const noSessionCard = document.getElementById('noSession');
+            const activeSessionCard = document.getElementById('activeSession');
+            
+            if (noSessionCard) noSessionCard.classList.remove('hidden');
+            if (activeSessionCard) activeSessionCard.classList.add('hidden');
+            
             updateSederHint();
         }
         
