@@ -2833,13 +2833,29 @@ let leaderboardExpanded = false;
 // SEDER CONFIGURATION
 // ==========================================
 const SEDER_TIMES = {
-    allday: {
-        start: 0,             // 12:00 AM (midnight)
-        graceStart: 0,        // 12:00 AM (midnight)
-        end: 23.99,           // 11:59 PM
-        maxPoints: 24,        // 24 hours max
-        name: 'All Day Test',
-        display: '12:00 AM - 11:59 PM'
+    morning: {
+        start: 9.5,           // 9:30 AM
+        graceStart: 9.417,    // 9:25 AM (5 min grace)
+        end: 13,              // 1:00 PM
+        maxPoints: 3.5,
+        name: 'Morning',
+        display: '9:30 AM - 1:00 PM'
+    },
+    afternoon: {
+        start: 15,            // 3:00 PM
+        graceStart: 14.917,   // 2:55 PM (5 min grace)
+        end: 17.75,           // 5:45 PM
+        maxPoints: 2.75,
+        name: 'Afternoon',
+        display: '3:00 PM - 5:45 PM'
+    },
+    night: {
+        start: 20,            // 8:00 PM
+        graceStart: 19.917,   // 7:55 PM (5 min grace)
+        end: 22,              // 10:00 PM
+        maxPoints: 2.0,
+        name: 'Night',
+        display: '8:00 PM - 10:00 PM'
     }
 };
 
@@ -2871,10 +2887,10 @@ function isInSederTime() {
     const now = getJerusalemTime();
     const day = now.getDay();
     
-    // TESTING: Seder all week including Shabbat
-    // if (day === 5 || day === 6) {
-    //     return { inSeder: false, message: 'No seder on Shabbat' };
-    // }
+    // No seder on Shabbat (Friday=5, Saturday=6)
+    if (day === 5 || day === 6) {
+        return { inSeder: false, message: 'No seder on Shabbat' };
+    }
     
     const hours = now.getHours();
     const mins = now.getMinutes();
