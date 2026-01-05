@@ -4084,22 +4084,37 @@
             .maybeSingle();
         
         if (activeSession) {
+            console.log('✅ Found active session on load');
             session = activeSession;
+            
             // Set currentSeder based on the session's seder_type
             if (session.seder_type && SEDER_TIMES[session.seder_type]) {
                 currentSeder = SEDER_TIMES[session.seder_type];
             }
             
-            // CRITICAL: Check if seder already ended while user was away
+            // Check if seder already ended while user was away
             const status = isInSederTime();
             if (!status.inSeder) {
+                console.log('⚠️ Seder ended, auto-checking out');
                 // Seder ended - auto-checkout immediately
                 await checkout();
             } else {
-                // Still in seder - start timer and auto-checkout monitoring
+                console.log('✅ Seder still active, showing session');
+                
+                // Hide check-in card, show active session card
+                document.getElementById('noSession').classList.add('hidden');
+                document.getElementById('activeSession').classList.remove('hidden');
+                
+                // Update seder name
+                if (currentSeder) {
+                    document.getElementById('activeSederName').textContent = currentSeder.name + ' Seder';
+                }
+                
+                // Start timer
                 startTimer();
             }
         } else {
+            console.log('ℹ️ No active session found');
             updateSederHint();
         }
         
@@ -4788,13 +4803,7 @@
         }
     });
     
-    // Sync on page load (for new tabs)
-    window.addEventListener('load', function() {
-        if (user) {
-            console.log('🔄 Page loaded, checking session...');
-            syncFromDatabase();
-        }
-    });
+
 
 </script>
 </body>
