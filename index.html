@@ -4384,6 +4384,11 @@
             startTimer();
             msg('Checked in successfully!', 'success');
             
+            // Notify other tabs
+            try {
+                localStorage.setItem('tj_checkin_sync', Date.now().toString());
+            } catch(e) {}
+            
         } catch (err) {
             console.error('❌ Unexpected error in checkin:', err);
             vibrate(50);
@@ -4629,6 +4634,11 @@
         await BADGE_SYSTEM.checkAndAwardBadges(user.id, user);
         
         msg(`Checked out! You earned ${pointsEarned.toFixed(2)} points`, 'success');
+            
+            // Notify other tabs
+            try {
+                localStorage.setItem('tj_checkout_sync', Date.now().toString());
+            } catch(e) {}
     }
 
     // ===== ADMIN DASHBOARD =====
@@ -4694,6 +4704,98 @@
             document.getElementById('allTab').classList.remove('hidden');
         }
     }
+
+    // ============================================
+    // COMPLETE TAB SYNCHRONIZATION SYSTEM
+    // ============================================
+    
+    // Listen for localStorage changes from other tabs
+    window.addEventListener('storage', function(e) {
+        if (!user) return; // Only sync if logged in
+        
+        if (e.key === 'tj_checkin_sync') {
+            console.log('🔄 Another tab checked in, syncing...');
+            syncFromDatabase();
+        }
+        
+        if (e.key === 'tj_checkout_sync') {
+            console.log('🔄 Another tab checked out, syncing...');
+            syncFromDatabase();
+        }
+        
+        if (e.key === 'tj_logout_sync') {
+            console.log('🔄 Another tab logged out, reloading...');
+            window.location.reload();
+        }
+    });
+    
+    // Function to sync state from database
+    async function syncFromDatabase() {
+        if (!user) return;
+        
+        const { data: activeSession } = await sb.from('sessions')
+            .select('*')
+            .eq('student_id', user.id)
+            .is('check_out_time', null)
+            .maybeSingle();
+        
+        if (activeSession && !session) {
+            // Another tab checked in - load session
+            console.log('✅ Loading active session from database');
+            session = activeSession;
+            if (session.seder_type && SEDER_TIMES[session.seder_type]) {
+                currentSeder = SEDER_TIMES[session.seder_type];
+            }
+            
+            // Update UI
+            document.getElementById('noSession').classList.add('hidden');
+            document.getElementById('activeSession').classList.remove('hidden');
+            if (currentSeder) {
+                document.getElementById('activeSederName').textContent = currentSeder.name + ' Seder';
+            }
+            
+            // Start timer
+            startTimer();
+            
+        } else if (!activeSession && session) {
+            // Another tab checked out - clear session
+            console.log('✅ Clearing session');
+            clearInterval(interval);
+            session = null;
+            currentSeder = null;
+            
+            // Update UI
+            document.getElementById('activeSession').classList.add('hidden');
+            document.getElementById('noSession').classList.remove('hidden');
+            
+            // Reset button
+            const btn = document.querySelector('#noSession .btn-primary');
+            if (btn) {
+                btn.disabled = false;
+                btn.textContent = 'Check In';
+            }
+        }
+        
+        // Always reload student data
+        await loadStudentData();
+    }
+    
+    // Check session when tab becomes visible
+    document.addEventListener('visibilitychange', function() {
+        if (!document.hidden && user) {
+            console.log('🔄 Tab visible, checking session...');
+            syncFromDatabase();
+        }
+    });
+    
+    // Sync on page load (for new tabs)
+    window.addEventListener('load', function() {
+        if (user) {
+            console.log('🔄 Page loaded, checking session...');
+            syncFromDatabase();
+        }
+    });
+
 </script>
 </body>
 </html>
