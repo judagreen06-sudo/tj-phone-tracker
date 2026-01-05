@@ -3073,8 +3073,6 @@ function checkAutoCheckout() {
 // ==========================================
 async function checkin() {
     const btn = event.target;
-    btn.disabled = true;
-    btn.textContent = 'Checking in...';
     
     try {
         // Check database first
@@ -3096,20 +3094,20 @@ async function checkin() {
             }
             
             notifyOtherTabs('checkin');
-            btn.disabled = false;
-            btn.textContent = 'Check In';
             return;
         }
         
-        // Check seder time
+        // Check seder time FIRST before showing any loading state
         const status = isInSederTime();
         if (!status.inSeder) {
             vibrate(50);
-            msg(status.message || 'Not during seder times', 'warning');
-            btn.disabled = false;
-            btn.textContent = 'Check In';
+            msg('Not during seder time', 'warning');
             return;
         }
+        
+        // Now we know it's valid seder time, show loading
+        btn.disabled = true;
+        btn.textContent = 'Checking in...';
         
         // Create new session
         vibrate([30, 20, 30]);
