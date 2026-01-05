@@ -4048,8 +4048,12 @@
         }
     }
 
-    // Initialize app
-    init();
+    // Initialize app when DOM and Supabase are ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
 
 </script>
 </body>
