@@ -345,48 +345,21 @@
         }
         
         /* Premium Menu Overlay */
-        .menu-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            display: flex;
-            justify-content: flex-end;
-            opacity: 1;
-            transition: opacity 0.3s;
-        }
+
         
         .menu-overlay.hidden {
             opacity: 0;
             pointer-events: none;
         }
         
-        .menu-panel {
-            background: white;
-            width: 100%;
-            max-width: 400px;
-            height: 100vh;
-            overflow-y: auto;
-            transform: translateX(0);
-            transition: transform 0.3s;
-            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
-        }
+
         
         .menu-overlay.hidden .menu-panel {
             transform: translateX(100%);
         }
         
         /* Menu Header */
-        .menu-header {
-            padding: 24px;
-            border-bottom: 1px solid #f0f0f0;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
+
         
         .menu-profile {
             display: flex;
@@ -426,20 +399,7 @@
             color: #666;
         }
         
-        .menu-close {
-            background: transparent;
-            border: none;
-            font-size: 28px;
-            color: #999;
-            cursor: pointer;
-            padding: 0;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-        }
+
         
         .menu-close:hover {
             color: #1c1c1e;
@@ -447,9 +407,7 @@
         }
         
         /* Menu Items */
-        .menu-items {
-            padding: 8px 0;
-        }
+
         
         .menu-item {
             display: flex;
@@ -2179,13 +2137,13 @@
     <div id="studentScreen">
         <div class="top-bar">
             <div class="app-name">TJ</div>
-            <div class="profile-button" onclick="toggleMenu()">
+            <div class="profile-button" >
                 <div class="profile-initials" id="userInitials">U</div>
             </div>
         </div>
         
         <!-- Premium Menu Overlay -->
-        <div id="menuOverlay" class="menu-overlay hidden" onclick="closeMenu()">
+        <div id="menuOverlay" class="menu-overlay hidden" >
             <div class="menu-panel" onclick="event.stopPropagation()">
                 <div class="menu-header">
                     <div class="menu-profile">
@@ -2195,7 +2153,7 @@
                             <div class="menu-user-email" id="menuUserEmail"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="afdadccaddefcad7cec2dfc3ca81ccc0c2">[email&#160;protected]</a></div>
                         </div>
                     </div>
-                    <button class="menu-close" onclick="closeMenu()">✕</button>
+                    <button class="menu-close" >✕</button>
                 </div>
                 
                 <div class="menu-items">
@@ -3636,41 +3594,6 @@ function showAbout() {
 function hideAbout() {
     vibrate(20);
     document.getElementById('aboutModal').classList.add('hidden');
-}
-
-function toggleMenu() {
-    vibrate(20);
-    document.getElementById('menuOverlay').classList.toggle('hidden');
-}
-
-function closeMenu() {
-    vibrate(20);
-    document.getElementById('menuOverlay').classList.add('hidden');
-}
-
-function openMyBadges() {
-    msg('Badges feature coming soon!', 'info');
-    closeMenu();
-}
-
-function openMyStats() {
-    msg('Stats feature coming soon!', 'info');
-    closeMenu();
-}
-
-function openSettings() {
-    msg('Settings feature coming soon!', 'info');
-    closeMenu();
-}
-
-function openHowToUse() {
-    showAbout();
-    closeMenu();
-}
-
-function openInfo() {
-    showAbout();
-    closeMenu();
 }
 
 // ==========================================
