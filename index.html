@@ -998,6 +998,8 @@
             stroke-dashoffset: 395.84;
             stroke-linecap: round;
             transition: stroke-dashoffset 0.8s ease;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
             filter: drop-shadow(0 0 4px rgba(16, 185, 129, 0.5));
         }
         
@@ -3456,11 +3458,21 @@ function updateProgressCircle(percent) {
     
     if (!circle || !percentEl) return;
     
-    const circumference = 2 * Math.PI * 63;
+    const circumference = 2 * Math.PI * 63; // 395.84
+    
+    // Set stroke-dasharray (this makes the stroke dashed)
+    circle.style.strokeDasharray = circumference;
+    
+    // Calculate offset (how much to hide)
     const offset = circumference - (percent / 100) * circumference;
     
+    // Set the offset
     circle.style.strokeDashoffset = offset;
+    
+    // Update percentage text
     percentEl.textContent = Math.round(percent) + '%';
+    
+    console.log('Progress circle updated:', percent + '%', 'offset:', offset);
 }
 
 async function loadStudentData() {
