@@ -2818,6 +2818,9 @@ const SEDER_TIMES = {
 };
 
 const DAILY_GOAL = 8.25;
+const PERFECT_DAY_BONUS = 5;
+const PERFECT_WEEK_BONUS = 10;
+const DAYS_IN_WEEK = 5; // Sunday-Thursday
 
 // ==========================================
 // UTILITY FUNCTIONS
@@ -3187,11 +3190,34 @@ async function checkout() {
         .single();
     
     if (student) {
+        let bonusPoints = 0;
+        let bonusMessage = '';
+        
+        // Check for Perfect Day bonus (8.25 points in one day)
+        const newTodayPoints = (student.today_points || 0) + pointsEarned;
+        
+        if (newTodayPoints >= 8.25 && student.today_points < 8.25) {
+            bonusPoints += 5;
+            bonusMessage = '🎉 Perfect Day Bonus: +5 points! ';
+            
+            // Increment perfect day count
+            await sb.from('students').update({
+                perfect_day_count: (student.perfect_day_count || 0) + 1
+            }).eq('id', user.id);
+        }
+        
+        // Update points with bonus
         await sb.from('students').update({
-            total_points: (student.total_points || 0) + pointsEarned,
-            today_points: (student.today_points || 0) + pointsEarned,
-            week_points: (student.week_points || 0) + pointsEarned
+            total_points: (student.total_points || 0) + pointsEarned + bonusPoints,
+            today_points: newTodayPoints,
+            week_points: (student.week_points || 0) + pointsEarned + bonusPoints
         }).eq('id', user.id);
+        
+        pointsEarned += bonusPoints;
+        
+        if (bonusMessage) {
+            msg(bonusMessage + `Checked out! Earned ${pointsEarned.toFixed(2)} points total`, 'success');
+        }
     }
     
     vibrate([40, 30, 40, 30, 60]);
@@ -3662,6 +3688,39 @@ function switchAdminTab(tab) {
     } else {
         document.getElementById('activeTab').classList.add('hidden');
         document.getElementById('allTab').classList.remove('hidden');
+    }
+}
+
+
+// ==========================================
+// PERFECT WEEK BONUS CHECK
+// ==========================================
+async function checkPerfectWeekBonus() {
+    if (!user) return;
+    
+    const { data: student } = await sb.from('students')
+        .select('perfect_day_count, perfect_week_count, week_points')
+        .eq('id', user.id)
+        .single();
+    
+    if (!student) return;
+    
+    // If student has 5 perfect days this week, award perfect week bonus
+    if (student.perfect_day_count >= DAYS_IN_WEEK) {
+        console.log('🎊 PERFECT WEEK ACHIEVED!');
+        
+        // Award the bonus
+        await sb.from('students').update({
+            total_points: student.total_points + PERFECT_WEEK_BONUS,
+            week_points: (student.week_points || 0) + PERFECT_WEEK_BONUS,
+            perfect_week_count: (student.perfect_week_count || 0) + 1
+        }).eq('id', user.id);
+        
+        // Show celebration message
+        msg('🎊 PERFECT WEEK! You earned +10 bonus points!', 'success');
+        
+        // Reload data to show new points
+        await loadStudentData();
     }
 }
 
