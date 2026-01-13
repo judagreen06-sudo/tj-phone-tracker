@@ -3501,14 +3501,19 @@ function updateProgressCircle(percent) {
     // Calculate offset - starts at full (hidden), goes down as percent increases
     const offset = circumference - (percent / 100) * circumference;
     
-    // Set both dasharray and dashoffset
-    circle.style.strokeDasharray = `${circumference} ${circumference}`;
-    circle.style.strokeDashoffset = offset;
+    // FORCE set the attributes directly (bypasses CSS)
+    circle.setAttribute('stroke-dasharray', circumference);
+    circle.setAttribute('stroke-dashoffset', offset);
+    
+    // Also set via style for good measure
+    circle.style.strokeDasharray = `${circumference}`;
+    circle.style.strokeDashoffset = `${offset}`;
     
     // Update percentage text
     percentEl.textContent = Math.round(percent) + '%';
     
     console.log('✅ Progress circle updated:', percent + '%', 'offset:', offset.toFixed(2));
+    console.log('   Set via setAttribute AND style');
 }
 
 async function loadStudentData() {
