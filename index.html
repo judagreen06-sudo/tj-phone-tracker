@@ -2631,16 +2631,6 @@
                     </div>
                 </div>
                 
-                <!-- DEBUG: Manual Circle Test -->
-                <div style="margin: 20px 0; padding: 15px; background: #f0f0f0; border-radius: 8px;">
-                    <h4 style="margin: 0 0 10px 0;">🔧 Debug Controls</h4>
-                    <button onclick="testCircle(0)" style="margin: 5px; padding: 8px 16px;">Test 0%</button>
-                    <button onclick="testCircle(25)" style="margin: 5px; padding: 8px 16px;">Test 25%</button>
-                    <button onclick="testCircle(50)" style="margin: 5px; padding: 8px 16px;">Test 50%</button>
-                    <button onclick="testCircle(75)" style="margin: 5px; padding: 8px 16px;">Test 75%</button>
-                    <button onclick="testCircle(100)" style="margin: 5px; padding: 8px 16px;">Test 100%</button>
-                </div>
-                
                 <div class="stats-row">
                     <div class="stat">
                         <div class="stat-value" id="totalPoints">0</div>
@@ -3486,36 +3476,6 @@ function updateSederHint() {
     }
 }
 
-function updateProgressCircle(percent) {
-    const circle = document.getElementById('progressCircle');
-    const percentEl = document.getElementById('progressPercent');
-    
-    if (!circle || !percentEl) {
-        console.log('⚠️ Progress circle elements not found!');
-        return;
-    }
-    
-    const radius = 63;
-    const circumference = 2 * Math.PI * radius; // 395.84
-    
-    // Calculate offset - starts at full (hidden), goes down as percent increases
-    const offset = circumference - (percent / 100) * circumference;
-    
-    // FORCE set the attributes directly (bypasses CSS)
-    circle.setAttribute('stroke-dasharray', circumference);
-    circle.setAttribute('stroke-dashoffset', offset);
-    
-    // Also set via style for good measure
-    circle.style.strokeDasharray = `${circumference}`;
-    circle.style.strokeDashoffset = `${offset}`;
-    
-    // Update percentage text
-    percentEl.textContent = Math.round(percent) + '%';
-    
-    console.log('✅ Progress circle updated:', percent + '%', 'offset:', offset.toFixed(2));
-    console.log('   Set via setAttribute AND style');
-}
-
 async function loadStudentData() {
     const { data } = await sb.from('students').select('*').eq('id', user.id).single();
     if (!data) return;
@@ -3525,24 +3485,7 @@ async function loadStudentData() {
     document.getElementById('weekPoints').textContent = (data.week_points || 0).toFixed(2);
     document.getElementById('weekPointsCard').textContent = (data.week_points || 0).toFixed(2);
     
-    const todayPercent = Math.min((data.today_points / DAILY_GOAL) * 100, 100);
-    
-    console.log('=== PROGRESS CIRCLE DEBUG ===');
-    console.log('today_points:', data.today_points);
-    console.log('DAILY_GOAL:', DAILY_GOAL);
-    console.log('calculated percent:', todayPercent);
-    console.log('circle element exists:', !!document.getElementById('progressCircle'));
-    console.log('percent element exists:', !!document.getElementById('progressPercent'));
-    
-    updateProgressCircle(todayPercent);
-    
-    console.log('=== AFTER UPDATE ===');
-    const circle = document.getElementById('progressCircle');
-    if (circle) {
-        console.log('stroke-dasharray:', circle.style.strokeDasharray || circle.getAttribute('style'));
-        console.log('stroke-dashoffset:', circle.style.strokeDashoffset);
-        console.log('computed style:', window.getComputedStyle(circle).strokeDashoffset);
-    }
+    // Progress circle removed - just show the stats
     
     const { data: allStudents } = await sb.from('students')
         .select('week_points')
@@ -3755,14 +3698,6 @@ async function checkPerfectWeekBonus() {
         // Reload data to show new points
         await loadStudentData();
     }
-}
-
-// ==========================================
-// DEBUG TEST FUNCTION
-// ==========================================
-function testCircle(percent) {
-    console.log('🧪 Manual test:', percent + '%');
-    updateProgressCircle(percent);
 }
 
 // ==========================================
