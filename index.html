@@ -3196,13 +3196,15 @@ async function checkout() {
         // Check for Perfect Day bonus (8.25 points in one day)
         const newTodayPoints = (student.today_points || 0) + pointsEarned;
         
-        if (newTodayPoints >= 8.25 && student.today_points < 8.25) {
+        // Award bonus if reaching 8.25+ AND haven't gotten bonus today yet
+        // (perfect_day_count gets reset daily along with today_points)
+        if (newTodayPoints >= 8.25 && (student.perfect_day_count || 0) === 0) {
             bonusPoints += 5;
             bonusMessage = '🎉 Perfect Day Bonus: +5 points! ';
             
-            // Increment perfect day count
+            // Increment perfect day count (marks that bonus was received)
             await sb.from('students').update({
-                perfect_day_count: (student.perfect_day_count || 0) + 1
+                perfect_day_count: 1
             }).eq('id', user.id);
         }
         
