@@ -24,7 +24,7 @@
             touch-action: manipulation;
         }
         
-        /* Login Screen - Full Screen Overlay */
+        /* Login Screen */
         #authScreen {
             position: fixed;
             top: 0;
@@ -61,66 +61,15 @@
             }
         }
         
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-        
-        @keyframes shimmer {
-            0% { opacity: 1; }
-            50% { opacity: 0.7; }
-            100% { opacity: 1; }
-        }
-        
-        @keyframes bounce {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-        
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        /* Logo */
         .logo {
             text-align: center;
             margin-bottom: 32px;
-            animation: scaleIn 0.5s ease-out 0.2s both;
         }
         .logo-text {
             font-size: 56px;
             font-weight: 800;
             color: #1c1c1e;
             letter-spacing: -2px;
-            animation: pulse 2s ease-in-out infinite;
         }
         .logo-subtext {
             font-size: 12px;
@@ -130,7 +79,6 @@
             margin-top: 4px;
         }
         
-        /* Header */
         .header {
             text-align: center;
             margin-bottom: 44px;
@@ -148,7 +96,6 @@
             line-height: 1.5;
         }
         
-        /* Form */
         .form-group {
             margin-bottom: 14px;
         }
@@ -166,10 +113,6 @@
             transition: all 0.3s ease;
             border: 2px solid transparent;
         }
-        input::placeholder { 
-            color: #8e8e93;
-            transition: color 0.2s ease;
-        }
         input:focus {
             outline: none;
             background: #e8e8ed;
@@ -177,11 +120,7 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(115, 143, 117, 0.2);
         }
-        input:focus::placeholder {
-            color: #b0b0b5;
-        }
         
-        /* Buttons */
         button {
             width: 100%;
             padding: 17px;
@@ -192,27 +131,9 @@
             cursor: pointer;
             transition: all 0.3s ease;
             font-family: inherit;
-            position: relative;
-            overflow: hidden;
         }
         button:active {
             transform: scale(0.98);
-        }
-        button::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-        button:active::before {
-            width: 300px;
-            height: 300px;
         }
         .btn-primary {
             background: #738f75;
@@ -260,7 +181,6 @@
             color: #628364;
         }
         
-        /* Messages */
         .message {
             padding: 15px;
             border-radius: 8px;
@@ -273,13 +193,11 @@
         .warning { background: #fef3c7; color: #92400e; }
         .hidden { display: none !important; }
         
-        /* Dashboard - Hidden by default */
         #studentScreen,
         #adminScreen {
             display: none;
         }
         
-        /* Top Bar - Sticky */
         .top-bar {
             background: white;
             padding: 14px 20px;
@@ -309,591 +227,11 @@
             justify-content: center;
             font-size: 13px;
             font-weight: 600;
+            cursor: pointer;
             transition: transform 0.3s ease;
         }
         .avatar:hover {
             transform: scale(1.1) rotate(5deg);
-        }
-        /* Premium Profile Button */
-        .profile-button {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: #738f75;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 2px 8px rgba(115, 143, 117, 0.2);
-        }
-        
-        .profile-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 12px rgba(115, 143, 117, 0.3);
-        }
-        
-        .profile-button:active {
-            transform: scale(0.95);
-        }
-        
-        .profile-initials {
-            color: white;
-            font-size: 18px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-        }
-        
-        /* Premium Menu Overlay */
-
-        
-        .menu-overlay.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-        
-
-        
-        .menu-overlay.hidden .menu-panel {
-            transform: translateX(100%);
-        }
-        
-        /* Menu Header */
-
-        
-        .menu-profile {
-            display: flex;
-            gap: 16px;
-            flex: 1;
-        }
-        
-        .menu-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: #738f75;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            font-weight: 700;
-            flex-shrink: 0;
-        }
-        
-        .menu-user-info {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        
-        .menu-user-name {
-            font-size: 20px;
-            font-weight: 700;
-            color: #1c1c1e;
-            margin-bottom: 4px;
-        }
-        
-        .menu-user-email {
-            font-size: 14px;
-            color: #666;
-        }
-        
-
-        
-        .menu-close:hover {
-            color: #1c1c1e;
-            transform: scale(1.1);
-        }
-        
-        /* Menu Items */
-
-        
-        .menu-item {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            padding: 16px 24px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .menu-item:hover {
-            background: #f5f5f5;
-        }
-        
-        .menu-item:active {
-            background: #e8e8e8;
-        }
-        
-        .menu-item-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            background: rgba(115, 143, 117, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #738f75;
-            flex-shrink: 0;
-        }
-        
-        .menu-item-icon svg {
-            width: 24px;
-            height: 24px;
-        }
-        
-        .menu-item.danger .menu-item-icon {
-            background: rgba(255, 59, 48, 0.1);
-            color: #ff3b30;
-        }
-        
-        .menu-item-content {
-            flex: 1;
-        }
-        
-        .menu-item-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #1c1c1e;
-            margin-bottom: 2px;
-        }
-        
-        .menu-item.danger .menu-item-title {
-            color: #ff3b30;
-        }
-        
-        .menu-item-subtitle {
-            font-size: 13px;
-            color: #666;
-        }
-        
-        .menu-divider {
-            height: 1px;
-            background: #f0f0f0;
-            margin: 8px 24px;
-        }
-        
-        @media (max-width: 768px) {
-            .menu-panel {
-                max-width: 100%;
-            }
-        }
-        
-        /* Stats Modal */
-        .stats-modal-content {
-            background: white;
-            border-radius: 20px;
-            max-width: 600px;
-            width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-            padding: 0;
-        }
-        
-        .stats-modal-content .modal-body {
-            padding: 24px;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-        
-        .stat-card {
-            background: white;
-            border: 2px solid #738f75;
-            border-radius: 16px;
-            padding: 24px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #738f75, #5a7a5c);
-        }
-        
-        .stat-icon {
-            width: 48px;
-            height: 48px;
-            margin: 0 auto 12px;
-            background: rgba(115, 143, 117, 0.1);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .stat-icon svg {
-            width: 28px;
-            height: 28px;
-            color: #738f75;
-        }
-        
-        .stat-value {
-            font-size: 36px;
-            font-weight: 700;
-            margin-bottom: 4px;
-            color: #1c1c1e;
-        }
-        
-        .stat-label {
-            font-size: 12px;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-weight: 600;
-        }
-        
-        /* Unified Section Styling for All Pages */
-        .stats-section,
-        .settings-section,
-        .badge-section {
-            padding: 24px;
-            border-bottom: 1px solid #f0f0f0;
-        }
-        
-        .stats-section:last-child,
-        .settings-section:last-child {
-            border-bottom: none;
-        }
-        
-        .stats-section h3,
-        .settings-section h3 {
-            font-size: 16px;
-            font-weight: 600;
-            color: #1c1c1e;
-            margin: 0 0 16px 0;
-            text-transform: none;
-        }
-        
-        /* Seder Stats */
-        .seder-stats {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-        
-        .seder-stat-row {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .seder-stat-label {
-            width: 180px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 14px;
-            font-weight: 500;
-        }
-        
-        .seder-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-        
-        .seder-icon svg {
-            width: 20px;
-            height: 20px;
-        }
-        
-        .seder-icon.morning {
-            background: rgba(255, 152, 0, 0.1);
-            color: #FF9800;
-        }
-        
-        .seder-icon.afternoon {
-            background: rgba(255, 193, 7, 0.1);
-            color: #FFC107;
-        }
-        
-        .seder-icon.night {
-            background: rgba(92, 107, 192, 0.1);
-            color: #5C6BC0;
-        }
-        
-        .seder-stat-bar {
-            flex: 1;
-            height: 8px;
-            background: #e0e0e0;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-        
-        .seder-stat-fill {
-            height: 100%;
-            border-radius: 4px;
-            transition: width 0.3s;
-        }
-        
-        .seder-stat-fill.morning {
-            background: linear-gradient(90deg, #FF9800, #F57C00);
-        }
-        
-        .seder-stat-fill.afternoon {
-            background: linear-gradient(90deg, #FFC107, #FFA000);
-        }
-        
-        .seder-stat-fill.night {
-            background: linear-gradient(90deg, #5C6BC0, #3F51B5);
-        }
-        
-        .seder-stat-count {
-            width: 40px;
-            text-align: right;
-            font-weight: 600;
-            color: #738f75;
-        }
-        
-        /* Ranking Stats */
-        .ranking-stats {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        
-        .ranking-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px;
-            background: white;
-            border: 2px solid #f0f0f0;
-            border-radius: 12px;
-        }
-        
-        .ranking-label {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 500;
-        }
-        
-        .ranking-icon {
-            width: 36px;
-            height: 36px;
-            background: rgba(115, 143, 117, 0.1);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #738f75;
-        }
-        
-        .ranking-icon svg {
-            width: 18px;
-            height: 18px;
-        }
-        
-        .ranking-value {
-            font-weight: 700;
-            font-size: 18px;
-            color: #738f75;
-            min-width: 50px;
-            text-align: right;
-        }
-        
-        /* Perfect Stats */
-        .perfect-stats {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-        }
-        
-        .perfect-item {
-            text-align: center;
-            padding: 24px;
-            background: white;
-            border: 2px solid #738f75;
-            border-radius: 12px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .perfect-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: #738f75;
-        }
-        
-        .perfect-icon {
-            width: 48px;
-            height: 48px;
-            margin: 0 auto 12px;
-            background: rgba(115, 143, 117, 0.1);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #738f75;
-        }
-        
-        .perfect-icon svg {
-            width: 24px;
-            height: 24px;
-        }
-        
-        .perfect-count {
-            font-size: 40px;
-            font-weight: 700;
-            color: #738f75;
-            margin-bottom: 8px;
-        }
-        
-        .perfect-label {
-            font-size: 12px;
-            color: #666;
-            text-transform: uppercase;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-        
-        /* Settings Modal */
-        .settings-modal-content {
-            background: white;
-            border-radius: 20px;
-            max-width: 500px;
-            width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-            padding: 0;
-        }
-        
-        .settings-modal-content .modal-body {
-            padding: 24px;
-        }
-        
-        .setting-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px;
-            border-radius: 12px;
-            background: #f5f5f5;
-            margin-bottom: 8px;
-        }
-        
-        .setting-item.clickable {
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .setting-item.clickable:hover {
-            background: #e8e8e8;
-        }
-        
-        .setting-label {
-            flex: 1;
-        }
-        
-        .setting-name {
-            font-size: 16px;
-            font-weight: 500;
-            margin-bottom: 4px;
-        }
-        
-        .setting-description {
-            font-size: 13px;
-            color: #666;
-        }
-        
-        .setting-action {
-            font-size: 20px;
-            color: #999;
-        }
-        
-        /* Toggle Switch */
-        .toggle {
-            position: relative;
-            display: inline-block;
-            width: 50px;
-            height: 28px;
-        }
-        
-        .toggle input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-        
-        .toggle-slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            transition: 0.3s;
-            border-radius: 28px;
-        }
-        
-        .toggle-slider:before {
-            position: absolute;
-            content: "";
-            height: 20px;
-            width: 20px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            transition: 0.3s;
-            border-radius: 50%;
-        }
-        
-        .toggle input:checked + .toggle-slider {
-            background-color: #738f75;
-        }
-        
-        .toggle input:checked + .toggle-slider:before {
-            transform: translateX(22px);
-        }
-        
-        @media (max-width: 768px) {
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .user-info {
-                display: none;
-            }
-        }
-            width: 36px;
-            height: 36px;
-            padding: 0;
-            border-radius: 8px;
-            background: #f0f0f0;
-            font-size: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: none;
-            margin: 0;
-        }
-        .about-btn:hover {
-            background: #738f75;
-            transform: scale(1.1) rotate(15deg);
         }
         
         .container {
@@ -915,11 +253,7 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         }
-        .card:nth-child(1) { animation-delay: 0.1s; }
-        .card:nth-child(2) { animation-delay: 0.2s; }
-        .card:nth-child(3) { animation-delay: 0.3s; }
         
-        /* Welcome Card with Progress Circle */
         .welcome {
             text-align: center;
             padding: 32px 24px;
@@ -940,65 +274,6 @@
             color: #8e8e93;
             margin-bottom: 20px;
             font-weight: 500;
-            animation: fadeIn 0.5s ease-out 0.3s both;
-        }
-        
-        /* Progress Circle */
-        .progress-circle-container {
-            position: relative;
-            width: 140px;
-            height: 140px;
-            margin: 0 auto 24px;
-        }
-        .progress-circle {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: #f0f0f0;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .progress-circle::before {
-            content: '';
-            position: absolute;
-            top: 8px;
-            left: 8px;
-            right: 8px;
-            bottom: 8px;
-            border-radius: 50%;
-            background: white;
-        }
-        .progress-percentage {
-            position: relative;
-            font-size: 32px;
-            font-weight: 700;
-            color: #1c1c1e;
-            z-index: 1;
-        }
-        .progress-ring {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            transform: rotate(-90deg);
-        }
-        .progress-ring-bg {
-            fill: none;
-            stroke: #d1d5db;
-            stroke-width: 10;
-        }
-        .progress-ring-circle {
-            fill: none;
-            stroke: #10b981;
-            stroke-width: 10;
-            stroke-dasharray: 395.84;
-            stroke-dashoffset: 395.84;
-            stroke-linecap: round;
-            transition: stroke-dashoffset 0.8s ease;
-            filter: drop-shadow(0 0 4px rgba(16, 185, 129, 0.5));
         }
         
         .stats-row {
@@ -1014,10 +289,7 @@
             font-weight: 700;
             color: #738f75;
             margin-bottom: 4px;
-            animation: float 3s ease-in-out infinite;
         }
-        .stat:nth-child(2) .stat-value { animation-delay: 0.5s; }
-        .stat:nth-child(3) .stat-value { animation-delay: 1s; }
         .stat-label {
             font-size: 12px;
             color: #8e8e93;
@@ -1025,7 +297,6 @@
             letter-spacing: 0.5px;
         }
         
-        /* Compact Session Card */
         .session {
             text-align: center;
             padding: 28px 24px;
@@ -1043,7 +314,6 @@
             color: #1c1c1e;
             margin-bottom: 10px;
             font-variant-numeric: tabular-nums;
-            animation: fadeIn 0.3s ease;
         }
         .session-text {
             font-size: 14px;
@@ -1077,10 +347,8 @@
             color: #738f75;
             font-weight: 600;
             margin-bottom: 20px;
-            animation: pulse 1.5s ease-in-out infinite;
         }
         
-        /* Stats Grid */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -1093,15 +361,12 @@
             padding: 20px 16px;
             box-shadow: 0 2px 12px rgba(0,0,0,0.04);
             text-align: center;
-            animation: scaleIn 0.4s ease-out both;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
         .stat-card:hover {
             transform: translateY(-4px) scale(1.02);
             box-shadow: 0 6px 24px rgba(0,0,0,0.1);
         }
-        .stat-card:nth-child(1) { animation-delay: 0.1s; }
-        .stat-card:nth-child(2) { animation-delay: 0.2s; }
         .stat-card-value {
             font-size: 28px;
             font-weight: 700;
@@ -1113,7 +378,6 @@
             color: #8e8e93;
         }
         
-        /* Tabs */
         .tabs {
             display: flex;
             gap: 8px;
@@ -1134,7 +398,6 @@
             font-size: 14px;
             transition: all 0.3s ease;
             color: #8e8e93;
-            position: relative;
         }
         .tab:hover {
             background: #f0f0f0;
@@ -1148,7 +411,6 @@
             box-shadow: 0 2px 8px rgba(115, 143, 117, 0.3);
         }
         
-        /* Section Header */
         .section-header {
             display: flex;
             justify-content: space-between;
@@ -1170,9 +432,6 @@
             font-size: 18px;
             font-weight: 700;
             color: #1c1c1e;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
         .expand-icon {
             font-size: 20px;
@@ -1183,7 +442,6 @@
             transform: rotate(180deg);
         }
         
-        /* Leaderboard */
         .leaderboard-item {
             background: white;
             border-radius: 8px;
@@ -1193,18 +451,12 @@
             align-items: center;
             gap: 14px;
             box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-            animation: slideUp 0.3s ease-out both;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
         .leaderboard-item:hover {
             transform: translateX(4px);
             box-shadow: 0 4px 16px rgba(0,0,0,0.08);
         }
-        .leaderboard-item:nth-child(1) { animation-delay: 0.05s; }
-        .leaderboard-item:nth-child(2) { animation-delay: 0.1s; }
-        .leaderboard-item:nth-child(3) { animation-delay: 0.15s; }
-        .leaderboard-item:nth-child(4) { animation-delay: 0.2s; }
-        .leaderboard-item:nth-child(5) { animation-delay: 0.25s; }
         .leaderboard-item.top3 {
             background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
         }
@@ -1229,20 +481,9 @@
             font-weight: 700;
             flex-shrink: 0;
         }
-        .rank.gold { 
-            background: #f59e0b;
-            animation: bounce 2s ease-in-out infinite;
-        }
-        .rank.silver { 
-            background: #9e9e9e;
-            animation: bounce 2s ease-in-out infinite;
-            animation-delay: 0.3s;
-        }
-        .rank.bronze { 
-            background: #b89968;
-            animation: bounce 2s ease-in-out infinite;
-            animation-delay: 0.6s;
-        }
+        .rank.gold { background: #f59e0b; }
+        .rank.silver { background: #9e9e9e; }
+        .rank.bronze { background: #b89968; }
         .status-indicator {
             width: 8px;
             height: 8px;
@@ -1253,7 +494,6 @@
         .status-indicator.active {
             background: #34c759;
             box-shadow: 0 0 8px rgba(52, 199, 89, 0.6);
-            animation: pulse 2s ease-in-out infinite;
         }
         .player-info {
             flex: 1;
@@ -1273,7 +513,6 @@
             color: #8e8e93;
         }
         
-        /* Footer */
         .footer {
             text-align: center;
             padding: 24px 20px;
@@ -1291,784 +530,9 @@
             color: #8e8e93;
             letter-spacing: 0.3px;
         }
-        
-        /* Modal */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(4px);
-            z-index: 10000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: fadeIn 0.3s ease;
-        }
-        .modal-content {
-            background: white;
-            border-radius: 16px;
-            max-width: 500px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-            animation: slideUp 0.4s ease-out;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        }
-        .modal-header {
-            padding: 24px 24px 16px;
-            border-bottom: 1px solid #f0f0f0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            background: white;
-            z-index: 1;
-        }
-        .modal-header h2 {
-            font-size: 20px;
-            color: #1c1c1e;
-            margin: 0;
-        }
-        .modal-close, .close-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 0;
-            background: transparent;
-            border: none;
-            font-size: 32px;
-            font-weight: 300;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            padding: 0;
-            color: #999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .modal-close:hover, .close-btn:hover {
-            color: #1c1c1e;
-            transform: scale(1.1);
-        }
-            color: #1c1c1e;
-        }
-        .modal-body {
-            padding: 24px;
-        }
-        .about-section {
-            margin-bottom: 24px;
-            animation: slideUp 0.5s ease-out both;
-        }
-        .about-section:nth-child(1) { animation-delay: 0.1s; }
-        .about-section:nth-child(2) { animation-delay: 0.2s; }
-        .about-section:nth-child(3) { animation-delay: 0.3s; }
-        .about-section:nth-child(4) { animation-delay: 0.4s; }
-        .about-section:nth-child(5) { animation-delay: 0.5s; }
-        .about-section h3 {
-            font-size: 16px;
-            color: #738f75;
-            margin-bottom: 12px;
-        }
-        .about-section p {
-            color: #1c1c1e;
-            line-height: 1.6;
-            margin-bottom: 8px;
-        }
-        .about-section ul, .about-section ol {
-            margin-left: 20px;
-            color: #1c1c1e;
-        }
-        .about-section li {
-            margin-bottom: 8px;
-            line-height: 1.5;
-        }
-        .note {
-            background: #fef3c7;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 13px;
-            margin-top: 12px;
-        }
-        
-        /* ============================================ */
-        /* BADGE SYSTEM STYLES */
-        /* ============================================ */
-        
-        /* Badge icons in leaderboard */
-        .badge-icon-inline {
-            width: 20px;
-            height: 20px;
-            display: inline-block;
-            margin-left: 4px;
-            vertical-align: middle;
-        }
-        
-        .player-badges {
-            display: inline-flex;
-            gap: 4px;
-            margin-left: 8px;
-        }
-        
-        /* Badge Collection Modal */
-        .badge-modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(4px);
-            z-index: 10000;
-            overflow-y: auto;
-            padding: 20px;
-        }
-        
-        .badge-modal-overlay.active {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .badge-modal-content {
-            background: #f5f5f5;
-            border-radius: 16px;
-            width: 100%;
-            max-width: 900px;
-            margin: auto;
-            animation: slideUp 0.3s ease-out;
-        }
-        
-        /* Badge Header Card */
-        .badge-header-card {
-            background: white;
-            border-radius: 12px;
-            padding: 24px;
-            margin: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-        
-        .badge-header-title {
-            font-size: 28px;
-            font-weight: 700;
-            color: #1c1c1e;
-            margin-bottom: 20px;
-        }
-        
-        .badge-stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
-        }
-        
-        .badge-stat {
-            text-align: center;
-        }
-        
-        .badge-stat-value {
-            font-size: 32px;
-            font-weight: 700;
-            color: #738f75;
-        }
-        
-        .badge-stat-label {
-            font-size: 12px;
-            color: #666;
-            margin-top: 4px;
-        }
-        
-        /* Badge Selector Card */
-        .badge-selector-card {
-            background: white;
-            border-radius: 12px;
-            padding: 24px;
-            margin: 0 20px 20px 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-        
-        .badge-selector-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #1c1c1e;
-            margin-bottom: 16px;
-        }
-        
-        .badge-slots {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-        
-        .badge-slot {
-            position: relative;
-            width: 90px;
-            height: 90px;
-            border: 3px dashed #ddd;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #fafafa;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .badge-slot.filled {
-            border: 3px solid #738f75;
-            background: white;
-        }
-        
-        .badge-slot svg {
-            width: 60px;
-            height: 60px;
-        }
-        
-        .badge-slot-number {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            width: 24px;
-            height: 24px;
-            background: #738f75;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: 700;
-        }
-        
-        .badge-preview-section {
-            padding-top: 16px;
-            border-top: 1px solid #eee;
-        }
-        
-        .badge-preview-label {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 12px;
-        }
-        
-        .badge-preview {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px;
-            background: #fafafa;
-            border-radius: 8px;
-        }
-        
-        /* Badge Categories */
-        .badge-categories {
-            padding: 0 20px 20px 20px;
-        }
-        
-        .badge-category {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-        
-        .badge-category-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-        }
-        
-        .badge-category-title {
-            font-size: 20px;
-            font-weight: 700;
-            color: #1c1c1e;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .badge-category-title::before {
-            content: '';
-            width: 4px;
-            height: 24px;
-            border-radius: 2px;
-        }
-        
-        .badge-category[data-rarity="darkred"] .badge-category-title::before {
-            background: #DC143C;
-        }
-        
-        .badge-category[data-rarity="gold"] .badge-category-title::before {
-            background: #FFD700;
-        }
-        
-        .badge-category[data-rarity="purple"] .badge-category-title::before {
-            background: #8A2BE2;
-        }
-        
-        .badge-category[data-rarity="silver"] .badge-category-title::before {
-            background: #C0C0C0;
-        }
-        
-        .badge-category[data-rarity="bronze"] .badge-category-title::before {
-            background: #CD7F32;
-        }
-        
-        .badge-category-progress {
-            font-size: 16px;
-            font-weight: 600;
-            color: #738f75;
-        }
-        
-        .badge-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 16px;
-        }
-        
-        /* Badge Cards */
-        .badge-card {
-            background: white;
-            border: 2px solid #eee;
-            border-radius: 12px;
-            padding: 16px;
-            cursor: pointer;
-            transition: all 0.2s;
-            position: relative;
-        }
-        
-        .badge-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-        }
-        
-        .badge-card.earned {
-            background: white;
-            border-color: #738f75;
-        }
-        
-        .badge-card.locked {
-            filter: grayscale(0.6);
-            opacity: 0.65;
-        }
-        
-        .badge-card-icon {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 12px;
-        }
-        
-        .badge-card-icon svg {
-            width: 60px;
-            height: 60px;
-        }
-        
-        .badge-card-name {
-            font-size: 16px;
-            font-weight: 600;
-            color: #1c1c1e;
-            text-align: center;
-            margin-bottom: 4px;
-        }
-        
-        .badge-card-rarity {
-            text-align: center;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            padding: 4px 8px;
-            border-radius: 4px;
-            display: inline-block;
-            margin: 0 auto 8px auto;
-            display: block;
-            width: fit-content;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .badge-card-rarity.bronze { background: #d7ccc8; color: #5d4037; }
-        .badge-card-rarity.silver { background: #eceff1; color: #455a64; }
-        .badge-card-rarity.purple { background: #f3e5f5; color: #7b1fa2; }
-        .badge-card-rarity.gold { 
-            background: linear-gradient(135deg, #ffd700, #ffed4e);
-            color: #b8860b;
-        }
-        .badge-card-rarity.darkred {
-            background: linear-gradient(135deg, #9c27b0, #e91e63);
-            color: white;
-        }
-        
-        .badge-card-description {
-            font-size: 13px;
-            color: #666;
-            text-align: center;
-            line-height: 1.4;
-            margin-bottom: 8px;
-        }
-        
-        .badge-card-progress {
-            margin-top: 12px;
-        }
-        
-        .badge-progress-bar {
-            height: 6px;
-            background: #eee;
-            border-radius: 3px;
-            overflow: hidden;
-        }
-        
-        .badge-progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #738f75, #628364);
-            transition: width 0.3s ease;
-            animation: shimmer 2s infinite;
-        }
-        
-        .badge-progress-text {
-            font-size: 11px;
-            color: #666;
-            text-align: center;
-            margin-top: 4px;
-        }
-        
-        .badge-earned-tag {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            background: #738f75;
-            color: white;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 11px;
-            font-weight: 600;
-        }
-        
-        .badge-lock-overlay {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 40px;
-            opacity: 0.3;
-        }
-        
-        /* Badge Detail Modal */
-        .badge-detail-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(6px);
-            z-index: 10001;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        
-        .badge-detail-modal.active {
-            display: flex;
-        }
-        
-        .badge-detail-content {
-            background: white;
-            border-radius: 16px;
-            padding: 32px;
-            max-width: 480px;
-            width: 100%;
-            text-align: center;
-            animation: scaleIn 0.3s ease-out;
-        }
-        
-        .badge-detail-icon {
-            margin-bottom: 20px;
-        }
-        
-        .badge-detail-icon svg {
-            width: 140px;
-            height: 140px;
-        }
-        
-        .badge-detail-name {
-            font-size: 28px;
-            font-weight: 700;
-            color: #1c1c1e;
-            margin-bottom: 8px;
-        }
-        
-        .badge-detail-description {
-            font-size: 16px;
-            color: #666;
-            margin-bottom: 16px;
-            line-height: 1.5;
-        }
-        
-        .badge-detail-how {
-            background: #f5f5f5;
-            padding: 16px;
-            border-radius: 12px;
-            margin: 20px 0;
-        }
-        
-        .badge-detail-how-label {
-            font-size: 12px;
-            text-transform: uppercase;
-            font-weight: 700;
-            color: #999;
-            margin-bottom: 8px;
-        }
-        
-        .badge-detail-how-text {
-            font-size: 14px;
-            color: #1c1c1e;
-        }
-        
-        .badge-detail-actions {
-            display: flex;
-            gap: 12px;
-            margin-top: 24px;
-        }
-        
-        .badge-detail-actions button {
-            flex: 1;
-        }
-        
-        /* Badge Unlock Notification */
-        .badge-unlock-notification {
-            display: none;
-            position: fixed;
-            top: 80px;
-            right: 20px;
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-            z-index: 10002;
-            max-width: 320px;
-            animation: slideInRight 0.3s ease-out;
-        }
-        
-        .badge-unlock-notification.active {
-            display: block;
-        }
-        
-        @keyframes slideInRight {
-            from {
-                transform: translateX(400px);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-        
-        .badge-unlock-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 12px;
-        }
-        
-        .badge-unlock-icon svg {
-            width: 50px;
-            height: 50px;
-        }
-        
-        .badge-unlock-title {
-            font-size: 18px;
-            font-weight: 700;
-            color: #1c1c1e;
-        }
-        
-        .badge-unlock-subtitle {
-            font-size: 14px;
-            color: #666;
-        }
-        
-        .badge-unlock-message {
-            font-size: 14px;
-            color: #1c1c1e;
-            margin-bottom: 12px;
-        }
-        
-        .badge-unlock-close {
-            background: #738f75;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 14px;
-            cursor: pointer;
-            width: 100%;
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .badge-stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .badge-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .badge-slots {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
-
-        /* METAL-TIER BADGE EFFECTS */
-        .badge-wrapper {
-            position: relative;
-            display: inline-block;
-        }
-        
-        /* Bronze - Simple */
-        .badge-wrapper.bronze {
-            filter: drop-shadow(0 0 3px rgba(205, 127, 50, 0.3));
-        }
-        
-        /* Silver - Gentle shine */
-        .badge-wrapper.silver {
-            filter: drop-shadow(0 0 4px rgba(192, 192, 192, 0.6));
-            animation: silverShine 4s ease-in-out infinite;
-        }
-        
-        @keyframes silverShine {
-            0%, 100% { filter: drop-shadow(0 0 4px rgba(192, 192, 192, 0.6)); }
-            50% { filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8)); }
-        }
-        
-        /* Purple - Pulsing glow */
-        .badge-wrapper.purple {
-            filter: drop-shadow(0 0 6px rgba(138, 43, 226, 0.7));
-            animation: purplePulse 2.5s ease-in-out infinite;
-        }
-        
-        @keyframes purplePulse {
-            0%, 100% { 
-                filter: drop-shadow(0 0 6px rgba(138, 43, 226, 0.7));
-                transform: scale(1);
-            }
-            50% { 
-                filter: drop-shadow(0 0 12px rgba(138, 43, 226, 1));
-                transform: scale(1.08);
-            }
-        }
-        
-        /* Gold - Pulse + sparkles */
-        .badge-wrapper.gold {
-            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.9));
-            animation: goldPulse 2s ease-in-out infinite;
-        }
-        
-        @keyframes goldPulse {
-            0%, 100% { 
-                filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.9));
-                transform: scale(1) rotate(0deg);
-            }
-            50% { 
-                filter: drop-shadow(0 0 16px rgba(255, 215, 0, 1)) drop-shadow(0 0 24px rgba(255, 215, 0, 0.5));
-                transform: scale(1.12) rotate(5deg);
-            }
-        }
-        
-        .badge-wrapper.gold::before {
-            content: '✨';
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            font-size: 14px;
-            animation: goldSparkle1 2s ease-in-out infinite;
-        }
-        
-        .badge-wrapper.gold::after {
-            content: '✨';
-            position: absolute;
-            bottom: -10px;
-            left: -10px;
-            font-size: 14px;
-            animation: goldSparkle2 2s ease-in-out infinite 0.5s;
-        }
-        
-        @keyframes goldSparkle1 {
-            0%, 100% { opacity: 0; transform: rotate(0deg) scale(0.5); }
-            50% { opacity: 1; transform: rotate(180deg) scale(1.2); }
-        }
-        
-        @keyframes goldSparkle2 {
-            0%, 100% { opacity: 0; transform: rotate(0deg) scale(0.5); }
-            50% { opacity: 1; transform: rotate(-180deg) scale(1.2); }
-        }
-        
-        /* Dark Red - INSANE effects */
-        .badge-wrapper.darkred {
-            filter: drop-shadow(0 0 12px rgba(220, 20, 60, 1));
-            animation: darkredPulse 1.5s ease-in-out infinite;
-        }
-        
-        @keyframes darkredPulse {
-            0%, 100% { 
-                filter: drop-shadow(0 0 12px rgba(220, 20, 60, 1)) drop-shadow(0 0 20px rgba(139, 0, 0, 0.8));
-                transform: scale(1) rotate(0deg);
-            }
-            50% { 
-                filter: drop-shadow(0 0 24px rgba(220, 20, 60, 1)) drop-shadow(0 0 40px rgba(255, 69, 0, 1));
-                transform: scale(1.2) rotate(0deg);
-            }
-        }
-        
-        .badge-wrapper.darkred::after {
-            content: '💫';
-            position: absolute;
-            top: -12px;
-            right: -12px;
-            font-size: 18px;
-            animation: darkredParticle 2s ease-in-out infinite;
-        }
-        
-        @keyframes darkredParticle {
-            0% { opacity: 0; transform: translate(0, 0) rotate(0deg) scale(0.5); }
-            50% { opacity: 1; transform: translate(-15px, 0) rotate(180deg) scale(1.3); }
-            100% { opacity: 0; transform: translate(0, 0) rotate(360deg) scale(0.5); }
-        }
-        
-        .rarity-dot {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            bottom: 2px;
-            right: 2px;
-            border: 1px solid white;
-        }
-        .rarity-dot.bronze { background: #90caf9; }
-        .rarity-dot.silver { background: #ce93d8; }
-        .rarity-dot.purple { background: #f48fb1; }
-        .rarity-dot.gold { background: #ffd700; }
-        .rarity-dot.darkred { background: linear-gradient(45deg, #ff00ff, #00ffff); }
-        
-        /* Sticky Badge Modal Header */
-        .badge-modal-content .badge-header {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
     </style>
 </head>
 <body>
-    <!-- Auth Screen (Full Screen Overlay) -->
     <div id="authScreen">
         <div class="auth-container">
             <div class="logo">
@@ -2083,7 +547,6 @@
             
             <div id="messageBox" class="hidden"></div>
             
-            <!-- Login Form -->
             <div id="loginForm">
                 <div class="form-group">
                     <input type="email" id="loginEmail" placeholder="E-mail" autocomplete="email">
@@ -2091,545 +554,56 @@
                 <div class="form-group">
                     <input type="password" id="loginPassword" placeholder="Password" autocomplete="current-password">
                 </div>
-                <button class="btn-primary" onclick="login()" id="loginBtn">Login</button>
+                <button class="btn-primary" onclick="login()">Login</button>
                 <button class="link-btn" onclick="showSignup()">Need an account? Sign up</button>
                 <button class="link-btn" onclick="showForgotPassword()">Forgot Password?</button>
             </div>
             
-            <!-- Forgot Password Form -->
             <div id="forgotPasswordForm" class="hidden">
                 <div class="form-group">
-                    <input type="email" id="forgotEmail" placeholder="Enter your email" autocomplete="email">
+                    <input type="email" id="forgotEmail" placeholder="Enter your email">
                 </div>
                 <button class="btn-primary" onclick="sendPasswordReset()">Send Reset Link</button>
                 <button class="link-btn" onclick="showLogin()">Back to Login</button>
             </div>
             
-            <!-- Reset Password Form -->
             <div id="resetPasswordForm" class="hidden">
                 <div class="form-group">
-                    <input type="password" id="newPassword" placeholder="New Password (min 6 characters)" autocomplete="new-password">
+                    <input type="password" id="newPassword" placeholder="New Password (min 6 characters)">
                 </div>
                 <div class="form-group">
-                    <input type="password" id="confirmPassword" placeholder="Confirm New Password" autocomplete="new-password">
+                    <input type="password" id="confirmPassword" placeholder="Confirm New Password">
                 </div>
                 <button class="btn-primary" onclick="updatePassword()">Update Password</button>
             </div>
             
-            <!-- Signup Form -->
             <div id="signupForm" class="hidden">
                 <div class="form-group">
-                    <input type="text" id="signupName" placeholder="Full Name" autocomplete="name">
+                    <input type="text" id="signupName" placeholder="Full Name">
                 </div>
                 <div class="form-group">
-                    <input type="email" id="signupEmail" placeholder="E-mail" autocomplete="email">
+                    <input type="email" id="signupEmail" placeholder="E-mail">
                 </div>
                 <div class="form-group">
-                    <input type="password" id="signupPassword" placeholder="Password" autocomplete="new-password">
+                    <input type="password" id="signupPassword" placeholder="Password">
                 </div>
-                <button class="btn-primary" onclick="signup()" id="signupBtn">Sign up</button>
+                <button class="btn-primary" onclick="signup()">Sign up</button>
                 <button class="link-btn" onclick="showLogin()">Have an account? Login</button>
             </div>
         </div>
     </div>
 
-    <!-- Student Dashboard -->
     <div id="studentScreen">
         <div class="top-bar">
             <div class="app-name">TJ</div>
-            <div class="profile-button" >
-                <div class="profile-initials" id="userInitials">U</div>
-            </div>
-        </div>
-        
-        <!-- Premium Menu Overlay -->
-        <div id="menuOverlay" class="menu-overlay hidden" >
-            <div class="menu-panel" onclick="event.stopPropagation()">
-                <div class="menu-header">
-                    <div class="menu-profile">
-                        <div class="menu-avatar" id="menuAvatar">U</div>
-                        <div class="menu-user-info">
-                            <div class="menu-user-name" id="menuUserName">User</div>
-                            <div class="menu-user-email" id="menuUserEmail"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="afdadccaddefcad7cec2dfc3ca81ccc0c2">[email&#160;protected]</a></div>
-                        </div>
-                    </div>
-                    <button class="menu-close" >✕</button>
-                </div>
-                
-                <div class="menu-items">
-                    <div class="menu-item" onclick="openMyBadges()">
-                        <div class="menu-item-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
-                            </svg>
-                        </div>
-                        <div class="menu-item-content">
-                            <div class="menu-item-title">My Badges</div>
-                            <div class="menu-item-subtitle">View and manage your badges</div>
-                        </div>
-                    </div>
-                    
-                    <div class="menu-item" onclick="openMyStats()">
-                        <div class="menu-item-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M3 3v18h18"/>
-                                <path d="M18 17V9M13 17V5M8 17v-3"/>
-                            </svg>
-                        </div>
-                        <div class="menu-item-content">
-                            <div class="menu-item-title">My Stats</div>
-                            <div class="menu-item-subtitle">Track your progress</div>
-                        </div>
-                    </div>
-                    
-                    <div class="menu-item" onclick="openSettings()">
-                        <div class="menu-item-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="3"/>
-                                <path d="M12 1v6m0 6v6M4.22 4.22l4.24 4.24m5.66 5.66l4.24 4.24M1 12h6m6 0h6M4.22 19.78l4.24-4.24m5.66-5.66l4.24-4.24"/>
-                            </svg>
-                        </div>
-                        <div class="menu-item-content">
-                            <div class="menu-item-title">Settings</div>
-                            <div class="menu-item-subtitle">Account & preferences</div>
-                        </div>
-                    </div>
-                    
-                    <div class="menu-item" onclick="openHowToUse()">
-                        <div class="menu-item-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                                <path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
-                            </svg>
-                        </div>
-                        <div class="menu-item-content">
-                            <div class="menu-item-title">How to Use</div>
-                            <div class="menu-item-subtitle">Learn the basics</div>
-                        </div>
-                    </div>
-                    
-                    <div class="menu-item" onclick="openInfo()">
-                        <div class="menu-item-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"/>
-                                <line x1="12" y1="16" x2="12" y2="12"/>
-                                <line x1="12" y1="8" x2="12.01" y2="8"/>
-                            </svg>
-                        </div>
-                        <div class="menu-item-content">
-                            <div class="menu-item-title">About</div>
-                            <div class="menu-item-subtitle">App information</div>
-                        </div>
-                    </div>
-                    
-                    <div class="menu-divider"></div>
-                    
-                    <div class="menu-item danger" onclick="logout()">
-                        <div class="menu-item-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-                                <polyline points="16 17 21 12 16 7"/>
-                                <line x1="21" y1="12" x2="9" y2="12"/>
-                            </svg>
-                        </div>
-                        <div class="menu-item-content">
-                            <div class="menu-item-title">Logout</div>
-                            <div class="menu-item-subtitle">Sign out of your account</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- About Modal -->
-        <div id="aboutModal" class="modal-overlay hidden" onclick="hideAbout()">
-            <div class="modal-content" onclick="event.stopPropagation()">
-                <div class="modal-header">
-                    <h2>How TJ Phone Tracker Works</h2>
-                    <button class="modal-close" onclick="hideAbout()">✕</button>
-                </div>
-                <div class="modal-body">
-                    <div class="about-section">
-                        <h3>Point System</h3>
-                        <p><strong>1 hour = 1 point = 1 shekel</strong> toward Wolt!</p>
-                        <p>Keep your phone out of the Beis during seder times to earn points.</p>
-                    </div>
-                    
-                    <div class="about-section">
-                        <h3>Seder Times & Max Points</h3>
-                        <ul>
-                            <li><strong>Morning:</strong> 9:30 AM - 1:00 PM (3.5 pts max)</li>
-                            <li><strong>Afternoon:</strong> 3:00 PM - 5:45 PM (2.75 pts max)</li>
-                            <li><strong>Night:</strong> 8:00 PM - 10:00 PM (2.0 pts max)</li>
-                        </ul>
-                        <p class="note"> No seder on Friday and Saturday (Shabbat)</p>
-                    </div>
-                    
-                    <div class="about-section">
-                        <h3>✅ How to Use</h3>
-                        <ol>
-                            <li><strong>Check In:</strong> Press "Check In" at the start of seder</li>
-                            <li><strong>Stay Focused:</strong> Keep your phone away during learning</li>
-                            <li><strong>Check Out:</strong> Press "Check Out" when done</li>
-                            <li><strong>Earn Points:</strong> Points are added automatically!</li>
-                        </ol>
-                    </div>
-                    
-                    <div class="about-section">
-                        <h3>Leaderboard</h3>
-                        <p>Compete with your chavrusas! Check the leaderboard to see:</p>
-                        <ul>
-                            <li><strong>Today:</strong> Points earned today</li>
-                            <li><strong>This Week:</strong> Points earned this week</li>
-                            <li><strong>All-Time:</strong> Total points earned</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="about-section">
-                        <h3>📞 Questions?</h3>
-                        <p>Speak to <strong>Rabbi Schwartz</strong> or <strong>Juda Green</strong></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Badge Collection Modal -->
-        <div id="badgeModal" class="badge-modal-overlay" onclick="closeBadgeCollection()">
-            <div class="badge-modal-content" onclick="event.stopPropagation()">
-                <!-- Header Card -->
-                <div class="badge-header-card">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-                        <h1 class="badge-header-title" style="margin-bottom: 0;">🎖️ Badge Collection</h1>
-                        <button class="modal-close" onclick="closeBadgeCollection()" style="font-size: 24px; background: none; border: none; cursor: pointer; color: #666; padding: 8px;">✕</button>
-                    </div>
-                    <div class="badge-stats-grid">
-                        <div class="badge-stat">
-                            <div class="badge-stat-value" id="badgeEarnedCount">0</div>
-                            <div class="badge-stat-label">Earned</div>
-                        </div>
-                        <div class="badge-stat">
-                            <div class="badge-stat-value" id="badgeTotalCount">30</div>
-                            <div class="badge-stat-label">Total</div>
-                        </div>
-                        <div class="badge-stat">
-                            <div class="badge-stat-value" id="badgeCompletionPercent">0%</div>
-                            <div class="badge-stat-label">Complete</div>
-                        </div>
-                        <div class="badge-stat">
-                            <div class="badge-stat-value" id="badgeRareCount">0</div>
-                            <div class="badge-stat-label">Rare+</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Badge Selector Card -->
-                <div class="badge-selector-card">
-                    <h2 class="badge-selector-title">📌 Display Badges (Pick 3)</h2>
-                    <div class="badge-slots">
-                        <div class="badge-slot" id="badgeSlot1">
-                            <div class="badge-slot-number">1</div>
-                            <span style="font-size: 40px; opacity: 0.3;">🎖️</span>
-                        </div>
-                        <div class="badge-slot" id="badgeSlot2">
-                            <div class="badge-slot-number">2</div>
-                            <span style="font-size: 40px; opacity: 0.3;">🎖️</span>
-                        </div>
-                        <div class="badge-slot" id="badgeSlot3">
-                            <div class="badge-slot-number">3</div>
-                            <span style="font-size: 40px; opacity: 0.3;">🎖️</span>
-                        </div>
-                    </div>
-                    <div class="badge-preview-section">
-                        <div class="badge-preview-label">Leaderboard Preview:</div>
-                        <div class="badge-preview">
-                            <span style="font-weight: 600;">Your Name</span>
-                            <span id="badgePreview" style="display: flex; gap: 4px;"></span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Badge Categories -->
-                <div class="badge-categories" id="badgeCategories">
-                    <!-- Categories will be populated by JavaScript -->
-                </div>
-                
-                <div style="text-align: center; padding: 20px;">
-                    <button class="btn-primary" onclick="closeBadgeCollection()">Close</button>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Badge Unlock Notification -->
-        <div id="badgeUnlockNotification" class="badge-unlock-notification">
-            <div class="badge-unlock-header">
-                <div class="badge-unlock-icon" id="badgeUnlockIcon"></div>
-                <div>
-                    <div class="badge-unlock-title">Badge Unlocked!</div>
-                    <div class="badge-unlock-subtitle" id="badgeUnlockName"></div>
-                </div>
-            </div>
-            <div class="badge-unlock-message" id="badgeUnlockMessage"></div>
-            <button class="badge-unlock-close" onclick="closeBadgeNotification()">Awesome!</button>
-        </div>
-        
-        <!-- Stats Modal -->
-        <div id="statsModal" class="modal-overlay hidden" onclick="hideStats()">
-            <div class="stats-modal-content" onclick="event.stopPropagation()">
-                <div class="modal-header">
-                    <h2>My Stats</h2>
-                    <button class="close-btn" onclick="hideStats()">✕</button>
-                </div>
-                
-                <div class="modal-body">
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"/>
-                                <path d="M12 6v6l4 2"/>
-                            </svg>
-                        </div>
-                        <div class="stat-value" id="statTotalPoints">0</div>
-                        <div class="stat-label">Total Points</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-                                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-                            </svg>
-                        </div>
-                        <div class="stat-value" id="statTotalSessions">0</div>
-                        <div class="stat-label">Total Sessions</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"/>
-                                <polyline points="12 6 12 12 16 14"/>
-                            </svg>
-                        </div>
-                        <div class="stat-value" id="statTotalTime">0h</div>
-                        <div class="stat-label">Total Time</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="8" r="6"/>
-                                <path d="M12 2 L14 6 L18 7 L15 10 L16 14 L12 12 L8 14 L9 10 L6 7 L10 6 Z"/>
-                            </svg>
-                        </div>
-                        <div class="stat-value" id="statBadgeCount">0</div>
-                        <div class="stat-label">Badges Earned</div>
-                    </div>
-                </div>
-                
-                <div class="stats-section">
-                    <h3>Seder Breakdown</h3>
-                    <div class="seder-stats">
-                        <div class="seder-stat-row">
-                            <div class="seder-stat-label">
-                                <div class="seder-icon morning">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <circle cx="12" cy="12" r="5"/>
-                                        <line x1="12" y1="1" x2="12" y2="3"/>
-                                        <line x1="12" y1="21" x2="12" y2="23"/>
-                                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-                                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-                                        <line x1="1" y1="12" x2="3" y2="12"/>
-                                        <line x1="21" y1="12" x2="23" y2="12"/>
-                                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-                                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-                                    </svg>
-                                </div>
-                                <span>Morning Seder</span>
-                            </div>
-                            <div class="seder-stat-bar">
-                                <div class="seder-stat-fill morning" id="morningBar" style="width: 0%"></div>
-                            </div>
-                            <div class="seder-stat-count" id="morningSessions">0</div>
-                        </div>
-                        <div class="seder-stat-row">
-                            <div class="seder-stat-label">
-                                <div class="seder-icon afternoon">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <circle cx="12" cy="12" r="5"/>
-                                        <line x1="12" y1="1" x2="12" y2="3"/>
-                                        <line x1="12" y1="21" x2="12" y2="23"/>
-                                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-                                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-                                        <line x1="1" y1="12" x2="3" y2="12"/>
-                                        <line x1="21" y1="12" x2="23" y2="12"/>
-                                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-                                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-                                    </svg>
-                                </div>
-                                <span>Afternoon Seder</span>
-                            </div>
-                            <div class="seder-stat-bar">
-                                <div class="seder-stat-fill afternoon" id="afternoonBar" style="width: 0%"></div>
-                            </div>
-                            <div class="seder-stat-count" id="afternoonSessions">0</div>
-                        </div>
-                        <div class="seder-stat-row">
-                            <div class="seder-stat-label">
-                                <div class="seder-icon night">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-                                    </svg>
-                                </div>
-                                <span>Night Seder</span>
-                            </div>
-                            <div class="seder-stat-bar">
-                                <div class="seder-stat-fill night" id="nightBar" style="width: 0%"></div>
-                            </div>
-                            <div class="seder-stat-count" id="nightSessions">0</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="stats-section">
-                    <h3>Rankings</h3>
-                    <div class="ranking-stats">
-                        <div class="ranking-item">
-                            <div class="ranking-label">
-                                <div class="ranking-icon">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <circle cx="12" cy="12" r="10"/>
-                                        <polyline points="12 6 12 12 16 14"/>
-                                    </svg>
-                                </div>
-                                <span>Today's Rank</span>
-                            </div>
-                            <span class="ranking-value" id="rankToday">-</span>
-                        </div>
-                        <div class="ranking-item">
-                            <div class="ranking-label">
-                                <div class="ranking-icon">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                                        <line x1="16" y1="2" x2="16" y2="6"/>
-                                        <line x1="8" y1="2" x2="8" y2="6"/>
-                                        <line x1="3" y1="10" x2="21" y2="10"/>
-                                    </svg>
-                                </div>
-                                <span>Weekly Rank</span>
-                            </div>
-                            <span class="ranking-value" id="rankWeek">-</span>
-                        </div>
-                        <div class="ranking-item">
-                            <div class="ranking-label">
-                                <div class="ranking-icon">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-                                    </svg>
-                                </div>
-                                <span>All-Time Rank</span>
-                            </div>
-                            <span class="ranking-value" id="rankAllTime">-</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="stats-section">
-                    <h3>Perfect Attendance</h3>
-                    <div class="perfect-stats">
-                        <div class="perfect-item">
-                            <div class="perfect-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                    <polyline points="20 6 9 17 4 12"/>
-                                </svg>
-                            </div>
-                            <div class="perfect-count" id="perfectDays">0</div>
-                            <div class="perfect-label">Perfect Days</div>
-                        </div>
-                        <div class="perfect-item">
-                            <div class="perfect-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                    <polyline points="20 6 9 17 4 12"/>
-                                    <polyline points="20 6 9 17 4 12" transform="translate(2, 0)" opacity="0.5"/>
-                                </svg>
-                            </div>
-                            <div class="perfect-count" id="perfectWeeks">0</div>
-                            <div class="perfect-label">Perfect Weeks</div>
-                        </div>
-                    </div>
-                </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Settings Modal -->
-        <div id="settingsModal" class="modal-overlay hidden" onclick="hideSettings()">
-            <div class="settings-modal-content" onclick="event.stopPropagation()">
-                <div class="modal-header">
-                    <h2>Settings</h2>
-                    <button class="close-btn" onclick="hideSettings()">✕</button>
-                </div>
-                
-                <div class="modal-body">
-                <div class="settings-section">
-                    <h3>Account</h3>
-                    <div class="setting-item">
-                        <div class="setting-label">
-                            <div class="setting-name">Email</div>
-                            <div class="setting-description" id="userEmail">-</div>
-                        </div>
-                    </div>
-                    <div class="setting-item clickable" onclick="showChangePassword()">
-                        <div class="setting-label">
-                            <div class="setting-name">Change Password</div>
-                            <div class="setting-description">Update your password</div>
-                        </div>
-                        <div class="setting-action">›</div>
-                    </div>
-                </div>
-                
-                <div class="settings-section">
-                    <h3>Preferences</h3>
-                    <div class="setting-item">
-                        <div class="setting-label">
-                            <div class="setting-name">Notifications</div>
-                            <div class="setting-description">Badge unlock notifications</div>
-                        </div>
-                        <label class="toggle">
-                            <input type="checkbox" id="notificationsToggle" checked>
-                            <span class="toggle-slider"></span>
-                        </label>
-                    </div>
-                </div>
-                
-                <div class="settings-section">
-                    <h3>About</h3>
-                    <div class="setting-item clickable" onclick="showAbout(); hideSettings();">
-                        <div class="setting-label">
-                            <div class="setting-name">App Information</div>
-                            <div class="setting-description">Version 2.0</div>
-                        </div>
-                        <div class="setting-action">›</div>
-                    </div>
-                </div>
-                </div>
-            </div>
+            <div class="avatar" id="userAvatar" onclick="logout()">U</div>
         </div>
         
         <div class="container">
-            <!-- Welcome Card -->
             <div class="card welcome">
                 <div class="greeting">Shalom,</div>
                 <div class="name" id="userName"></div>
                 <div class="hebrew-date" id="hebrewDate">Loading...</div>
-                
-                <!-- Progress Circle -->
-                <div class="progress-circle-container">
-                    <svg class="progress-ring" viewBox="0 0 140 140">
-                        <circle class="progress-ring-bg" cx="70" cy="70" r="63"/>
-                        <circle class="progress-ring-circle" cx="70" cy="70" r="63" id="progressCircle"/>
-                    </svg>
-                    <div class="progress-circle">
-                        <span class="progress-percentage" id="progressPercent">0%</span>
-                    </div>
-                </div>
                 
                 <div class="stats-row">
                     <div class="stat">
@@ -2647,7 +621,6 @@
                 </div>
             </div>
             
-            <!-- No Session Card -->
             <div class="card session" id="noSession">
                 <div class="session-label">Ready to Learn?</div>
                 <div class="timer">--:--</div>
@@ -2658,7 +631,6 @@
                 <button class="btn-primary" onclick="checkin()">Check In</button>
             </div>
             
-            <!-- Active Session Card -->
             <div class="card session hidden" id="activeSession">
                 <div class="session-label" id="activeSederName">Current Session</div>
                 <div class="timer" id="timer">0:00</div>
@@ -2667,7 +639,6 @@
                 <button class="btn-danger" onclick="checkout()">Check Out</button>
             </div>
             
-            <!-- Stats Grid -->
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-card-value" id="todayPointsCard">0</div>
@@ -2679,24 +650,20 @@
                 </div>
             </div>
             
-            <!-- Leaderboard Tabs -->
             <div class="tabs">
                 <button class="tab active" onclick="switchTab('today')">Today</button>
                 <button class="tab" onclick="switchTab('week')">This Week</button>
                 <button class="tab" onclick="switchTab('all')">All-Time</button>
             </div>
             
-            <!-- Leaderboard Header (Collapsible) -->
             <div class="section-header" onclick="toggleLeaderboard()">
                 <div class="section-title">🏆 Leaderboard</div>
                 <div class="expand-icon" id="expandIcon">▼</div>
             </div>
             
-            <!-- Leaderboard List -->
             <div id="leaderboardTop3"></div>
             <div id="leaderboardRest" class="leaderboard-collapsible"></div>
             
-            <!-- Footer -->
             <div class="footer">
                 <div class="footer-contact">
                     Questions? Speak to Rabbi Schwartz or Juda Green
@@ -2710,7 +677,6 @@
         </div>
     </div>
 
-    <!-- Admin Dashboard -->
     <div id="adminScreen">
         <div class="top-bar">
             <div class="app-name">TJ Admin</div>
@@ -2751,7 +717,6 @@
                 <div id="allList"></div>
             </div>
             
-            <!-- Footer -->
             <div class="footer">
                 <div class="footer-contact">
                     Questions? Speak to Rabbi Schwartz or Juda Green
@@ -2763,23 +728,13 @@
         </div>
     </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-// ==========================================
-// TJ PHONE TRACKER - REBUILT FROM SCRATCH
-// ==========================================
-
-// ==========================================
-// CONFIGURATION
-// ==========================================
 const SUPABASE_URL = 'https://bhwydmzhdizzrhwdntmn.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJod3lkbXpoZGl6enJod2RudG1uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQxNjU2MDcsImV4cCI6MjA3OTc0MTYwN30.FCD2pmxZsVhS1sQTPFQ7J20nghFG6TqJTuCd5-iUN0o';
 
 const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// ==========================================
-// GLOBAL STATE
-// ==========================================
 let user = null;
 let session = null;
 let interval = null;
@@ -2787,48 +742,35 @@ let currentSeder = null;
 let currentTab = 'today';
 let leaderboardExpanded = false;
 
-// ==========================================
-// SEDER CONFIGURATION
-// ==========================================
 const SEDER_TIMES = {
     morning: {
-        start: 9.5,           // 9:30 AM
-        graceStart: 9.417,    // 9:25 AM (5 min grace)
-        end: 13,              // 1:00 PM
+        start: 9.5,
+        graceStart: 9.417,
+        end: 13,
         maxPoints: 3.5,
         name: 'Morning',
         display: '9:30 AM - 1:00 PM'
     },
     afternoon: {
-        start: 15,            // 3:00 PM
-        graceStart: 14.917,   // 2:55 PM (5 min grace)
-        end: 17.75,           // 5:45 PM
+        start: 15,
+        graceStart: 14.917,
+        end: 17.75,
         maxPoints: 2.75,
         name: 'Afternoon',
         display: '3:00 PM - 5:45 PM'
     },
     night: {
-        start: 20,            // 8:00 PM
-        graceStart: 19.917,   // 7:55 PM (5 min grace)
-        end: 22,              // 10:00 PM
+        start: 20,
+        graceStart: 19.917,
+        end: 22,
         maxPoints: 2.0,
         name: 'Night',
         display: '8:00 PM - 10:00 PM'
     }
 };
 
-const DAILY_GOAL = 8.25;
-const PERFECT_DAY_BONUS = 5;
-const PERFECT_WEEK_BONUS = 10;
-const DAYS_IN_WEEK = 5; // Sunday-Thursday
-
-// ==========================================
-// UTILITY FUNCTIONS
-// ==========================================
 function vibrate(duration = 30) {
-    if (navigator.vibrate) {
-        navigator.vibrate(duration);
-    }
+    if (navigator.vibrate) navigator.vibrate(duration);
 }
 
 function msg(text, type = 'error') {
@@ -2848,7 +790,6 @@ function isInSederTime() {
     const now = getJerusalemTime();
     const day = now.getDay();
     
-    // No seder on Shabbat (Friday=5, Saturday=6)
     if (day === 5 || day === 6) {
         return { inSeder: false, message: 'No seder on Shabbat' };
     }
@@ -2891,18 +832,13 @@ async function getHebrewDate() {
         const response = await fetch(`https://www.hebcal.com/converter?cfg=json&gy=${year}&gm=${month}&gd=${day}&g2h=1`);
         const data = await response.json();
         
-        if (data.hebrew) {
-            return data.hebrew;
-        }
+        if (data.hebrew) return data.hebrew;
         return 'Hebrew Calendar';
     } catch (error) {
         return 'Hebrew Calendar';
     }
 }
 
-// ==========================================
-// SESSION MANAGEMENT
-// ==========================================
 async function loadActiveSession() {
     if (!user) return null;
     
@@ -2916,30 +852,23 @@ async function loadActiveSession() {
 }
 
 async function syncSession() {
-    console.log('🔄 Syncing session state...');
-    
     const dbSession = await loadActiveSession();
     
     if (dbSession) {
-        // Active session exists
         session = dbSession;
         
         if (session.seder_type && SEDER_TIMES[session.seder_type]) {
             currentSeder = SEDER_TIMES[session.seder_type];
         }
         
-        // Check if seder ended
         const status = isInSederTime();
         if (!status.inSeder) {
-            console.log('⚠️ Seder ended, auto-checking out');
             await checkout();
         } else {
-            console.log('✅ Session active, showing UI');
             showActiveSessionUI();
             startTimer();
         }
     } else {
-        // No active session
         session = null;
         currentSeder = null;
         showCheckInUI();
@@ -2957,9 +886,7 @@ function showActiveSessionUI() {
     
     if (currentSeder) {
         const sederName = document.getElementById('activeSederName');
-        if (sederName) {
-            sederName.textContent = `${currentSeder.name} Seder`;
-        }
+        if (sederName) sederName.textContent = `${currentSeder.name} Seder`;
     }
 }
 
@@ -2977,9 +904,6 @@ function showCheckInUI() {
     }
 }
 
-// ==========================================
-// TIMER
-// ==========================================
 function startTimer() {
     clearInterval(interval);
     interval = setInterval(updateTimer, 1000);
@@ -3029,14 +953,10 @@ function checkAutoCheckout() {
     }, 10000);
 }
 
-// ==========================================
-// CHECK IN / CHECK OUT
-// ==========================================
 async function checkin() {
     const btn = event.target;
     
     try {
-        // Check database first
         const existing = await loadActiveSession();
         
         if (existing) {
@@ -3058,7 +978,6 @@ async function checkin() {
             return;
         }
         
-        // Check seder time FIRST before showing any loading state
         const status = isInSederTime();
         if (!status.inSeder) {
             vibrate(50);
@@ -3066,11 +985,9 @@ async function checkin() {
             return;
         }
         
-        // Now we know it's valid seder time, show loading
         btn.disabled = true;
         btn.textContent = 'Checking in...';
         
-        // Create new session
         vibrate([30, 20, 30]);
         const { data, error } = await sb.from('sessions').insert([{
             student_id: user.id,
@@ -3105,7 +1022,6 @@ async function checkin() {
 async function checkout() {
     if (!session) return;
     
-    // Check if already checked out
     const { data: current } = await sb.from('sessions')
         .select('check_out_time, points_earned')
         .eq('id', session.id)
@@ -3129,7 +1045,6 @@ async function checkout() {
     let end = getJerusalemTime();
     let pointsEarned = 0;
     
-    // Calculate points
     const activeSeder = currentSeder || (session.seder_type ? SEDER_TIMES[session.seder_type] : null);
     
     if (activeSeder && session.seder_type) {
@@ -3151,7 +1066,6 @@ async function checkout() {
         
         const hoursInSeder = Math.max(0, (effectiveEnd - effectiveStart) / 3600000);
         
-        // Get existing points from this seder today
         const today = new Date(start.toLocaleString('en-US', { timeZone: 'Asia/Jerusalem' }));
         const todayDate = today.toISOString().split('T')[0];
         
@@ -3177,49 +1091,24 @@ async function checkout() {
         pointsEarned = Math.min(Math.max(0, hours), maxPoints);
     }
     
-    // Update session
     await sb.from('sessions').update({
         check_out_time: end.toISOString(),
         points_earned: pointsEarned
     }).eq('id', session.id);
     
-    // Update student points
     const { data: student } = await sb.from('students')
         .select('total_points, today_points, week_points')
         .eq('id', user.id)
         .single();
     
     if (student) {
-        let bonusPoints = 0;
-        let bonusMessage = '';
-        
-        // Check for Perfect Day bonus (8.25 points in one day)
         const newTodayPoints = (student.today_points || 0) + pointsEarned;
         
-        // Award bonus if reaching 8.25+ AND haven't gotten bonus today yet
-        // (perfect_day_count gets reset daily along with today_points)
-        if (newTodayPoints >= 8.25 && (student.perfect_day_count || 0) === 0) {
-            bonusPoints += 5;
-            bonusMessage = '🎉 Perfect Day Bonus: +5 points! ';
-            
-            // Increment perfect day count (marks that bonus was received)
-            await sb.from('students').update({
-                perfect_day_count: 1
-            }).eq('id', user.id);
-        }
-        
-        // Update points with bonus
         await sb.from('students').update({
-            total_points: (student.total_points || 0) + pointsEarned + bonusPoints,
+            total_points: (student.total_points || 0) + pointsEarned,
             today_points: newTodayPoints,
-            week_points: (student.week_points || 0) + pointsEarned + bonusPoints
+            week_points: (student.week_points || 0) + pointsEarned
         }).eq('id', user.id);
-        
-        pointsEarned += bonusPoints;
-        
-        if (bonusMessage) {
-            msg(bonusMessage + `Checked out! Earned ${pointsEarned.toFixed(2)} points total`, 'success');
-        }
     }
     
     vibrate([40, 30, 40, 30, 60]);
@@ -3237,9 +1126,6 @@ async function checkout() {
     notifyOtherTabs('checkout');
 }
 
-// ==========================================
-// TAB SYNCHRONIZATION
-// ==========================================
 function notifyOtherTabs(action) {
     try {
         localStorage.setItem(`tj_${action}_sync`, Date.now().toString());
@@ -3264,9 +1150,6 @@ document.addEventListener('visibilitychange', function() {
     }
 });
 
-// ==========================================
-// AUTH FUNCTIONS
-// ==========================================
 function showLogin() {
     document.getElementById('loginForm').classList.remove('hidden');
     document.getElementById('signupForm').classList.add('hidden');
@@ -3340,8 +1223,7 @@ async function signup() {
         email,
         total_points: 0,
         today_points: 0,
-        week_points: 0,
-        rollover_minutes: 0
+        week_points: 0
     }]);
     
     if (dbError) {
@@ -3424,16 +1306,13 @@ function logout() {
     }
 }
 
-// ==========================================
-// DASHBOARD
-// ==========================================
 async function showDashboard() {
     document.getElementById('authScreen').style.display = 'none';
     document.getElementById('studentScreen').style.display = 'block';
     
     const initials = user.name.split(' ').map(n => n.charAt(0).toUpperCase()).join('').slice(0, 2);
     document.getElementById('userName').textContent = user.name;
-    document.getElementById('userInitials').textContent = initials;
+    document.getElementById('userAvatar').textContent = initials;
     
     const hebrewDate = await getHebrewDate();
     document.getElementById('hebrewDate').textContent = hebrewDate;
@@ -3487,8 +1366,6 @@ async function loadStudentData() {
     document.getElementById('weekPoints').textContent = (data.week_points || 0).toFixed(2);
     document.getElementById('weekPointsCard').textContent = (data.week_points || 0).toFixed(2);
     
-    // Progress circle removed - just show the stats
-    
     const { data: allStudents } = await sb.from('students')
         .select('week_points')
         .order('week_points', { ascending: false });
@@ -3497,9 +1374,6 @@ async function loadStudentData() {
     document.getElementById('userRank').textContent = rank === -1 ? `#${allStudents?.length || 1}` : `#${rank + 1}`;
 }
 
-// ==========================================
-// LEADERBOARD
-// ==========================================
 function toggleLeaderboard() {
     vibrate(20);
     leaderboardExpanded = !leaderboardExpanded;
@@ -3597,22 +1471,6 @@ async function loadLeaderboard() {
     }
 }
 
-// ==========================================
-// MODAL FUNCTIONS
-// ==========================================
-function showAbout() {
-    vibrate(20);
-    document.getElementById('aboutModal').classList.remove('hidden');
-}
-
-function hideAbout() {
-    vibrate(20);
-    document.getElementById('aboutModal').classList.add('hidden');
-}
-
-// ==========================================
-// ADMIN DASHBOARD
-// ==========================================
 async function showAdmin() {
     document.getElementById('authScreen').style.display = 'none';
     document.getElementById('adminScreen').style.display = 'block';
@@ -3669,44 +1527,7 @@ function switchAdminTab(tab) {
     }
 }
 
-
-// ==========================================
-// PERFECT WEEK BONUS CHECK
-// ==========================================
-async function checkPerfectWeekBonus() {
-    if (!user) return;
-    
-    const { data: student } = await sb.from('students')
-        .select('perfect_day_count, perfect_week_count, week_points')
-        .eq('id', user.id)
-        .single();
-    
-    if (!student) return;
-    
-    // If student has 5 perfect days this week, award perfect week bonus
-    if (student.perfect_day_count >= DAYS_IN_WEEK) {
-        console.log('🎊 PERFECT WEEK ACHIEVED!');
-        
-        // Award the bonus
-        await sb.from('students').update({
-            total_points: student.total_points + PERFECT_WEEK_BONUS,
-            week_points: (student.week_points || 0) + PERFECT_WEEK_BONUS,
-            perfect_week_count: (student.perfect_week_count || 0) + 1
-        }).eq('id', user.id);
-        
-        // Show celebration message
-        msg('🎊 PERFECT WEEK! You earned +10 bonus points!', 'success');
-        
-        // Reload data to show new points
-        await loadStudentData();
-    }
-}
-
-// ==========================================
-// INITIALIZATION
-// ==========================================
 async function init() {
-    // Check for password reset
     const hashParams = new URLSearchParams(window.location.hash.substring(1));
     const accessToken = hashParams.get('access_token');
     const type = hashParams.get('type');
@@ -3740,9 +1561,7 @@ async function init() {
     }
 }
 
-// Start app
 window.addEventListener('load', init);
-
 </script>
 </body>
 </html>
