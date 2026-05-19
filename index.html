@@ -963,7 +963,7 @@ function checkAutoCheckout() {
 }
 
 async function checkin() {
-    const btn = event.target;
+    const btn = window.lastClickEvent?.target || event?.target || document.querySelector('#noSession .btn-primary');
     
     try {
         const existing = await loadActiveSession();
@@ -994,8 +994,10 @@ async function checkin() {
             return;
         }
         
-        btn.disabled = true;
-        btn.textContent = 'Checking in...';
+        if (btn) {
+            btn.disabled = true;
+            btn.textContent = 'Checking in...';
+        }
         
         vibrate([30, 20, 30]);
         const { data, error } = await sb.from('sessions').insert([{
@@ -1007,8 +1009,10 @@ async function checkin() {
         if (error) {
             vibrate(50);
             msg('Check-in failed: ' + error.message, 'error');
-            btn.disabled = false;
-            btn.textContent = 'Check In';
+            if (btn) {
+                btn.disabled = false;
+                btn.textContent = 'Check In';
+            }
             return;
         }
         
@@ -1023,8 +1027,13 @@ async function checkin() {
     } catch (err) {
         vibrate(50);
         msg('An error occurred', 'error');
-        btn.disabled = false;
-        btn.textContent = 'Check In';
+        if (btn) {
+            btn.disabled = false;
+            btn.textContent = 'Check In';
+        }
+    } finally {
+        // Clean up
+        window.lastClickEvent = null;
     }
 }
 
@@ -1330,6 +1339,44 @@ async function showDashboard() {
     await loadStudentData();
     await loadLeaderboard();
     
+    // Smart auto-check-in logic
+    const urlParams = new URLSearchParams(window.location.search);
+    const shouldAutoCheckIn = urlParams.has('checkin') || urlParams.has('action');
+    
+    if (shouldAutoCheckIn && !session) {
+        // Only auto check-in if:
+        // 1. User came from shortcut (has URL param)
+        // 2. Not already checked in
+        // 3. Currently during seder time
+        const status = isInSederTime();
+        
+        if (status.inSeder) {
+            // Wait for UI to render, then trigger check-in
+            setTimeout(async () => {
+                const checkInBtn = document.querySelector('#noSession .btn-primary');
+                if (checkInBtn && !session) {
+                    // Simulate click with proper context
+                    const clickEvent = new Event('click', { bubbles: true });
+                    Object.defineProperty(clickEvent, 'target', { value: checkInBtn, enumerable: true });
+                    
+                    // Store event globally so checkin() can access it
+                    window.lastClickEvent = clickEvent;
+                    await checkin();
+                    
+                    // Clean up URL params after check-in
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                }
+            }, 800);
+        } else {
+            // Not during seder time - show helpful message
+            setTimeout(() => {
+                msg(`Not during seder time. ${getNextSeder()}`, 'info');
+                // Clean up URL params
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }, 500);
+        }
+    }
+    
     setInterval(loadStudentData, 10000);
     setInterval(() => {
         if (!session) {
@@ -1561,28 +1608,6 @@ async function init() {
                 await showAdmin();
             } else {
                 await showDashboard();
-                
-                // Handle shortcut actions (long-press menu or Siri)
-                const urlParams = new URLSearchParams(window.location.search);
-                const action = urlParams.get('action');
-                
-                if (action === 'checkin') {
-                    // Wait for dashboard to load, then trigger check-in
-                    setTimeout(() => {
-                        const checkInBtn = document.querySelector('#noSession .btn-primary');
-                        if (checkInBtn && !session) {
-                            checkInBtn.click();
-                        }
-                    }, 500);
-                } else if (action === 'checkout') {
-                    // Wait for dashboard to load, then trigger check-out
-                    setTimeout(() => {
-                        const checkOutBtn = document.querySelector('#activeSession .btn-danger');
-                        if (checkOutBtn && session) {
-                            checkOutBtn.click();
-                        }
-                    }, 500);
-                }
             }
         }
     } else {
