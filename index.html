@@ -1339,41 +1339,48 @@ async function showDashboard() {
     await loadStudentData();
     await loadLeaderboard();
     
-    // Smart auto-check-in logic
-    const urlParams = new URLSearchParams(window.location.search);
-    const shouldAutoCheckIn = urlParams.has('checkin') || urlParams.has('action');
-    
-    if (shouldAutoCheckIn && !session) {
-        // Only auto check-in if:
-        // 1. User came from shortcut (has URL param)
-        // 2. Not already checked in
-        // 3. Currently during seder time
+    // Smart auto-check-in: triggers when opening app from home screen during seder time
+    // Only runs if user is NOT already checked in
+    if (!session) {
         const status = isInSederTime();
         
         if (status.inSeder) {
-            // Wait for UI to render, then trigger check-in
-            setTimeout(async () => {
-                const checkInBtn = document.querySelector('#noSession .btn-primary');
-                if (checkInBtn && !session) {
-                    // Simulate click with proper context
-                    const clickEvent = new Event('click', { bubbles: true });
-                    Object.defineProperty(clickEvent, 'target', { value: checkInBtn, enumerable: true });
-                    
-                    // Store event globally so checkin() can access it
-                    window.lastClickEvent = clickEvent;
-                    await checkin();
-                    
-                    // Clean up URL params after check-in
-                    window.history.replaceState({}, document.title, window.location.pathname);
-                }
-            }, 800);
-        } else {
-            // Not during seder time - show helpful message
-            setTimeout(() => {
-                msg(`Not during seder time. ${getNextSeder()}`, 'info');
-                // Clean up URL params
-                window.history.replaceState({}, document.title, window.location.pathname);
-            }, 500);
+            // Check if app was opened from home screen (PWA mode) or has shortcut URL
+            const isPWA = window.matchMedia('(display-mode: standalone)').matches || 
+                          window.navigator.standalone === true;
+            const urlParams = new URLSearchParams(window.location.search);
+            const hasShortcutParam = urlParams.has('checkin') || urlParams.has('action');
+            
+            if (isPWA || hasShortcutParam) {
+                // Auto check-in!
+                setTimeout(async () => {
+                    if (!session) {
+                        const status2 = isInSederTime();
+                        if (status2.inSeder) {
+                            vibrate([30, 20, 30]);
+                            const { data, error } = await sb.from('sessions').insert([{
+                                student_id: user.id,
+                                check_in_time: getJerusalemTime().toISOString(),
+                                seder_type: status2.key
+                            }]).select().single();
+                            
+                            if (!error && data) {
+                                session = data;
+                                currentSeder = status2.current;
+                                showActiveSessionUI();
+                                startTimer();
+                                msg(`Auto checked in to ${status2.current.name} Seder!`, 'success');
+                                notifyOtherTabs('checkin');
+                            }
+                            
+                            // Clean up URL params
+                            if (hasShortcutParam) {
+                                window.history.replaceState({}, document.title, window.location.pathname);
+                            }
+                        }
+                    }
+                }, 800);
+            }
         }
     }
     
